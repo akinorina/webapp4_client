@@ -17,12 +17,23 @@ import { RouterLink } from 'vue-router'
 
     <div class="container text-center">
       <div class="row">
-        <div class="col-3">
+        <div class="col-4">
+          <router-link :to="{ name: 'admin' }" class="text-decoration-none">
+            <div class="card text-dark bg-primary-subtle border rounded p-3">
+              <div class="card-body px-2">
+                <h5 class="card-title">User Page</h5>
+                <p class="card-text">登録ユーザー用のページへ遷移。</p>
+              </div>
+            </div>
+          </router-link>
+        </div>
+
+        <div class="col-4">
           <router-link :to="{ name: 'samples' }" class="text-decoration-none">
             <div class="card text-dark bg-primary-subtle border rounded p-3">
-              <div class="card-body">
+              <div class="card-body px-2">
                 <h5 class="card-title">Samples</h5>
-                <p class="card-text">Webapp4 の各種機能のサンプルページです。</p>
+                <p class="card-text">Webapp4 各種機能のサンプルページ。</p>
               </div>
             </div>
           </router-link>
