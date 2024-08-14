@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
+import { digestMessage } from '@/lib/Functions'
 
 const authStore = useAuthStore()
 const router = useRouter()
 const showErrorMessage = ref(false)
+
+const passwordRaw = ref('')
+watch(passwordRaw, async (newPasswordRaw) => {
+  authStore.password = await digestMessage(newPasswordRaw)
+})
 
 const submit = async () => {
   try {
@@ -54,7 +60,7 @@ const submit = async () => {
               class="form-control"
               id="floatingPassword"
               placeholder="Password"
-              v-model="authStore.password"
+              v-model="passwordRaw"
             />
             <label for="floatingPassword">Password</label>
           </div>
