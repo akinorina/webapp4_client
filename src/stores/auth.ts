@@ -9,7 +9,6 @@ export const useAuthStore = defineStore('auth', () => {
 
   const username = ref('')
   const password = ref('')
-  const name = ref('')
   const iat = ref(0)
   const exp = ref(0)
   const isAuthenticated = ref(false)
@@ -26,7 +25,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     // get profle
     const res2 = await getProfile()
-    name.value = res2.data.name
+    username.value = res2.data.username
     iat.value = res2.data.iat * 1000
     exp.value = res2.data.exp * 1000
     isAuthenticated.value = dayjs().isBefore(dayjs(exp.value))
@@ -47,7 +46,6 @@ export const useAuthStore = defineStore('auth', () => {
     // reset values
     axios.defaults.headers['Authorization'] = null
     isAuthenticated.value = false
-    name.value = ''
     iat.value = dayjs().valueOf()
     exp.value = 0
     clearInterval(iID)
@@ -64,7 +62,6 @@ export const useAuthStore = defineStore('auth', () => {
   return {
     username,
     password,
-    name,
     signIn,
     signOut,
     getProfile,
