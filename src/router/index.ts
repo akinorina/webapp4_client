@@ -26,6 +26,16 @@ const router = createRouter({
       path: '/samples/bsmodal',
       name: 'samples_bsmodal',
       component: () => import('../views/samples/BsModalView.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/LoginView.vue')
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: () => import('../views/admin/IndexView.vue')
     }
   ]
 })
