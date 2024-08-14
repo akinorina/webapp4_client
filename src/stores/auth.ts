@@ -36,7 +36,7 @@ export const useAuthStore = defineStore('auth', () => {
       isAuthenticated.value = dayjs().isBefore(dayjs(exp.value))
       if (!isAuthenticated.value) {
         clearInterval(iID)
-        router.push({ name: 'index' })
+        router.push({ name: 'sign-out' })
       }
     }, 1000)
   }

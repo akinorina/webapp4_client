@@ -10,7 +10,7 @@ const signIn = () => {
 }
 const signOut = () => {
   authStore.signOut()
-  router.push({ name: 'index' })
+  router.push({ name: 'sign-out' })
 }
 const signUp = () => {}
 </script>
