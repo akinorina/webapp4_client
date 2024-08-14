@@ -4,6 +4,7 @@ import { storeToRefs } from 'pinia'
 import { useUserStore } from '@/stores/user'
 import { useRouter } from 'vue-router'
 import { AxiosError } from 'axios'
+import { digestMessage } from '@/lib/Functions'
 
 // stores
 const router = useRouter()
@@ -12,7 +13,7 @@ const { user } = storeToRefs(userStore)
 
 const passwordRaw = ref('')
 watch(passwordRaw, async (newPasswordRaw) => {
-  user.value.password = newPasswordRaw
+  user.value.password = await digestMessage(newPasswordRaw)
 })
 
 const showErrorAlert = ref(false)
