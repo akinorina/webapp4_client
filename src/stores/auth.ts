@@ -15,18 +15,17 @@ export const useAuthStore = defineStore('auth', () => {
   const isAuthenticated = ref(false)
   let iID: number = 0
 
-  async function login() {
-    // login
-    const loginData = {
+  async function signIn() {
+    // sign-in
+    const signinData = {
       username: username.value,
       password: password.value
     }
-    const res = await axios.post('/api/auth/login', loginData)
+    const res = await axios.post('/api/auth/signin', signinData)
     axios.defaults.headers['Authorization'] = 'Bearer ' + res.data.access_token
 
     // get profle
     const res2 = await getProfile()
-    console.log('res2', res2)
     name.value = res2.data.name
     iat.value = res2.data.iat * 1000
     exp.value = res2.data.exp * 1000
@@ -42,9 +41,9 @@ export const useAuthStore = defineStore('auth', () => {
     }, 1000)
   }
 
-  async function logout() {
-    // logout
-    await axios.post('/api/auth/logout', {})
+  async function signOut() {
+    // sign-out
+    await axios.post('/api/auth/signout', {})
     // reset values
     axios.defaults.headers['Authorization'] = null
     isAuthenticated.value = false
@@ -52,7 +51,6 @@ export const useAuthStore = defineStore('auth', () => {
     iat.value = dayjs().valueOf()
     exp.value = 0
     clearInterval(iID)
-    router.push({ name: 'index' })
   }
 
   async function getProfile() {
@@ -67,8 +65,8 @@ export const useAuthStore = defineStore('auth', () => {
     username,
     password,
     name,
-    login,
-    logout,
+    signIn,
+    signOut,
     getProfile,
     isAuthenticated,
     getExpiredTime

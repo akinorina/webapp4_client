@@ -57,14 +57,14 @@ $success: #7952b3;
 @import 'bootstrap/scss/transitions';
 @import 'bootstrap/scss/dropdown';
 // @import "bootstrap/scss/button-group";
-// @import "bootstrap/scss/nav";
+@import 'bootstrap/scss/nav';
 // @import "bootstrap/scss/navbar"; // Requires nav
 // @import "bootstrap/scss/card";
 // @import "bootstrap/scss/breadcrumb";
 // @import "bootstrap/scss/accordion";
 // @import "bootstrap/scss/pagination";
 // @import "bootstrap/scss/badge";
-// @import "bootstrap/scss/alert";
+@import 'bootstrap/scss/alert';
 // @import "bootstrap/scss/progress";
 // @import "bootstrap/scss/list-group";
 @import 'bootstrap/scss/close';
@@ -82,6 +82,10 @@ $success: #7952b3;
 
 // Utilities
 @import 'bootstrap/scss/utilities/api';
+
+// Bootstrap icons
+$bootstrap-icons-font-dir: '../node_modules/bootstrap-icons/font/fonts';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
 
 //
 // Custom styles

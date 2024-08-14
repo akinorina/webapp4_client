@@ -1,13 +1,26 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 
 const authStore = useAuthStore()
 const router = useRouter()
+const showErrorMessage = ref(false)
 
 const submit = async () => {
-  await authStore.login()
-  router.push({ name: 'admin' })
+  try {
+    await authStore.signIn()
+    router.push({ name: 'admin' })
+  } catch (err: any) {
+    if (err.response.status === 401) {
+      showErrorMessage.value = true
+      setTimeout(() => {
+        showErrorMessage.value = false
+      }, 3000)
+    } else {
+      throw err
+    }
+  }
 }
 </script>
 
@@ -17,6 +30,12 @@ const submit = async () => {
       <main class="form-signin w-100 m-auto">
         <form @submit.prevent="submit">
           <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+          <div v-if="showErrorMessage">
+            <div class="alert alert-danger" role="alert">
+              Username または Password が間違っています。
+            </div>
+          </div>
 
           <div class="form-floating">
             <input
@@ -40,7 +59,7 @@ const submit = async () => {
             <label for="floatingPassword">Password</label>
           </div>
 
-          <button class="btn btn-primary w-100 py-2" type="submit">Login</button>
+          <button class="btn btn-primary w-100 py-2" type="submit">Sign-in</button>
         </form>
       </main>
     </div>
