@@ -18,10 +18,13 @@ const signUp = () => {}
 <template>
   <div>
     <header class="d-flex flex-wrap justify-content-between py-3 mb-4 border-bottom">
-      <a href="/" class="d-flex align-items-center me-3 link-body-emphasis text-decoration-none">
+      <router-link
+        :to="{ name: 'index' }"
+        class="d-flex align-items-center me-3 link-body-emphasis text-decoration-none"
+      >
         <i class="bi bi-yin-yang me-2" style="font-size: 1.7rem; color: cornflowerblue"></i>
         <span class="fs-4">Webapp4</span>
-      </a>
+      </router-link>
 
       <div class="d-flex justify-content-end col-md-4 text-end" v-if="authStore.isAuthenticated">
         <div class="me-3 mt-2">

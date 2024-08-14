@@ -18,11 +18,11 @@ import { RouterLink } from 'vue-router'
     <div class="container text-center">
       <div class="row">
         <div class="col-4">
-          <router-link :to="{ name: 'sign-in' }" class="text-decoration-none">
+          <router-link :to="{ name: 'admin' }" class="text-decoration-none">
             <div class="card text-dark bg-primary-subtle border rounded p-3">
               <div class="card-body px-2">
-                <h5 class="card-title">Sign-in</h5>
-                <p class="card-text">Webapp4 ユーザー用 ログイン。</p>
+                <h5 class="card-title">User Page</h5>
+                <p class="card-text">登録ユーザー用のページへ遷移。</p>
               </div>
             </div>
           </router-link>
