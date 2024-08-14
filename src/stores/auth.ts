@@ -14,6 +14,19 @@ export const useAuthStore = defineStore('auth', () => {
   const isAuthenticated = ref(false)
   let iID: number = 0
 
+  // restore from localStorage
+  if (localStorage.getItem('auth')) {
+    const jsonLsData = localStorage.getItem('auth')
+    if (typeof jsonLsData === 'string') {
+      const lsData = JSON.parse(jsonLsData)
+      axios.defaults.headers['Authorization'] = 'Bearer ' + lsData.access_token
+      username.value = lsData.username
+      iat.value = lsData.iat
+      exp.value = lsData.exp
+      isAuthenticated.value = lsData.isAuthenticated
+    }
+  }
+
   async function signIn() {
     // sign-in
     const signinData = {
@@ -30,11 +43,30 @@ export const useAuthStore = defineStore('auth', () => {
     exp.value = res2.data.exp * 1000
     isAuthenticated.value = dayjs().isBefore(dayjs(exp.value))
 
+    // save to localStorage
+    const lsData = {
+      access_token: res.data.access_token,
+      username: username.value,
+      iat: iat.value,
+      exp: exp.value,
+      isAuthenticated: isAuthenticated.value
+    }
+    localStorage.setItem('auth', JSON.stringify(lsData))
+
     // 時間切れ処理
     iID = window.setInterval(() => {
       isAuthenticated.value = dayjs().isBefore(dayjs(exp.value))
       if (!isAuthenticated.value) {
+        // reset values
+        axios.defaults.headers['Authorization'] = null
+        username.value = ''
+        iat.value = dayjs().valueOf()
+        exp.value = 0
+        isAuthenticated.value = false
+
         clearInterval(iID)
+        localStorage.removeItem('auth')
+
         router.push({ name: 'sign-out' })
       }
     }, 1000)
@@ -45,10 +77,13 @@ export const useAuthStore = defineStore('auth', () => {
     await axios.post('/api/auth/signout', {})
     // reset values
     axios.defaults.headers['Authorization'] = null
-    isAuthenticated.value = false
+    username.value = ''
     iat.value = dayjs().valueOf()
     exp.value = 0
+    isAuthenticated.value = false
+
     clearInterval(iID)
+    localStorage.removeItem('auth')
   }
 
   async function getProfile() {
