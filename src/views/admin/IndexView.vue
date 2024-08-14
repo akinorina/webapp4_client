@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
+
+const authStore = useAuthStore()
 </script>
 
 <template>
@@ -16,9 +19,9 @@ import { RouterLink } from 'vue-router'
 
     <div class="container text-center">
       <div class="row">
-        <div class="col-3">
+        <div class="col-3" v-if="authStore.username === 'admin'">
           <router-link :to="{ name: 'admin_users' }" class="text-decoration-none">
-            <div class="card text-dark bg-primary-subtle border rounded p-3">
+            <div class="card bg-body-tertiary text-body border rounded p-3">
               <div class="card-body">
                 <h5 class="card-title">Users</h5>
                 <p class="card-text">ユーザー管理</p>

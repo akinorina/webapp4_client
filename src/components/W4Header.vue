@@ -12,7 +12,9 @@ const signOut = () => {
   authStore.signOut()
   router.push({ name: 'sign-out' })
 }
-const signUp = () => {}
+const signUp = () => {
+  router.push({ name: 'sign-up' })
+}
 </script>
 
 <template>
