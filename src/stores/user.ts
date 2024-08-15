@@ -2,10 +2,15 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { axios } from '@/lib/Axios'
 import User from '@/lib/User'
+import { digestMessage } from '@/lib/Functions'
 
 export const useUserStore = defineStore('user', () => {
   const user = ref<User>(new User())
   const users = ref<User[]>([])
+
+  // パスワード変更用
+  const oldPassword = ref('')
+  const newPassword = ref('')
 
   async function getUsers() {
     users.value = []
@@ -40,5 +45,28 @@ export const useUserStore = defineStore('user', () => {
     await axios.delete('/api/users/' + id, options)
   }
 
-  return { user, users, getUsers, getUser, newUser, createUser, updateUser, deleteUser }
+  async function changePassword() {
+    const oldPw = await digestMessage(oldPassword.value)
+    const newPw = await digestMessage(newPassword.value)
+
+    const options = {
+      oldPassword: oldPw,
+      newPassword: newPw
+    }
+    await axios.put('/api/users/change-password', options)
+  }
+
+  return {
+    user,
+    users,
+    oldPassword,
+    newPassword,
+    getUsers,
+    getUser,
+    newUser,
+    createUser,
+    updateUser,
+    deleteUser,
+    changePassword
+  }
 })
