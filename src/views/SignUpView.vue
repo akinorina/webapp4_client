@@ -33,6 +33,7 @@ const submitForm = async () => {
     router.push({ name: 'sign-up_complete' })
   } catch (err) {
     if (err instanceof AxiosError) {
+      console.log('err', err)
       showErrorAlert.value = true
       setTimeout(() => {
         showErrorAlert.value = false
@@ -55,7 +56,10 @@ const submitForm = async () => {
     </div>
 
     <div v-if="showErrorAlert">
-      <div class="alert alert-danger" role="alert">入力データに不備があります。</div>
+      <div class="alert alert-danger" style="line-height: 1rem" role="alert">
+        <p class="fw-bold">入力データに不備があります。</p>
+        <p>メールアドレスが既に登録済みの場合があります。</p>
+      </div>
     </div>
 
     <div class="main">
