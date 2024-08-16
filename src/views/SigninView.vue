@@ -39,7 +39,7 @@ const submit = async () => {
 
           <div v-if="showErrorMessage">
             <div class="alert alert-danger" role="alert">
-              Username または Password が間違っています。
+              Email または Password が間違っています。
             </div>
           </div>
 
@@ -49,9 +49,9 @@ const submit = async () => {
               class="form-control"
               id="floatingInput"
               placeholder="name@example.com"
-              v-model="authStore.username"
+              v-model="authStore.email"
             />
-            <label for="floatingInput">Username</label>
+            <label for="floatingInput">Email</label>
           </div>
 
           <div class="form-floating">
