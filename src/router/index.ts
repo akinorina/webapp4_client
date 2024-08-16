@@ -39,9 +39,46 @@ const router = createRouter({
       component: () => import('../views/SignOutView.vue')
     },
     {
+      path: '/signup',
+      name: 'sign-up',
+      component: () => import('../views/SignUpView.vue')
+    },
+    {
+      path: '/signup/complete',
+      name: 'sign-up_complete',
+      component: () => import('../views/SignUpCompleteView.vue')
+    },
+    {
       path: '/admin',
       name: 'admin',
       component: () => import('../views/admin/IndexView.vue')
+    },
+    {
+      path: '/admin/change-password',
+      name: 'admin_change-password',
+      component: () => import('../views/admin/ChangePasswordView.vue')
+    },
+    {
+      path: '/admin/users',
+      name: 'admin_users',
+      component: () => import('../views/admin/users/IndexUsers.vue')
+    },
+    {
+      path: '/admin/users/:id',
+      name: 'admin_users_detail',
+      component: () => import('../views/admin/users/DetailUsers.vue'),
+      props: true
+    },
+    {
+      path: '/admin/users/:id/edit',
+      name: 'admin_users_edit',
+      component: () => import('../views/admin/users/EditUsers.vue'),
+      props: true
+    },
+    {
+      path: '/admin/users/new',
+      name: 'admin_users_new',
+      component: () => import('../views/admin/users/NewUsers.vue')
     }
   ]
 })

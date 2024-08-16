@@ -8,6 +8,7 @@ export const useAuthStore = defineStore('auth', () => {
   const router = useRouter()
 
   const username = ref('')
+  const email = ref('')
   const password = ref('')
   const iat = ref(0)
   const exp = ref(0)
@@ -20,7 +21,7 @@ export const useAuthStore = defineStore('auth', () => {
     if (typeof jsonLsData === 'string') {
       const lsData = JSON.parse(jsonLsData)
       axios.defaults.headers['Authorization'] = 'Bearer ' + lsData.access_token
-      username.value = lsData.username
+      email.value = lsData.email
       iat.value = lsData.iat
       exp.value = lsData.exp
       isAuthenticated.value = lsData.isAuthenticated
@@ -30,7 +31,7 @@ export const useAuthStore = defineStore('auth', () => {
   async function signIn() {
     // sign-in
     const signinData = {
-      username: username.value,
+      email: email.value,
       password: password.value
     }
     const res = await axios.post('/api/auth/signin', signinData)
@@ -39,6 +40,7 @@ export const useAuthStore = defineStore('auth', () => {
     // get profle
     const res2 = await getProfile()
     username.value = res2.data.username
+    email.value = res2.data.email
     iat.value = res2.data.iat * 1000
     exp.value = res2.data.exp * 1000
     isAuthenticated.value = dayjs().isBefore(dayjs(exp.value))
@@ -47,6 +49,7 @@ export const useAuthStore = defineStore('auth', () => {
     const lsData = {
       access_token: res.data.access_token,
       username: username.value,
+      email: email.value,
       iat: iat.value,
       exp: exp.value,
       isAuthenticated: isAuthenticated.value
@@ -60,6 +63,7 @@ export const useAuthStore = defineStore('auth', () => {
         // reset values
         axios.defaults.headers['Authorization'] = null
         username.value = ''
+        email.value = ''
         iat.value = dayjs().valueOf()
         exp.value = 0
         isAuthenticated.value = false
@@ -78,6 +82,7 @@ export const useAuthStore = defineStore('auth', () => {
     // reset values
     axios.defaults.headers['Authorization'] = null
     username.value = ''
+    email.value = ''
     iat.value = dayjs().valueOf()
     exp.value = 0
     isAuthenticated.value = false
@@ -96,6 +101,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   return {
     username,
+    email,
     password,
     signIn,
     signOut,

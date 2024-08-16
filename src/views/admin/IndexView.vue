@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
+
+const authStore = useAuthStore()
 </script>
 
 <template>
@@ -16,17 +19,26 @@ import { RouterLink } from 'vue-router'
 
     <div class="container text-center">
       <div class="row">
-        <div class="col-3">
-          <!--
-          <router-link :to="{ name: 'samples' }" class="text-decoration-none">
-            <div class="card text-dark bg-primary-subtle border rounded p-3">
+        <div class="col-3" v-if="authStore.username === 'admin'">
+          <router-link :to="{ name: 'admin_users' }" class="text-decoration-none">
+            <div class="card bg-body-tertiary text-body border rounded p-3">
               <div class="card-body">
-                <h5 class="card-title">Samples</h5>
-                <p class="card-text">Webapp4 の各種機能のサンプルページです。</p>
+                <h5 class="card-title">Users</h5>
+                <p class="card-text">ユーザー管理</p>
               </div>
             </div>
           </router-link>
-          -->
+        </div>
+
+        <div class="col-3">
+          <router-link :to="{ name: 'admin_change-password' }" class="text-decoration-none">
+            <div class="card bg-body-tertiary text-body border rounded p-3">
+              <div class="card-body">
+                <h5 class="card-title">change Password</h5>
+                <p class="card-text">パスワード変更</p>
+              </div>
+            </div>
+          </router-link>
         </div>
       </div>
     </div>
