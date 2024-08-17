@@ -21,6 +21,7 @@ export const useAuthStore = defineStore('auth', () => {
     if (typeof jsonLsData === 'string') {
       const lsData = JSON.parse(jsonLsData)
       axios.defaults.headers['Authorization'] = 'Bearer ' + lsData.access_token
+      username.value = lsData.username
       email.value = lsData.email
       iat.value = lsData.iat
       exp.value = lsData.exp
