@@ -78,13 +78,13 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   async function signInByGoogle() {
-    console.log('--- signInByGoogle() ---')
     location.href = 'http://localhost:4000/api/auth/signin-google'
   }
 
   async function signInByGoogleRedirect(query: any) {
-    console.log('--- signInByGoogleRedirect() ---')
-    console.log('query', query)
+    if (query.access_token === 'no_user_from_google') {
+      return false // Sign-in failure
+    }
     axios.defaults.headers['Authorization'] = 'Bearer ' + query.access_token
 
     // get profle
@@ -124,6 +124,8 @@ export const useAuthStore = defineStore('auth', () => {
         router.push({ name: 'sign-out' })
       }
     }, 1000)
+
+    return true // Sign-in ok
   }
 
   async function signOut() {
