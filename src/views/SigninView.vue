@@ -28,6 +28,10 @@ const submit = async () => {
     }
   }
 }
+
+const signInGoogle = () => {
+  authStore.signInByGoogle()
+}
 </script>
 
 <template>
@@ -67,6 +71,13 @@ const submit = async () => {
 
           <button class="btn btn-primary w-100 py-2" type="submit">Sign-in</button>
         </form>
+      </main>
+    </div>
+    <div class="px-4 py-2 my-2 border rounded">
+      <main class="form-signin w-100 m-auto">
+        <button class="btn btn-primary w-100" @click="signInGoogle">
+          googleアカウントでログイン
+        </button>
       </main>
     </div>
   </div>

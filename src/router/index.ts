@@ -34,6 +34,11 @@ const router = createRouter({
       component: () => import('../views/SigninView.vue')
     },
     {
+      path: '/signin-google-redirect',
+      name: 'sign-in-google-redirect',
+      component: () => import('../views/SigninGoogleView.vue')
+    },
+    {
       path: '/signout',
       name: 'sign-out',
       component: () => import('../views/SignOutView.vue')
