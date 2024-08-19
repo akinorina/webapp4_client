@@ -40,6 +40,17 @@ const authStore = useAuthStore()
             </div>
           </router-link>
         </div>
+
+        <div class="col-3">
+          <router-link :to="{ name: 'admin_images' }" class="text-decoration-none">
+            <div class="card bg-body-tertiary text-body border rounded p-3">
+              <div class="card-body">
+                <h5 class="card-title">Image</h5>
+                <p class="card-text">画像</p>
+              </div>
+            </div>
+          </router-link>
+        </div>
       </div>
     </div>
   </div>
