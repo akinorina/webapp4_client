@@ -78,7 +78,7 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   async function signInByGoogle() {
-    location.href = 'http://localhost:4000/api/auth/signin-google'
+    location.href = '/api/auth/signin-google'
   }
 
   async function signInByGoogleRedirect(query: any) {
