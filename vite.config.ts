@@ -18,6 +18,10 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:3000',
         changeOrigin: true
+      },
+      '/webapp4': {
+        target: 'http://localhost:9000',
+        changeOrigin: true
       }
     }
   }
