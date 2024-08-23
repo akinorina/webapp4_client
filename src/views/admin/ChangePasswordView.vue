@@ -52,7 +52,7 @@ const submitForm = async () => {
           <div class="col-12">
             <label for="old_password" class="form-label">これまでのパスワード</label>
             <input
-              type="text"
+              type="password"
               class="form-control"
               id="old_password"
               v-model="userStore.oldPassword"
@@ -62,7 +62,7 @@ const submitForm = async () => {
           <div class="col-12">
             <label for="new_password" class="form-label">新しいパスワード</label>
             <input
-              type="text"
+              type="password"
               class="form-control"
               id="new_password"
               v-model="userStore.newPassword"

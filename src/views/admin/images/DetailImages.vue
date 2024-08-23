@@ -16,7 +16,6 @@ const { image } = storeToRefs(imageStore)
 const props = defineProps({
   id: { type: String, required: true }
 })
-// console.log('props', props)
 const id = parseInt(props.id) ?? 0
 
 // modal
