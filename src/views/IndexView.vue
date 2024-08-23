@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
-import { useImageStore } from '@/stores/image'
+import { useImagePublicStore } from '@/stores/imagePublic'
 
-const imageStore = useImageStore()
+const imagePublicStore = useImagePublicStore()
 
 onMounted(() => {
-  imageStore.getImages()
+  imagePublicStore.getImages()
 })
 </script>
 
@@ -51,7 +51,7 @@ onMounted(() => {
 
     <div class="container">
       <div class="row g-0 mt-4">
-        <div class="col-4 photo" v-for="(image, index) in imageStore.images" :key="index">
+        <div class="col-4 photo" v-for="(image, index) in imagePublicStore.images" :key="index">
           <img class="img-thumbnail photo__img" :src="image.path" :alt="image.name" />
         </div>
       </div>
