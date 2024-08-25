@@ -77,6 +77,57 @@ export const useAuthStore = defineStore('auth', () => {
     }, 1000)
   }
 
+  async function signInByGoogle() {
+    location.href = '/api/auth/signin-google'
+  }
+
+  async function signInByGoogleRedirect(query: any) {
+    if (query.access_token === 'no_user_from_google') {
+      return false // Sign-in failure
+    }
+    axios.defaults.headers['Authorization'] = 'Bearer ' + query.access_token
+
+    // get profle
+    const res2 = await getProfile()
+    username.value = res2.data.username
+    email.value = res2.data.email
+    iat.value = res2.data.iat * 1000
+    exp.value = res2.data.exp * 1000
+    isAuthenticated.value = dayjs().isBefore(dayjs(exp.value))
+
+    // save to localStorage
+    const lsData = {
+      access_token: query.access_token,
+      username: username.value,
+      email: email.value,
+      iat: iat.value,
+      exp: exp.value,
+      isAuthenticated: isAuthenticated.value
+    }
+    localStorage.setItem('auth', JSON.stringify(lsData))
+
+    // 時間切れ処理
+    iID = window.setInterval(() => {
+      isAuthenticated.value = dayjs().isBefore(dayjs(exp.value))
+      if (!isAuthenticated.value) {
+        // reset values
+        axios.defaults.headers['Authorization'] = null
+        username.value = ''
+        email.value = ''
+        iat.value = dayjs().valueOf()
+        exp.value = 0
+        isAuthenticated.value = false
+
+        clearInterval(iID)
+        localStorage.removeItem('auth')
+
+        router.push({ name: 'sign-out' })
+      }
+    }, 1000)
+
+    return true // Sign-in ok
+  }
+
   async function signOut() {
     // sign-out
     await axios.post('/api/auth/signout', {})
@@ -105,6 +156,8 @@ export const useAuthStore = defineStore('auth', () => {
     email,
     password,
     signIn,
+    signInByGoogle,
+    signInByGoogleRedirect,
     signOut,
     getProfile,
     isAuthenticated,

@@ -33,7 +33,6 @@ const submitForm = async () => {
     router.push({ name: 'sign-up_complete' })
   } catch (err) {
     if (err instanceof AxiosError) {
-      console.log('err', err)
       showErrorAlert.value = true
       setTimeout(() => {
         showErrorAlert.value = false

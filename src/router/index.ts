@@ -34,6 +34,11 @@ const router = createRouter({
       component: () => import('../views/SigninView.vue')
     },
     {
+      path: '/signin-google-redirect',
+      name: 'sign-in-google-redirect',
+      component: () => import('../views/SigninGoogleView.vue')
+    },
+    {
       path: '/signout',
       name: 'sign-out',
       component: () => import('../views/SignOutView.vue')
@@ -79,6 +84,29 @@ const router = createRouter({
       path: '/admin/users/new',
       name: 'admin_users_new',
       component: () => import('../views/admin/users/NewUsers.vue')
+    },
+    {
+      path: '/admin/images',
+      name: 'admin_images',
+      component: () => import('../views/admin/images/IndexImages.vue')
+    },
+    {
+      path: '/admin/images/:id',
+      name: 'admin_images_detail',
+      component: () => import('../views/admin/images/DetailImages.vue'),
+      props: true
+    },
+    {
+      path: '/admin/images/:id/edit',
+      name: 'admin_images_edit',
+      component: () => import('../views/admin/images/EditImages.vue'),
+      props: true
+    },
+    {
+      path: '/admin/images/new',
+      name: 'admin_images_new',
+      component: () => import('../views/admin/images/NewImages.vue'),
+      props: true
     }
   ]
 })

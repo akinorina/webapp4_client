@@ -1,5 +1,13 @@
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
+import { useImagePublicStore } from '@/stores/imagePublic'
+
+const imagePublicStore = useImagePublicStore()
+
+onMounted(() => {
+  imagePublicStore.getImages()
+})
 </script>
 
 <template>
@@ -40,7 +48,29 @@ import { RouterLink } from 'vue-router'
         </div>
       </div>
     </div>
+
+    <div class="container">
+      <div class="row g-0 mt-4">
+        <div class="col-4 photo" v-for="(image, index) in imagePublicStore.images" :key="index">
+          <img class="img-thumbnail photo__img" :src="image.path" :alt="image.name" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.photo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 20px 0;
+
+  &__img {
+    border: 1px black solid;
+    height: calc(100vw / 3.5);
+    width: calc(100vw / 3.5);
+    object-fit: cover;
+  }
+}
+</style>
