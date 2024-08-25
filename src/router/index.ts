@@ -49,8 +49,19 @@ const router = createRouter({
       component: () => import('../views/SignUpView.vue')
     },
     {
+      path: '/signup-sent-email',
+      name: 'sign-up-sent-email',
+      component: () => import('../views/SignUpSentEmailView.vue')
+    },
+    {
+      path: '/signup-register-info',
+      name: 'sign-up-register-info',
+      component: () => import('../views/SignUpRegisterInfoView.vue'),
+      props: true
+    },
+    {
       path: '/signup/complete',
-      name: 'sign-up_complete',
+      name: 'sign-up-complete',
       component: () => import('../views/SignUpCompleteView.vue')
     },
     {

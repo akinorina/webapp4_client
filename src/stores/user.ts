@@ -12,6 +12,9 @@ export const useUserStore = defineStore('user', () => {
   const oldPassword = ref('')
   const newPassword = ref('')
 
+  // Emailアドレス確認
+  const unverifiedEmail = ref('')
+
   async function getUsers() {
     users.value = []
     const options = {}
@@ -56,17 +59,37 @@ export const useUserStore = defineStore('user', () => {
     await axios.put('/api/users/change-password', options)
   }
 
+  async function verifyinngEmail() {
+    // メールアドレス送信
+    const options = {
+      email: unverifiedEmail.value
+    }
+    const result = await axios.post('/api/users/verifing-email', options)
+    console.debug('result', result)
+  }
+
+  async function registerUser() {
+    console.log('--- registerUser() ---')
+    console.log('user', user.value)
+
+    // ユーザー登録
+    const result = await axios.post('/api/users/register-user', user.value)
+    console.debug('result', result)
+  }
   return {
     user,
     users,
     oldPassword,
     newPassword,
+    unverifiedEmail,
     getUsers,
     getUser,
     newUser,
     createUser,
     updateUser,
     deleteUser,
-    changePassword
+    changePassword,
+    verifyinngEmail,
+    registerUser
   }
 })
