@@ -1,26 +1,31 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
-import { storeToRefs } from 'pinia'
+import { useRouter, useRoute } from 'vue-router'
 import { useUserStore } from '@/stores/user'
-import { useRouter } from 'vue-router'
 import { AxiosError } from 'axios'
 import { digestMessage } from '@/lib/Functions'
 
 // stores
 const router = useRouter()
+const route = useRoute()
 const userStore = useUserStore()
-const { user } = storeToRefs(userStore)
 
 const passwordRaw = ref('')
 watch(passwordRaw, async (newPasswordRaw) => {
-  user.value.password = await digestMessage(newPasswordRaw)
+  userStore.newPassword = await digestMessage(newPasswordRaw)
 })
 
 const showErrorAlert = ref(false)
 
 // lifecycle
 onMounted(() => {
-  userStore.newUser()
+  // QueryString取得
+  const queryData: any = route.query
+
+  // 値を初期設定
+  userStore.email = queryData.email
+  userStore.hash = queryData.hash
+  userStore.newPassword = ''
 })
 
 // functions
@@ -29,8 +34,8 @@ const toIndex = () => {
 }
 const submitForm = async () => {
   try {
-    await userStore.verifyingEmail('/signup-register-info')
-    router.push({ name: 'sign-up-sent-email' })
+    await userStore.resetPassword()
+    router.push({ name: 'reset-password-completion' })
   } catch (err) {
     if (err instanceof AxiosError) {
       showErrorAlert.value = true
@@ -57,7 +62,7 @@ const submitForm = async () => {
     <div v-if="showErrorAlert">
       <div class="alert alert-danger" style="line-height: 1rem" role="alert">
         <p class="fw-bold">入力データに不備があります。</p>
-        <p>メールアドレスが既に登録済みの場合があります。</p>
+        <p></p>
       </div>
     </div>
 
@@ -68,15 +73,21 @@ const submitForm = async () => {
             <label for="email" class="form-label">Email</label>
             <input
               type="email"
+              readonly
               class="form-control"
               id="email"
-              v-model="userStore.unverifiedEmail"
+              v-model="userStore.email"
             />
+          </div>
+
+          <div class="col-12">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" v-model="passwordRaw" />
           </div>
         </div>
 
         <div class="mt-3">
-          <button type="submit" class="btn btn-primary me-2">メールアドレス送信</button>
+          <button type="submit" class="btn btn-primary me-2">登録</button>
           <button type="button" class="btn btn-secondary me-2" @click="toIndex">Topへ戻る</button>
         </div>
       </form>

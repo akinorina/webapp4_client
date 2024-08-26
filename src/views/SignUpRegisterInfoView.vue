@@ -2,12 +2,13 @@
 import { onMounted, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useUserStore } from '@/stores/user'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { AxiosError } from 'axios'
 import { digestMessage } from '@/lib/Functions'
 
 // stores
 const router = useRouter()
+const route = useRoute()
 const userStore = useUserStore()
 const { user } = storeToRefs(userStore)
 
@@ -20,7 +21,12 @@ const showErrorAlert = ref(false)
 
 // lifecycle
 onMounted(() => {
+  // QueryString取得
+  const queryData: any = route.query
+  // 新樹ユーザーデータ作成
   userStore.newUser()
+  user.value.email = queryData.email
+  user.value.email_hash = queryData.hash
 })
 
 // functions
@@ -29,8 +35,8 @@ const toIndex = () => {
 }
 const submitForm = async () => {
   try {
-    await userStore.verifyingEmail('/signup-register-info')
-    router.push({ name: 'sign-up-sent-email' })
+    await userStore.registerUser()
+    router.push({ name: 'sign-up-completion' })
   } catch (err) {
     if (err instanceof AxiosError) {
       showErrorAlert.value = true
@@ -65,18 +71,55 @@ const submitForm = async () => {
       <form class="needs-validation" novalidate @submit.prevent="submitForm">
         <div class="row g-3">
           <div class="col-12">
-            <label for="email" class="form-label">Email</label>
+            <label for="username" class="form-label"
+              >ユーザー表示名 （任意の文字列を指定してください）</label
+            >
+            <input type="text" class="form-control" id="username" v-model="user.username" />
+          </div>
+
+          <div class="col-sm-6">
+            <label for="familyname" class="form-label">姓</label>
+            <input type="text" class="form-control" id="familyname" v-model="user.familyname" />
+          </div>
+
+          <div class="col-sm-6">
+            <label for="firstname" class="form-label">名</label>
+            <input type="text" class="form-control" id="firstname" v-model="user.firstname" />
+          </div>
+
+          <div class="col-sm-6">
+            <label for="familynameKana" class="form-label">姓 ふりかな</label>
             <input
-              type="email"
+              type="text"
               class="form-control"
-              id="email"
-              v-model="userStore.unverifiedEmail"
+              id="familynameKana"
+              v-model="user.familynameKana"
             />
+          </div>
+
+          <div class="col-sm-6">
+            <label for="firstnameKana" class="form-label">名 ふりがな</label>
+            <input
+              type="text"
+              class="form-control"
+              id="firstnameKana"
+              v-model="user.firstnameKana"
+            />
+          </div>
+
+          <div class="col-12">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" readonly class="form-control" id="email" v-model="user.email" />
+          </div>
+
+          <div class="col-12">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" v-model="passwordRaw" />
           </div>
         </div>
 
         <div class="mt-3">
-          <button type="submit" class="btn btn-primary me-2">メールアドレス送信</button>
+          <button type="submit" class="btn btn-primary me-2">登録</button>
           <button type="button" class="btn btn-secondary me-2" @click="toIndex">Topへ戻る</button>
         </div>
       </form>
