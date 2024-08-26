@@ -36,7 +36,7 @@ const toIndex = () => {
 const submitForm = async () => {
   try {
     await userStore.registerUser()
-    router.push({ name: 'sign-up-complete' })
+    router.push({ name: 'sign-up-completion' })
   } catch (err) {
     if (err instanceof AxiosError) {
       showErrorAlert.value = true
@@ -127,28 +127,4 @@ const submitForm = async () => {
   </div>
 </template>
 
-<style scoped lang="scss">
-.container {
-  min-height: 100vh;
-  color: var(--bs-body-color);
-  background-color: var(--bs-body-bg);
-
-  .users_title {
-    position: relative;
-
-    &_text {
-      position: absolute;
-      left: 20px;
-      bottom: 0;
-      font-weight: bold;
-    }
-  }
-
-  .main {
-    input[type='text'],
-    input[type='email'] {
-      background-color: var(--bs-secondary-bg);
-    }
-  }
-}
-</style>
+<style scoped lang="scss"></style>

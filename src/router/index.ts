@@ -60,9 +60,30 @@ const router = createRouter({
       props: true
     },
     {
-      path: '/signup/complete',
-      name: 'sign-up-complete',
-      component: () => import('../views/SignUpCompleteView.vue')
+      path: '/signup-completion',
+      name: 'sign-up-completion',
+      component: () => import('../views/SignUpCompletionView.vue')
+    },
+    {
+      path: '/reset-password',
+      name: 'reset-password',
+      component: () => import('../views/ResetPassword.vue')
+    },
+    {
+      path: '/reset-password-sent-email',
+      name: 'reset-password-sent-email',
+      component: () => import('../views/ResetPasswordSentEmailView.vue')
+    },
+    {
+      path: '/reset-password-input',
+      name: 'reset-password-input',
+      component: () => import('../views/ResetPasswordInputView.vue'),
+      props: true
+    },
+    {
+      path: '/reset-password-completion',
+      name: 'reset-password-completion',
+      component: () => import('../views/ResetPasswordCompletionView.vue')
     },
     {
       path: '/admin',

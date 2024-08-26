@@ -15,6 +15,10 @@ export const useUserStore = defineStore('user', () => {
   // Emailアドレス確認
   const unverifiedEmail = ref('')
 
+  // パスワード・リセット
+  const email = ref('')
+  const hash = ref('')
+
   async function getUsers() {
     users.value = []
     const options = {}
@@ -59,29 +63,38 @@ export const useUserStore = defineStore('user', () => {
     await axios.put('/api/users/change-password', options)
   }
 
-  async function verifyinngEmail() {
-    // メールアドレス送信
+  async function verifyingEmail(nextPageUrlPath: string) {
+    // メールアドレス確認
     const options = {
-      email: unverifiedEmail.value
+      email: unverifiedEmail.value,
+      next_url_path: nextPageUrlPath
     }
-    const result = await axios.post('/api/users/verifing-email', options)
-    console.debug('result', result)
+    await axios.post('/api/users/verifing-email', options)
   }
 
   async function registerUser() {
-    console.log('--- registerUser() ---')
-    console.log('user', user.value)
-
     // ユーザー登録
-    const result = await axios.post('/api/users/register-user', user.value)
-    console.debug('result', result)
+    await axios.post('/api/users/register-user', user.value)
   }
+
+  async function resetPassword() {
+    // パスワード更新
+    const options = {
+      email: email.value,
+      hash: hash.value,
+      password: newPassword.value
+    }
+    await axios.post('/api/users/reset-password', options)
+  }
+
   return {
     user,
     users,
     oldPassword,
     newPassword,
     unverifiedEmail,
+    email,
+    hash,
     getUsers,
     getUser,
     newUser,
@@ -89,7 +102,8 @@ export const useUserStore = defineStore('user', () => {
     updateUser,
     deleteUser,
     changePassword,
-    verifyinngEmail,
-    registerUser
+    verifyingEmail,
+    registerUser,
+    resetPassword
   }
 })

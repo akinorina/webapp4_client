@@ -71,6 +71,10 @@ const signInGoogle = () => {
 
           <button class="btn btn-primary w-100 py-2" type="submit">Sign-in</button>
         </form>
+
+        <div class="my-3 text-center">
+          <router-link :to="{ name: 'reset-password' }"> パスワードを忘れた場合 </router-link>
+        </div>
       </main>
     </div>
     <div class="px-4 py-2 my-2 border rounded">
@@ -83,8 +87,4 @@ const signInGoogle = () => {
   </div>
 </template>
 
-<style scoped lang="scss">
-// .main {
-//   border: 1px red dashed;
-// }
-</style>
+<style scoped lang="scss"></style>
