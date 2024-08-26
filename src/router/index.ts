@@ -49,9 +49,41 @@ const router = createRouter({
       component: () => import('../views/SignUpView.vue')
     },
     {
-      path: '/signup/complete',
-      name: 'sign-up_complete',
-      component: () => import('../views/SignUpCompleteView.vue')
+      path: '/signup-sent-email',
+      name: 'sign-up-sent-email',
+      component: () => import('../views/SignUpSentEmailView.vue')
+    },
+    {
+      path: '/signup-register-info',
+      name: 'sign-up-register-info',
+      component: () => import('../views/SignUpRegisterInfoView.vue'),
+      props: true
+    },
+    {
+      path: '/signup-completion',
+      name: 'sign-up-completion',
+      component: () => import('../views/SignUpCompletionView.vue')
+    },
+    {
+      path: '/reset-password',
+      name: 'reset-password',
+      component: () => import('../views/ResetPassword.vue')
+    },
+    {
+      path: '/reset-password-sent-email',
+      name: 'reset-password-sent-email',
+      component: () => import('../views/ResetPasswordSentEmailView.vue')
+    },
+    {
+      path: '/reset-password-input',
+      name: 'reset-password-input',
+      component: () => import('../views/ResetPasswordInputView.vue'),
+      props: true
+    },
+    {
+      path: '/reset-password-completion',
+      name: 'reset-password-completion',
+      component: () => import('../views/ResetPasswordCompletionView.vue')
     },
     {
       path: '/admin',

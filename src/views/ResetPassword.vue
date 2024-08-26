@@ -1,26 +1,18 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
-import { storeToRefs } from 'pinia'
+import { onMounted, ref } from 'vue'
 import { useUserStore } from '@/stores/user'
 import { useRouter } from 'vue-router'
 import { AxiosError } from 'axios'
-import { digestMessage } from '@/lib/Functions'
 
 // stores
 const router = useRouter()
 const userStore = useUserStore()
-const { user } = storeToRefs(userStore)
-
-const passwordRaw = ref('')
-watch(passwordRaw, async (newPasswordRaw) => {
-  user.value.password = await digestMessage(newPasswordRaw)
-})
 
 const showErrorAlert = ref(false)
 
 // lifecycle
 onMounted(() => {
-  userStore.newUser()
+  userStore.unverifiedEmail = ''
 })
 
 // functions
@@ -29,8 +21,8 @@ const toIndex = () => {
 }
 const submitForm = async () => {
   try {
-    await userStore.verifyingEmail('/signup-register-info')
-    router.push({ name: 'sign-up-sent-email' })
+    await userStore.verifyingEmail('/reset-password-input')
+    router.push({ name: 'reset-password-sent-email' })
   } catch (err) {
     if (err instanceof AxiosError) {
       showErrorAlert.value = true
@@ -46,10 +38,10 @@ const submitForm = async () => {
   <div class="container">
     <div class="my-3">
       <div class="p-5 mb-3 text-center bg-body-tertiary rounded-3">
-        <h1 class="text-body-emphasis">Webapp4 ユーザー登録</h1>
+        <h1 class="text-body-emphasis">Webapp4 パスワードのリセット</h1>
         <p class="col-lg-8 mx-auto fs-5 text-muted">
-          ユーザー登録ページです。<br />
-          次の各項目を入力して登録ボタンを押してください。
+          パスワードのリセット手続きに入ります。<br />
+          メールアドレスを入力してください。
         </p>
       </div>
     </div>
@@ -57,7 +49,6 @@ const submitForm = async () => {
     <div v-if="showErrorAlert">
       <div class="alert alert-danger" style="line-height: 1rem" role="alert">
         <p class="fw-bold">入力データに不備があります。</p>
-        <p>メールアドレスが既に登録済みの場合があります。</p>
       </div>
     </div>
 

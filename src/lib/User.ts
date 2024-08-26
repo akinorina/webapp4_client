@@ -23,6 +23,9 @@ export default class User {
   // メールアドレス
   email: string = ''
 
+  // メールアドレス確認 hash
+  email_hash: string = ''
+
   // パスワード
   password: string = ''
 
@@ -34,6 +37,7 @@ export default class User {
     this.familynameKana = user.familynameKana
     this.firstnameKana = user.firstnameKana
     this.email = user.email
+    this.email_hash = user.email_hash
     this.password = user.password
   }
 }
