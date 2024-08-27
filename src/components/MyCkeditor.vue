@@ -41,14 +41,17 @@ import {
   TableToolbar,
   TodoList,
   Underline,
-  Undo
+  Undo,
+  SimpleUploadAdapter
 } from 'ckeditor5'
 import translations from 'ckeditor5/translations/ja.js'
 import 'ckeditor5/ckeditor5.css'
+import { axios } from '@/lib/Axios'
+
 
 const editor = ClassicEditor
 const editorData = '<p>Hello from CKEditor 5 in Vue!</p>'
-const editorConfig = {
+const editorConfig: any = {
   toolbar: {
     items: [
       'undo',
@@ -118,7 +121,8 @@ const editorConfig = {
     TableToolbar,
     TodoList,
     Underline,
-    Undo
+    Undo,
+    SimpleUploadAdapter
   ],
   balloonToolbar: [
     'bold',
@@ -221,6 +225,18 @@ const editorConfig = {
         classes: true
       }
     ]
+  },
+  simpleUpload: {
+    // The URL that the images are uploaded to.
+    uploadUrl: 'http://localhost:4000/api/images/upload',
+
+    // Enable the XMLHttpRequest.withCredentials property.
+    withCredentials: true,
+
+    // Headers sent along with the XMLHttpRequest to the upload server.
+    headers: {
+      Authorization: axios.defaults.headers['Authorization']
+    }
   }
 }
 </script>
