@@ -59,7 +59,7 @@ const submitForm = async () => {
           </div>
 
           <div class="col-sm-12">
-            <MyCkeditor />
+            <MyCkeditor v-model="blog.body" />
           </div>
         </div>
 

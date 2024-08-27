@@ -3,6 +3,7 @@ import { onMounted, ref, defineAsyncComponent } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
 import { useBlogStore } from '@/stores/blog'
+import MyCkeditor from '@/components/MyCkeditor.vue'
 
 //@ts-ignore
 const BsModal = defineAsyncComponent(() => import('@/components/BsModal.vue'))
@@ -42,22 +43,16 @@ const deleteIt = async () => {
   <div class="container main">
     <div class="main">
       <div class="row g-1 py-2">
-        <div class="p-3 my-1 border rounded item">
+        <div class="p-3 my-1 border rounded">
           {{ blog.id }}
         </div>
 
-        <div class="p-3 my-1 border rounded item">
+        <div class="p-3 my-1 border rounded">
           {{ blog.subject }}
         </div>
 
-        <div class="p-1 my-1 border rounded item">
-          <textarea
-            class="col-12"
-            style="border: 0"
-            readonly
-            v-model="blog.body"
-            rows="10"
-          ></textarea>
+        <div class="">
+          <MyCkeditor v-model="blog.body" />
         </div>
       </div>
 

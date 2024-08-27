@@ -48,9 +48,10 @@ import translations from 'ckeditor5/translations/ja.js'
 import 'ckeditor5/ckeditor5.css'
 import { axios } from '@/lib/Axios'
 
+const vmodel = defineModel({ type: Number, default: 0 })
 
 const editor = ClassicEditor
-const editorData = '<p>Hello from CKEditor 5 in Vue!</p>'
+// const editorData = '<p>Hello from CKEditor 5 in Vue!</p>'
 const editorConfig: any = {
   toolbar: {
     items: [
@@ -243,6 +244,6 @@ const editorConfig: any = {
 
 <template>
   <div>
-    <ckeditor v-model="editorData" :editor="editor" :config="editorConfig" />
+    <ckeditor v-model="vmodel" :editor="editor" :config="editorConfig" />
   </div>
 </template>
