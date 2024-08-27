@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { AxiosError } from 'axios'
 import { useBlogStore } from '@/stores/blog'
+import MyCkeditor from '../../../components/MyCkeditor.vue'
 
 // stores
 const router = useRouter()
@@ -55,6 +56,10 @@ const submitForm = async () => {
             <div class="p-1 my-1 border rounded item">
               <textarea class="col-12" style="border: 0" v-model="blog.body" rows="10"></textarea>
             </div>
+          </div>
+
+          <div class="col-sm-12">
+            <MyCkeditor />
           </div>
         </div>
 
