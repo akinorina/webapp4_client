@@ -4,6 +4,7 @@ import { storeToRefs } from 'pinia'
 import { useBlogStore } from '@/stores/blog'
 import { useRouter } from 'vue-router'
 import { defineAsyncComponent, ref } from 'vue'
+import MyCkeditor from '@/components/MyCkeditor.vue'
 
 //@ts-ignore
 const BsModal = defineAsyncComponent(() => import('@/components/BsModal.vue'))
@@ -43,7 +44,7 @@ const submitForm = async () => {
         <div class="row g-3">
           <div class="col-12">
             <label for="username" class="form-label">ID</label>
-            <div class="py-2 px-3 my-1 border rounded item">
+            <div class="py-2 px-3 my-1 border rounded">
               {{ blog.id }}
             </div>
           </div>
@@ -55,8 +56,8 @@ const submitForm = async () => {
 
           <div class="col-sm-12">
             <label for="familyname" class="form-label">本文</label>
-            <div class="p-1 my-1 border rounded item">
-              <textarea class="col-12" style="border: 0" v-model="blog.body" rows="10"></textarea>
+            <div class="p-1">
+              <MyCkeditor v-model="blog.body" />
             </div>
           </div>
         </div>
