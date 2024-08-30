@@ -139,6 +139,28 @@ const router = createRouter({
       name: 'admin_images_new',
       component: () => import('../views/admin/images/NewImages.vue'),
       props: true
+    },
+    {
+      path: '/admin/blogs',
+      name: 'admin_blogs',
+      component: () => import('../views/admin/blogs/IndexBlogs.vue')
+    },
+    {
+      path: '/admin/blogs/:id',
+      name: 'admin_blogs_detail',
+      component: () => import('../views/admin/blogs/DetailBlogs.vue'),
+      props: true
+    },
+    {
+      path: '/admin/blogs/:id/edit',
+      name: 'admin_blogs_edit',
+      component: () => import('../views/admin/blogs/EditBlogs.vue'),
+      props: true
+    },
+    {
+      path: '/admin/blogs/new',
+      name: 'admin_blogs_new',
+      component: () => import('../views/admin/blogs/NewBlogs.vue')
     }
   ]
 })

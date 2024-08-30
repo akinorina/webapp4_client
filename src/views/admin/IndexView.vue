@@ -42,6 +42,17 @@ const authStore = useAuthStore()
         </div>
 
         <div class="col-3">
+          <router-link :to="{ name: 'admin_blogs' }" class="text-decoration-none">
+            <div class="card bg-body-tertiary text-body border rounded p-3">
+              <div class="card-body">
+                <h5 class="card-title">Blog</h5>
+                <p class="card-text">ブログ</p>
+              </div>
+            </div>
+          </router-link>
+        </div>
+
+        <div class="col-3">
           <router-link :to="{ name: 'admin_change-password' }" class="text-decoration-none">
             <div class="card bg-body-tertiary text-body border rounded p-3">
               <div class="card-body">
