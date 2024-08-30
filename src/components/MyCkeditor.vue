@@ -13,6 +13,10 @@ import {
   CloudServices,
   CodeBlock,
   Essentials,
+  FontBackgroundColor,
+  FontColor,
+  FontFamily,
+  FontSize,
   FindAndReplace,
   GeneralHtmlSupport,
   Heading,
@@ -64,6 +68,10 @@ const editorConfig: any = {
       '|',
       'findAndReplace',
       'selectAll',
+      'fontSize',
+      'fontFamily',
+      'fontColor',
+      'fontBackgroundColor',
       '|',
       'heading',
       '|',
@@ -94,6 +102,10 @@ const editorConfig: any = {
     CloudServices,
     CodeBlock,
     Essentials,
+    FontBackgroundColor,
+    FontColor,
+    FontFamily,
+    FontSize,
     FindAndReplace,
     GeneralHtmlSupport,
     Heading,
@@ -128,6 +140,10 @@ const editorConfig: any = {
   balloonToolbar: [
     'bold',
     'italic',
+    'fontSize',
+    'fontFamily',
+    'fontColor',
+    'fontBackgroundColor',
     '|',
     'link',
     'insertImage',
@@ -191,6 +207,13 @@ const editorConfig: any = {
       '|',
       'resizeImage'
     ]
+  },
+  fontFamily: {
+    supportAllValues: true
+  },
+  fontSize: {
+    options: [10, 12, 14, 'default', 18, 20, 22],
+    supportAllValues: true
   },
   language: 'ja',
   link: {
