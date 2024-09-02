@@ -54,12 +54,8 @@ const submitForm = async () => {
           <div class="col-sm-12">
             <label for="familyname" class="form-label">本文</label>
             <div class="p-1 my-1 border rounded item">
-              <textarea class="col-12" style="border: 0" v-model="blog.body" rows="10"></textarea>
+              <MyCkeditor v-model="blog.body" :placeholder="'ここに本文を書きます。'" />
             </div>
-          </div>
-
-          <div class="col-sm-12">
-            <MyCkeditor v-model="blog.body" />
           </div>
         </div>
 
