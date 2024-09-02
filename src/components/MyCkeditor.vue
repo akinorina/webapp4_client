@@ -375,7 +375,7 @@ const editorConfig: any = {
   translations: [translations],
   simpleUpload: {
     // The URL that the images are uploaded to.
-    uploadUrl: 'http://localhost:4000/api/images/upload',
+    uploadUrl: '/api/images/upload',
 
     // Enable the XMLHttpRequest.withCredentials property.
     withCredentials: true,
