@@ -25,7 +25,7 @@ const toDetail = (iid: number) => {
   <div class="container">
     <div class="mx-2 my-3">
       <button type="button" class="btn btn-outline-primary" @click="toNew">
-        <i class="bi bi-person-plus-fill display-6"></i>
+        <i class="bi bi-file-earmark-plus display-6"></i>
       </button>
     </div>
 

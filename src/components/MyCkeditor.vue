@@ -1,27 +1,30 @@
 <script setup lang="ts">
 import {
-  ClassicEditor,
+  InlineEditor,
   AccessibilityHelp,
   Alignment,
+  Autoformat,
   AutoImage,
   AutoLink,
   Autosave,
   BalloonToolbar,
   BlockQuote,
+  BlockToolbar,
   Bold,
-  CKBox,
   CloudServices,
+  Code,
   CodeBlock,
   Essentials,
+  FindAndReplace,
   FontBackgroundColor,
   FontColor,
   FontFamily,
   FontSize,
-  FindAndReplace,
   GeneralHtmlSupport,
   Heading,
+  Highlight,
+  HtmlComment,
   ImageBlock,
-  ImageCaption,
   ImageInline,
   ImageInsert,
   ImageInsertViaUrl,
@@ -30,87 +33,77 @@ import {
   ImageTextAlternative,
   ImageToolbar,
   ImageUpload,
+  Indent,
+  IndentBlock,
   Italic,
   Link,
   LinkImage,
   List,
+  ListProperties,
   Paragraph,
-  PictureEditing,
+  RemoveFormat,
   SelectAll,
+  ShowBlocks,
+  SimpleUploadAdapter,
+  SpecialCharacters,
+  SpecialCharactersArrows,
+  SpecialCharactersCurrency,
+  SpecialCharactersEssentials,
+  SpecialCharactersLatin,
+  SpecialCharactersMathematical,
+  SpecialCharactersText,
+  Strikethrough,
+  Style,
+  Subscript,
+  Superscript,
   Table,
-  TableCaption,
   TableCellProperties,
   TableColumnResize,
   TableProperties,
   TableToolbar,
+  TextTransformation,
   TodoList,
   Underline,
-  Undo,
-  SimpleUploadAdapter
+  Undo
 } from 'ckeditor5'
 import translations from 'ckeditor5/translations/ja.js'
 import 'ckeditor5/ckeditor5.css'
+import { onMounted, ref } from 'vue'
 import { axios } from '@/lib/Axios'
 
-const vmodel = defineModel({ type: Number, default: 0 })
+const props = defineProps<{
+  placeholder?: string
+}>()
 
-const editor = ClassicEditor
-// const editorData = '<p>Hello from CKEditor 5 in Vue!</p>'
+const vmodel = defineModel({ type: String, default: '' })
+
+const editor = InlineEditor
 const editorConfig: any = {
-  toolbar: {
-    items: [
-      'undo',
-      'redo',
-      '|',
-      'bold',
-      'italic',
-      'underline',
-      '|',
-      'findAndReplace',
-      'selectAll',
-      'fontSize',
-      'fontFamily',
-      'fontColor',
-      'fontBackgroundColor',
-      '|',
-      'heading',
-      '|',
-      'link',
-      'blockQuote',
-      'insertImage',
-      'insertTable',
-      'codeBlock',
-      '|',
-      'alignment',
-      '|',
-      'bulletedList',
-      'numberedList',
-      'todoList'
-    ],
-    shouldNotGroupWhenFull: false
-  },
   plugins: [
     AccessibilityHelp,
     Alignment,
+    Autoformat,
     AutoImage,
     AutoLink,
     Autosave,
     BalloonToolbar,
     BlockQuote,
+    BlockToolbar,
     Bold,
-    CKBox,
     CloudServices,
+    Code,
     CodeBlock,
     Essentials,
+    FindAndReplace,
     FontBackgroundColor,
     FontColor,
     FontFamily,
     FontSize,
-    FindAndReplace,
     GeneralHtmlSupport,
     Heading,
+    Highlight,
+    HtmlComment,
     ImageBlock,
-    ImageCaption,
     ImageInline,
     ImageInsert,
     ImageInsertViaUrl,
@@ -119,31 +112,88 @@ const editorConfig: any = {
     ImageTextAlternative,
     ImageToolbar,
     ImageUpload,
+    Indent,
+    IndentBlock,
     Italic,
     Link,
     LinkImage,
     List,
+    ListProperties,
     Paragraph,
-    PictureEditing,
+    RemoveFormat,
     SelectAll,
+    ShowBlocks,
+    SimpleUploadAdapter,
+    SpecialCharacters,
+    SpecialCharactersArrows,
+    SpecialCharactersCurrency,
+    SpecialCharactersEssentials,
+    SpecialCharactersLatin,
+    SpecialCharactersMathematical,
+    SpecialCharactersText,
+    Strikethrough,
+    Style,
+    Subscript,
+    Superscript,
     Table,
-    TableCaption,
     TableCellProperties,
     TableColumnResize,
     TableProperties,
     TableToolbar,
+    TextTransformation,
     TodoList,
     Underline,
-    Undo,
-    SimpleUploadAdapter
+    Undo
   ],
+  toolbar: {
+    items: [
+      'undo',
+      'redo',
+      '|',
+      'showBlocks',
+      'findAndReplace',
+      'selectAll',
+      '|',
+      'heading',
+      'style',
+      '|',
+      'fontSize',
+      'fontFamily',
+      'fontColor',
+      'fontBackgroundColor',
+      '|',
+      'bold',
+      'italic',
+      'underline',
+      'strikethrough',
+      'subscript',
+      'superscript',
+      'code',
+      'removeFormat',
+      '|',
+      'specialCharacters',
+      'link',
+      'insertImage',
+      'insertTable',
+      'highlight',
+      'blockQuote',
+      'codeBlock',
+      '|',
+      'alignment',
+      '|',
+      'bulletedList',
+      'numberedList',
+      'todoList',
+      'outdent',
+      'indent',
+      '|',
+      'accessibilityHelp'
+    ],
+    shouldNotGroupWhenFull: false
+  },
   balloonToolbar: [
     'bold',
     'italic',
-    'fontSize',
-    'fontFamily',
-    'fontColor',
-    'fontBackgroundColor',
     '|',
     'link',
     'insertImage',
@@ -151,6 +201,30 @@ const editorConfig: any = {
     'bulletedList',
     'numberedList'
   ],
+  blockToolbar: [
+    'fontSize',
+    'fontColor',
+    'fontBackgroundColor',
+    '|',
+    'bold',
+    'italic',
+    '|',
+    'link',
+    'insertImage',
+    'insertTable',
+    '|',
+    'bulletedList',
+    'numberedList',
+    'outdent',
+    'indent'
+  ],
+  fontFamily: {
+    supportAllValues: true
+  },
+  fontSize: {
+    options: [10, 12, 14, 'default', 18, 20, 22],
+    supportAllValues: true
+  },
   heading: {
     options: [
       {
@@ -196,9 +270,18 @@ const editorConfig: any = {
       }
     ]
   },
+  htmlSupport: {
+    allow: [
+      {
+        name: /^.*$/,
+        styles: true,
+        attributes: true,
+        classes: true
+      }
+    ]
+  },
   image: {
     toolbar: [
-      'toggleImageCaption',
       'imageTextAlternative',
       '|',
       'imageStyle:inline',
@@ -208,13 +291,7 @@ const editorConfig: any = {
       'resizeImage'
     ]
   },
-  fontFamily: {
-    supportAllValues: true
-  },
-  fontSize: {
-    options: [10, 12, 14, 'default', 18, 20, 22],
-    supportAllValues: true
-  },
+  initialData: '',
   language: 'ja',
   link: {
     addTargetToExternalLinks: true,
@@ -229,7 +306,63 @@ const editorConfig: any = {
       }
     }
   },
-  placeholder: 'Type or paste your content here!',
+  list: {
+    properties: {
+      styles: true,
+      startIndex: true,
+      reversed: true
+    }
+  },
+  placeholder: props.placeholder,
+  style: {
+    definitions: [
+      {
+        name: 'Article category',
+        element: 'h3',
+        classes: ['category']
+      },
+      {
+        name: 'Title',
+        element: 'h2',
+        classes: ['document-title']
+      },
+      {
+        name: 'Subtitle',
+        element: 'h3',
+        classes: ['document-subtitle']
+      },
+      {
+        name: 'Info box',
+        element: 'p',
+        classes: ['info-box']
+      },
+      {
+        name: 'Side quote',
+        element: 'blockquote',
+        classes: ['side-quote']
+      },
+      {
+        name: 'Marker',
+        element: 'span',
+        classes: ['marker']
+      },
+      {
+        name: 'Spoiler',
+        element: 'span',
+        classes: ['spoiler']
+      },
+      {
+        name: 'Code (dark)',
+        element: 'pre',
+        classes: ['fancy-code', 'fancy-code-dark']
+      },
+      {
+        name: 'Code (bright)',
+        element: 'pre',
+        classes: ['fancy-code', 'fancy-code-bright']
+      }
+    ]
+  },
   table: {
     contentToolbar: [
       'tableColumn',
@@ -240,19 +373,9 @@ const editorConfig: any = {
     ]
   },
   translations: [translations],
-  htmlSupport: {
-    allow: [
-      {
-        name: /^.*$/,
-        styles: true,
-        attributes: true,
-        classes: true
-      }
-    ]
-  },
   simpleUpload: {
     // The URL that the images are uploaded to.
-    uploadUrl: 'http://localhost:4000/api/images/upload',
+    uploadUrl: '/api/images/upload',
 
     // Enable the XMLHttpRequest.withCredentials property.
     withCredentials: true,
@@ -263,10 +386,31 @@ const editorConfig: any = {
     }
   }
 }
+const isLayoutReady = ref(false)
+
+onMounted(() => {
+  isLayoutReady.value = true
+})
 </script>
 
 <template>
   <div>
-    <ckeditor v-model="vmodel" :editor="editor" :config="editorConfig" />
+    <div class="main-container">
+      <div
+        class="editor-container editor-container_inline-editor editor-container_include-style editor-container_include-block-toolbar"
+        ref="editorContainerElement"
+      >
+        <div class="editor-container__editor">
+          <div ref="editorElement">
+            <ckeditor
+              v-model="vmodel"
+              :editor="editor"
+              :config="editorConfig"
+              v-if="isLayoutReady"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
