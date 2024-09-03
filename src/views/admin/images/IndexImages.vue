@@ -7,6 +7,9 @@ import { useImageStore } from '@/stores/image'
 const router = useRouter()
 const imageStore = useImageStore()
 
+// env
+const pathPrefix = import.meta.env.VITE_STORAGE_PATH_PREFIX
+
 // lifecycle
 onMounted(async () => {
   await imageStore.getImages()
@@ -40,7 +43,7 @@ const toDetail = (iid: number) => {
             <div class="item">
               <img
                 class="image"
-                :src="'http://localhost:9000' + item.path"
+                :src="pathPrefix + item.path"
                 :alt="item.name"
                 @click="toDetail(item.id)"
               />

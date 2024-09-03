@@ -12,3 +12,5 @@ FROM nginx as production-stage
 WORKDIR /app
 COPY --from=build-stage /app/dist /app
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
+COPY nginx/ssl /etc/nginx/ssl
+RUN rm -f /var/log/nginx/*.log
