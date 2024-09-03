@@ -23,9 +23,10 @@ export default defineConfig({
         target: 'http://localhost:3000',
         changeOrigin: true
       },
-      '/webapp4': {
+      '/s3': {
         target: 'http://localhost:9000',
-        changeOrigin: true
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/s3/, '')
       }
     },
     open: true

@@ -20,15 +20,18 @@ const toList = () => {
 }
 
 const chooseImage = (ev: any) => {
+  console.log('ev.target.files', ev.target.files)
+
   const fi = ev.target.files[0]
   image.value.originalname = fi.name
-  image.value.mimetype = fi.mimetype
+  image.value.mimetype = fi.type
 
   const reader = new FileReader()
   reader.onload = (evt) => {
     if (typeof evt.target?.result === 'string') {
       image.value.data = evt.target?.result
     }
+    console.log('--- image.value', image.value)
   }
   reader.readAsDataURL(fi)
 }

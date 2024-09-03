@@ -13,6 +13,8 @@ const router = useRouter()
 const imageStore = useImageStore()
 const { image } = storeToRefs(imageStore)
 
+const pathPrefix = import.meta.env.VITE_STORAGE_PATH_PREFIX
+
 const props = defineProps({
   id: { type: String, required: true }
 })
@@ -45,7 +47,7 @@ const deleteIt = async () => {
       <div class="row">
         <div class="col-6">
           <div class="p-3 my-1 border rounded item text-center align-item-center">
-            <img :src="'http://localhost:9000' + image.path" class="image" />
+            <img :src="pathPrefix + image.path" class="image" />
           </div>
         </div>
         <div class="col-6">

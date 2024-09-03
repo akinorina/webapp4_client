@@ -5,6 +5,8 @@ import { useImagePublicStore } from '@/stores/imagePublic'
 
 const imagePublicStore = useImagePublicStore()
 
+const pathPrefix = import.meta.env.VITE_STORAGE_PATH_PREFIX
+
 onMounted(() => {
   imagePublicStore.getImages()
 })
@@ -52,7 +54,7 @@ onMounted(() => {
     <div class="container">
       <div class="row g-0 mt-4">
         <div class="col-4 photo" v-for="(image, index) in imagePublicStore.images" :key="index">
-          <img class="img-thumbnail photo__img" :src="image.path" :alt="image.name" />
+          <img class="img-thumbnail photo__img" :src="pathPrefix + image.path" :alt="image.name" />
         </div>
       </div>
     </div>
