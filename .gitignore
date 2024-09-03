@@ -29,5 +29,9 @@ coverage
 
 *.tsbuildinfo
 
+# ssl keys
+nginx/ssl/*
+!nginx/ssl/.gitkeep
+
 #
 *.zzz.*

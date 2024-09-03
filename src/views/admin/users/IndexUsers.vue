@@ -36,8 +36,9 @@ const toDetail = (iid: number) => {
           v-for="(item, index) in userStore.users"
           :key="index"
         >
-          <div class="px-2 py-3 list__item" @click="toDetail(item.id)">
+          <div class="px-3 py-3 list__item" @click="toDetail(item.id)">
             <div class="list__item--name">{{ item.familyname }} {{ item.firstname }}</div>
+            <div class="list__item--email">{{ item.email }}</div>
           </div>
         </div>
       </div>
@@ -75,14 +76,25 @@ const toDetail = (iid: number) => {
     .frame {
       .list {
         &__item {
-          display: flex;
-          flex-flow: row nowrap;
-          justify-content: space-between;
-          align-items: flex-start;
+          display: block;
+          // flex-flow: row wrap;
+          // justify-content: space-between;
+          // align-items: flex-start;
 
           background-color: var(--bs-secondary-bg);
 
           &--name {
+            font-size: 1rem;
+            font-weight: bold;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -webkit-text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+          }
+
+          &--email {
             font-size: 1rem;
             font-weight: bold;
 

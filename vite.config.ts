@@ -12,8 +12,12 @@ export default defineConfig({
     }
   },
   server: {
-    host: true,
-    port: 4000,
+    host: 'www.example.com',
+    port: 443,
+    https: {
+      key: './nginx/ssl/server.key',
+      cert: './nginx/ssl/server.crt'
+    },
     proxy: {
       '/api': {
         target: 'http://localhost:3000',
@@ -23,6 +27,7 @@ export default defineConfig({
         target: 'http://localhost:9000',
         changeOrigin: true
       }
-    }
+    },
+    open: true
   }
 })
