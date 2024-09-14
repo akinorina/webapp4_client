@@ -24,11 +24,6 @@ const router = createRouter({
       component: () => import('../views/samples/GeneralModalView.vue')
     },
     {
-      path: '/samples/bsmodal',
-      name: 'samples_bsmodal',
-      component: () => import('../views/samples/BsModalView.vue')
-    },
-    {
       path: '/signin',
       name: 'sign-in',
       component: () => import('../views/auth/SigninView.vue')
