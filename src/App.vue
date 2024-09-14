@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import W4Header from './components/W4Header.vue'
 import { RouterView } from 'vue-router'
+import W4Header from './components/W4Header.vue'
 </script>
 
 <template>
-  <div class="container">
-    <w4-header />
-  </div>
-  <RouterView />
+  <w4-header />
+  <router-view />
 </template>
 
 <style scoped></style>

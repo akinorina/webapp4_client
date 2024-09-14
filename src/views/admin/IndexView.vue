@@ -6,7 +6,7 @@ const authStore = useAuthStore()
 </script>
 
 <template>
-  <div>
+  <div class="container mx-auto">
     <div class="container my-3">
       <div class="p-5 mb-3 text-center bg-body-tertiary rounded-3">
         <h1 class="text-body-emphasis">Webapp4 User Page</h1>

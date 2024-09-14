@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
+import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
 
 // stores
 const router = useRouter()
@@ -11,22 +12,17 @@ const toSignin = () => {
 </script>
 
 <template>
-  <div class="container">
-    <div class="my-3">
-      <div class="p-5 mb-3 text-center bg-body-tertiary rounded-3">
-        <h1 class="text-body-emphasis">Webapp4 ユーザー登録</h1>
-        <p class="col-lg-8 mx-auto fs-5 text-muted">メールアドレスを受け取りました。</p>
-      </div>
+  <div class="container mx-auto">
+    <div class="p-2">
+      <h1 class="text-xl font-bold">Webapp4 ユーザー登録</h1>
+      <p class="">いただいたメールアドレス宛にメールを送信しました。</p>
+      <p>内容をご確認いただき、登録の続きを行なってください。</p>
     </div>
 
-    <div class="text-center">
-      <p class="col-lg-8 mx-auto fs-5 text-muted">
-        送られたメールアドレス宛にメールを送信しました。ご確認ください。
-      </p>
-    </div>
-
-    <div class="text-center">
-      <button class="btn btn-primary" @click="toSignin">Sign-in</button>
+    <div class="p-2">
+      <button-general type="submit" class="px-2 py-1 border rounded-md" @click="toSignin">
+        Sign-in ページへ戻る
+      </button-general>
     </div>
   </div>
 </template>

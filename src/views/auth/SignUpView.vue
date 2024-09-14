@@ -5,6 +5,8 @@ import { useUserStore } from '@/stores/user'
 import { useRouter } from 'vue-router'
 import { AxiosError } from 'axios'
 import { digestMessage } from '@/lib/Functions'
+import InputEmail from '@/components/ui/InputEmail.vue'
+import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
 
 // stores
 const router = useRouter()
@@ -43,43 +45,47 @@ const submitForm = async () => {
 </script>
 
 <template>
-  <div class="container">
-    <div class="my-3">
-      <div class="p-5 mb-3 text-center bg-body-tertiary rounded-3">
-        <h1 class="text-body-emphasis">Webapp4 ユーザー登録</h1>
-        <p class="col-lg-8 mx-auto fs-5 text-muted">
+  <div class="container mx-auto">
+    <div class="border p-3 mt-3">
+      <div class="px-2">
+        <div class="text-xl">Webapp4 ユーザー登録</div>
+        <p class="text-xs">
           ユーザー登録ページです。<br />
           次の各項目を入力して登録ボタンを押してください。
         </p>
       </div>
-    </div>
 
-    <div v-if="showErrorAlert">
-      <div class="alert alert-danger" style="line-height: 1rem" role="alert">
-        <p class="fw-bold">入力データに不備があります。</p>
-        <p>メールアドレスが既に登録済みの場合があります。</p>
+      <div v-if="showErrorAlert">
+        <div class="border my-3 p-3" role="alert">
+          <p class="">入力データに不備があります。</p>
+          <p>メールアドレスが既に登録済みの場合があります。</p>
+        </div>
       </div>
-    </div>
 
-    <div class="main">
-      <form class="needs-validation" novalidate @submit.prevent="submitForm">
-        <div class="row g-3">
-          <div class="col-12">
-            <label for="email" class="form-label">Email</label>
-            <input
-              type="email"
-              class="form-control"
-              id="email"
-              v-model="userStore.unverifiedEmail"
-            />
+      <div class="my-3 p-3">
+        <form class="" novalidate @submit.prevent="submitForm">
+          <div class="">
+            <div class="">
+              <label for="email" class="">Email</label>
+              <input-email
+                id="email"
+                class="w-64"
+                placefolder="name@example.com"
+                v-model="userStore.unverifiedEmail"
+              />
+            </div>
           </div>
-        </div>
 
-        <div class="mt-3">
-          <button type="submit" class="btn btn-primary me-2">メールアドレス送信</button>
-          <button type="button" class="btn btn-secondary me-2" @click="toIndex">Topへ戻る</button>
-        </div>
-      </form>
+          <div class="">
+            <button-general type="submit" class="m-2 px-2 py-1 border rounded-md">
+              メールアドレス送信
+            </button-general>
+            <button-general type="button" class="m-2 px-2 py-1 border rounded-md" @click="toIndex">
+              Topへ戻る
+            </button-general>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </template>

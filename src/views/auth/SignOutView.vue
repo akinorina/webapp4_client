@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
+import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
 
 const router = useRouter()
 
@@ -9,16 +10,13 @@ const toTop = async () => {
 </script>
 
 <template>
-  <div class="container main">
-    <div class="container my-3">
-      <div class="p-5 mb-3 text-center bg-body-tertiary rounded-3">
-        <h1 class="text-body-emphasis mb-3">sign-out しました。</h1>
-        <p class="col-lg-8 mx-auto fs-5 text-muted">必要なら再度 sign-in してください。</p>
-      </div>
+  <div class="container mx-auto">
+    <div class="p-3">
+      <h1 class="text-center p-2">サインアウトしました。</h1>
     </div>
 
-    <div class="text-center">
-      <button class="btn btn-primary" @click="toTop">Topページへ</button>
+    <div class="text-center p-3">
+      <button-general class="" @click="toTop">Topページへ</button-general>
     </div>
   </div>
 </template>

@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -21,28 +22,28 @@ const toTop = async () => {
 </script>
 
 <template>
-  <div class="container" v-if="resultStatus">
-    <div class="container my-3">
-      <div class="p-5 mb-3 text-center bg-body-tertiary rounded-3">
-        <h1 class="text-body-emphasis mb-3">sign-in-google しました。</h1>
-        <p class="col-lg-8 mx-auto fs-5 text-muted">Webapp4 User Page へ進んでください。</p>
-      </div>
-    </div>
+  <div class="container mx-auto">
+    <div class="border">
+      <div v-if="resultStatus">
+        <div class="border p-3">
+          <div class="">Google アカウントでサインインしました。</div>
+          <div class="">Userページへ進んでください。</div>
+        </div>
 
-    <div class="text-center">
-      <button class="btn btn-primary" @click="toUserPage">Webapp4 User Page</button>
-    </div>
-  </div>
-  <div class="container" v-else>
-    <div class="container my-3">
-      <div class="p-5 mb-3 text-center bg-body-tertiary rounded-3">
-        <h1 class="text-body-emphasis mb-3">sign-in-google に失敗しました。</h1>
-        <p class="col-lg-8 mx-auto fs-5 text-muted">ログインをやり直してください。</p>
+        <div class="p-3 border text-center">
+          <button-general class="" @click="toUserPage">Userページ</button-general>
+        </div>
       </div>
-    </div>
+      <div v-else>
+        <div class="border p-3">
+          <div class="">Google アカウントでのサインインに失敗しました。</div>
+          <div class="">ログインをやり直してください。</div>
+        </div>
 
-    <div class="text-center">
-      <button class="btn btn-primary" @click="toTop">Topページへ</button>
+        <div class="">
+          <button-general class="" @click="toTop">Topページ</button-general>
+        </div>
+      </div>
     </div>
   </div>
 </template>

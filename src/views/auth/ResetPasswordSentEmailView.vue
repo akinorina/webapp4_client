@@ -1,32 +1,11 @@
-<script setup lang="ts">
-import { useRouter } from 'vue-router'
-
-// stores
-const router = useRouter()
-
-// functions
-const toSignin = () => {
-  router.push({ name: 'sign-in', params: {} })
-}
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <div class="container">
-    <div class="my-3">
-      <div class="p-5 mb-3 text-center bg-body-tertiary rounded-3">
-        <h1 class="text-body-emphasis">Webapp4 ユーザー登録</h1>
-        <p class="col-lg-8 mx-auto fs-5 text-muted">メールアドレスを受け取りました。</p>
-      </div>
-    </div>
-
-    <div class="text-center">
-      <p class="col-lg-8 mx-auto fs-5 text-muted">
-        送られたメールアドレス宛にメールを送信しました。ご確認ください。
-      </p>
-    </div>
-
-    <div class="text-center">
-      <button class="btn btn-primary" @click="toSignin">Sign-in</button>
+  <div class="container mx-auto">
+    <div class="border p-3">
+      <div class="">Webapp4 ユーザー登録</div>
+      <div class="">メールアドレスを受け取りました。</div>
+      <div class="">送られたメールアドレス宛にメールを送信しました。ご確認ください。</div>
     </div>
   </div>
 </template>

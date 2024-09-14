@@ -4,6 +4,9 @@ import { useRouter, useRoute } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { AxiosError } from 'axios'
 import { digestMessage } from '@/lib/Functions'
+import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
+import InputEmail from '@/components/ui/InputEmail.vue'
+import InputPassword from '@/components/ui/InputPassword.vue'
 
 // stores
 const router = useRouter()
@@ -48,47 +51,50 @@ const submitForm = async () => {
 </script>
 
 <template>
-  <div class="container">
-    <div class="my-3">
-      <div class="p-5 mb-3 text-center bg-body-tertiary rounded-3">
-        <h1 class="text-body-emphasis">Webapp4 ユーザー登録</h1>
-        <p class="col-lg-8 mx-auto fs-5 text-muted">
-          ユーザー登録ページです。<br />
-          次の各項目を入力して登録ボタンを押してください。
-        </p>
+  <div class="container mx-auto">
+    <div class="border p-3">
+      <div class="">
+        <h1 class="">Webapp4 ユーザー登録</h1>
+        <p class="">ユーザー登録ページです。 次の各項目を入力して登録ボタンを押してください。</p>
       </div>
     </div>
 
     <div v-if="showErrorAlert">
-      <div class="alert alert-danger" style="line-height: 1rem" role="alert">
-        <p class="fw-bold">入力データに不備があります。</p>
-        <p></p>
+      <div class="">
+        <p class="">入力データに不備があります。</p>
       </div>
     </div>
 
-    <div class="main">
-      <form class="needs-validation" novalidate @submit.prevent="submitForm">
-        <div class="row g-3">
-          <div class="col-12">
-            <label for="email" class="form-label">Email</label>
-            <input
-              type="email"
-              readonly
-              class="form-control"
+    <div class="border p-3">
+      <form class="" novalidate @submit.prevent="submitForm">
+        <div class="">
+          <div class="">
+            <label for="email" class="w-100">Email</label>
+            <input-email
               id="email"
-              v-model="userStore.email"
+              class="w-64"
+              placefolder="name@example.com"
+              v-model="userStore.unverifiedEmail"
             />
           </div>
-
-          <div class="col-12">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" v-model="passwordRaw" />
+          <div class="">
+            <label for="password" class="w-100">新しいパスワード</label>
+            <input-password
+              id="password"
+              class="w-64"
+              placefolder="password"
+              v-model="passwordRaw"
+            />
           </div>
         </div>
 
-        <div class="mt-3">
-          <button type="submit" class="btn btn-primary me-2">登録</button>
-          <button type="button" class="btn btn-secondary me-2" @click="toIndex">Topへ戻る</button>
+        <div class="">
+          <button-general type="submit" class="m-2 px-2 py-1 border rounded-md">
+            メールアドレス送信
+          </button-general>
+          <button-general type="button" class="m-2 px-2 py-1 border rounded-md" @click="toIndex">
+            Topへ戻る
+          </button-general>
         </div>
       </form>
     </div>

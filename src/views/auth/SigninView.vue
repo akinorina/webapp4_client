@@ -4,6 +4,10 @@ import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 import { digestMessage } from '@/lib/Functions'
 
+import InputText from '@/components/ui/InputText.vue'
+import InputPassword from '@/components/ui/InputPassword.vue'
+import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
+
 const authStore = useAuthStore()
 const router = useRouter()
 const showErrorMessage = ref(false)
@@ -35,54 +39,63 @@ const signInGoogle = () => {
 </script>
 
 <template>
-  <div class="container main">
-    <div class="px-4 py-2 my-2 border rounded">
-      <main class="form-signin w-100 m-auto">
-        <form @submit.prevent="submit">
-          <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+  <div class="container mx-auto">
+    <form @submit.prevent="submit">
+      <div class="my-3 p-3 border">
+        <div class="flex justify-center m-3">Please sign in</div>
 
-          <div v-if="showErrorMessage">
-            <div class="alert alert-danger" role="alert">
-              Email または Password が間違っています。
+        <div class="flex justify-center" v-if="showErrorMessage">
+          <div class="" role="alert">Email または Password が間違っています。</div>
+        </div>
+
+        <div class="flex justify-center m-3">
+          <div class="border p-3">
+            <div class="flex p-3">
+              <div class="w-24">
+                <label for="floatingInput">Email</label>
+              </div>
+              <div class="">
+                <input-text
+                  id="floatingInput"
+                  v-model="authStore.email"
+                  placefolder="name@example.com"
+                  class="w-64"
+                />
+              </div>
+            </div>
+            <div class="flex p-3">
+              <div class="w-24">
+                <label for="floatingPassword">Password</label>
+              </div>
+              <div class="">
+                <input-password
+                  id="floatingPassword"
+                  v-model="passwordRaw"
+                  placefolder="Password"
+                  class="w-64"
+                />
+              </div>
+            </div>
+            <div class="flex justify-center">
+              <button-general type="submit" class="px-3 py-1 border rounded-md">
+                sign-in
+              </button-general>
             </div>
           </div>
-
-          <div class="form-floating">
-            <input
-              type="text"
-              class="form-control"
-              id="floatingInput"
-              placeholder="name@example.com"
-              v-model="authStore.email"
-            />
-            <label for="floatingInput">Email</label>
-          </div>
-
-          <div class="form-floating">
-            <input
-              type="password"
-              class="form-control"
-              id="floatingPassword"
-              placeholder="Password"
-              v-model="passwordRaw"
-            />
-            <label for="floatingPassword">Password</label>
-          </div>
-
-          <button class="btn btn-primary w-100 py-2" type="submit">Sign-in</button>
-        </form>
-
-        <div class="my-3 text-center">
-          <router-link :to="{ name: 'reset-password' }"> パスワードを忘れた場合 </router-link>
         </div>
-      </main>
+      </div>
+    </form>
+
+    <div class="my-3 border">
+      <div class="p-3 text-center">
+        <router-link :to="{ name: 'reset-password' }"> パスワードを忘れた場合 </router-link>
+      </div>
     </div>
-    <div class="px-4 py-2 my-2 border rounded">
-      <main class="form-signin w-100 m-auto">
-        <button class="btn btn-primary w-100" @click="signInGoogle">
-          googleアカウントでログイン
-        </button>
-      </main>
+
+    <div class="my-3 border">
+      <div class="p-3 text-center">
+        <button class="" @click="signInGoogle">googleアカウントでログイン</button>
+      </div>
     </div>
   </div>
 </template>

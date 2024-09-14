@@ -3,6 +3,8 @@ import { onMounted, ref } from 'vue'
 import { useUserStore } from '@/stores/user'
 import { useRouter } from 'vue-router'
 import { AxiosError } from 'axios'
+import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
+import InputEmail from '@/components/ui/InputEmail.vue'
 
 // stores
 const router = useRouter()
@@ -35,11 +37,11 @@ const submitForm = async () => {
 </script>
 
 <template>
-  <div class="container">
-    <div class="my-3">
-      <div class="p-5 mb-3 text-center bg-body-tertiary rounded-3">
-        <h1 class="text-body-emphasis">Webapp4 パスワードのリセット</h1>
-        <p class="col-lg-8 mx-auto fs-5 text-muted">
+  <div class="container mx-auto">
+    <div class="mt-5 border rounded-md p-3">
+      <div class="">
+        <h1 class="">Webapp4 パスワードのリセット</h1>
+        <p class="">
           パスワードのリセット手続きに入ります。<br />
           メールアドレスを入力してください。
         </p>
@@ -47,30 +49,50 @@ const submitForm = async () => {
     </div>
 
     <div v-if="showErrorAlert">
-      <div class="alert alert-danger" style="line-height: 1rem" role="alert">
-        <p class="fw-bold">入力データに不備があります。</p>
+      <div class="mt-5 border rounded-md p-3" style="line-height: 1rem" role="alert">
+        <p class="">入力データに不備があります。</p>
       </div>
     </div>
 
-    <div class="main">
-      <form class="needs-validation" novalidate @submit.prevent="submitForm">
-        <div class="row g-3">
-          <div class="col-12">
-            <label for="email" class="form-label">Email</label>
-            <input
-              type="email"
-              class="form-control"
+    <div class="mt-5 border rounded-md p-3">
+      <form class="" novalidate @submit.prevent="submitForm">
+        <div class="">
+          <div class="">
+            <label for="email" class="">Email</label>
+            <input-email
               id="email"
+              class="w-64"
+              placefolder="name@example.com"
               v-model="userStore.unverifiedEmail"
             />
           </div>
         </div>
 
-        <div class="mt-3">
-          <button type="submit" class="btn btn-primary me-2">メールアドレス送信</button>
-          <button type="button" class="btn btn-secondary me-2" @click="toIndex">Topへ戻る</button>
+        <div class="">
+          <button-general type="submit" class="m-2 px-2 py-1 border rounded-md">
+            メールアドレス送信
+          </button-general>
+          <button-general type="button" class="m-2 px-2 py-1 border rounded-md" @click="toIndex">
+            Topへ戻る
+          </button-general>
         </div>
       </form>
+
+      <!--
+      <form class="" novalidate @submit.prevent="submitForm">
+        <div class="">
+          <div class="">
+            <label for="email" class="">Email</label>
+            <input type="email" class="" id="email" v-model="userStore.unverifiedEmail" />
+          </div>
+        </div>
+
+        <div class="">
+          <button type="submit" class="">メールアドレス送信</button>
+          <button type="button" class="" @click="toIndex">Topへ戻る</button>
+        </div>
+      </form>
+      -->
     </div>
   </div>
 </template>

@@ -5,6 +5,10 @@ import { useUserStore } from '@/stores/user'
 import { useRouter, useRoute } from 'vue-router'
 import { AxiosError } from 'axios'
 import { digestMessage } from '@/lib/Functions'
+import InputText from '@/components/ui/InputText.vue'
+import InputEmail from '@/components/ui/InputEmail.vue'
+import InputPassword from '@/components/ui/InputPassword.vue'
+import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
 
 // stores
 const router = useRouter()
@@ -49,80 +53,78 @@ const submitForm = async () => {
 </script>
 
 <template>
-  <div class="container">
-    <div class="my-3">
-      <div class="p-5 mb-3 text-center bg-body-tertiary rounded-3">
-        <h1 class="text-body-emphasis">Webapp4 ユーザー登録</h1>
-        <p class="col-lg-8 mx-auto fs-5 text-muted">
-          ユーザー登録ページです。<br />
-          次の各項目を入力して登録ボタンを押してください。
-        </p>
-      </div>
-    </div>
-
-    <div v-if="showErrorAlert">
-      <div class="alert alert-danger" style="line-height: 1rem" role="alert">
-        <p class="fw-bold">入力データに不備があります。</p>
-        <p>メールアドレスが既に登録済みの場合があります。</p>
-      </div>
-    </div>
-
-    <div class="main">
-      <form class="needs-validation" novalidate @submit.prevent="submitForm">
-        <div class="row g-3">
-          <div class="col-12">
-            <label for="username" class="form-label"
-              >ユーザー表示名 （任意の文字列を指定してください）</label
-            >
-            <input type="text" class="form-control" id="username" v-model="user.username" />
-          </div>
-
-          <div class="col-sm-6">
-            <label for="familyname" class="form-label">姓</label>
-            <input type="text" class="form-control" id="familyname" v-model="user.familyname" />
-          </div>
-
-          <div class="col-sm-6">
-            <label for="firstname" class="form-label">名</label>
-            <input type="text" class="form-control" id="firstname" v-model="user.firstname" />
-          </div>
-
-          <div class="col-sm-6">
-            <label for="familynameKana" class="form-label">姓 ふりかな</label>
-            <input
-              type="text"
-              class="form-control"
-              id="familynameKana"
-              v-model="user.familynameKana"
-            />
-          </div>
-
-          <div class="col-sm-6">
-            <label for="firstnameKana" class="form-label">名 ふりがな</label>
-            <input
-              type="text"
-              class="form-control"
-              id="firstnameKana"
-              v-model="user.firstnameKana"
-            />
-          </div>
-
-          <div class="col-12">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" readonly class="form-control" id="email" v-model="user.email" />
-          </div>
-
-          <div class="col-12">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" v-model="passwordRaw" />
-          </div>
+  <div class="container mx-auto">
+    <div class="p-2 border mt-3">
+      <div class="flex justify-center">
+        <div>
+          <div class="text-xl font-bold">Webapp4 ユーザー登録</div>
+          <div class="text-md mt-2">次の各項目を入力して、登録ボタンを押してください。</div>
         </div>
+      </div>
 
-        <div class="mt-3">
-          <button type="submit" class="btn btn-primary me-2">登録</button>
-          <button type="button" class="btn btn-secondary me-2" @click="toIndex">Topへ戻る</button>
+      <div class="flex justify-center mt-3" v-if="showErrorAlert">
+        <div class="" style="line-height: 1rem" role="alert">
+          <p class="">入力データに不備があります。</p>
+          <p>メールアドレスが既に登録済みの場合があります。</p>
         </div>
-      </form>
+      </div>
+
+      <div class="flex justify-center mt-3">
+        <form class="" novalidate @submit.prevent="submitForm">
+          <div class="flex flex-col">
+            <div class="flex p-3">
+              <label for="username" class="block w-32"> ユーザー表示名 </label>
+              <input-text class="w-64" id="username" v-model="user.username" />
+            </div>
+
+            <div class="flex p-3">
+              <label for="familyname" class="block w-32">姓</label>
+              <input-text class="w-64" id="familyname" v-model="user.familyname" />
+            </div>
+
+            <div class="flex p-3">
+              <label for="firstname" class="block w-32">名</label>
+              <input-text class="w-64" id="firstname" v-model="user.firstname" />
+            </div>
+
+            <div class="flex p-3">
+              <label for="familynameKana" class="block w-32">姓 ふりかな</label>
+              <input-text class="w-64" id="familynameKana" v-model="user.familynameKana" />
+            </div>
+
+            <div class="flex p-3">
+              <label for="firstnameKana" class="block w-32">名 ふりがな</label>
+              <input-text class="w-64" id="firstnameKana" v-model="user.firstnameKana" />
+            </div>
+
+            <div class="flex p-3">
+              <label for="email" class="block w-32">Email</label>
+              <input-email
+                id="email"
+                class="w-64"
+                placefolder="name@example.com"
+                v-model="user.email"
+                readonly
+              />
+            </div>
+
+            <div class="flex p-3">
+              <label for="password" class="block w-32">Password</label>
+              <input-password
+                id="password"
+                class="w-64"
+                placefolder="Password"
+                v-model="passwordRaw"
+              />
+            </div>
+          </div>
+
+          <div class="flex justify-center p-3">
+            <button-general type="submit" class="me-2">登録</button-general>
+            <button-general class="" @click="toIndex">Topへ戻る</button-general>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </template>
