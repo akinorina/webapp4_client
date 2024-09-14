@@ -2,6 +2,7 @@
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useImageStore } from '@/stores/image'
+import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
 
 // stores
 const router = useRouter()
@@ -19,33 +20,33 @@ onMounted(async () => {
 const toNew = () => {
   router.push({ name: 'admin_images_new', params: {} })
 }
-const toDetail = (iid: number) => {
-  router.push({ name: 'admin_images_detail', params: { id: iid } })
+const toEdit = (iid: number) => {
+  router.push({ name: 'admin_images_edit', params: { id: iid } })
 }
 </script>
 
 <template>
-  <div class="container main">
-    <div class="py-2 ope">
-      <button type="button" class="btn btn-outline-primary" @click="toNew">
-        <i class="bi bi-image display-6"></i>
-      </button>
+  <div class="container mx-auto">
+    <div class="mx-3 my-2">
+      <h2 class="font-bold my-2">画像</h2>
     </div>
 
-    <div class="body">
-      <div class="">
-        <div class="row images">
-          <div
-            class="col-12 col-sm-6 col-md-4 col-lg-3 col-xxl-2 d-flex justify-content-center align-items-center frame"
-            v-for="(item, index) in imageStore.images"
-            :key="index"
-          >
-            <div class="item">
+    <div class="my-2">
+      <button-general class="" @click="toNew">新規作成</button-general>
+    </div>
+
+    <div class="">
+      <div class="mx-auto">
+        <div class="flex flex-row flex-wrap justify-start gap-0">
+          <div class="flex-auto" v-for="(item, index) in imageStore.images" :key="index">
+            <div
+              class="size-48 border border-white flex justify-center items-center overflow-hidden"
+            >
               <img
-                class="image"
+                class="overflow-hidden"
                 :src="pathPrefix + item.path"
                 :alt="item.name"
-                @click="toDetail(item.id)"
+                @click="toEdit(item.id)"
               />
             </div>
           </div>
@@ -56,33 +57,33 @@ const toDetail = (iid: number) => {
 </template>
 
 <style scoped lang="scss">
-.main {
-  min-height: 100vh;
+// .main {
+//   min-height: 100vh;
 
-  .ope {
-    margin-bottom: 16px;
-  }
+//   .ope {
+//     margin-bottom: 16px;
+//   }
 
-  .body {
-    .images {
-      .frame {
-        height: 220px;
+//   .body {
+//     .images {
+//       .frame {
+//         height: 220px;
 
-        .item {
-          width: 210px;
-          height: 210px;
+//         .item {
+//           width: 210px;
+//           height: 210px;
 
-          display: flex;
-          justify-content: center;
-          align-items: center;
+//           display: flex;
+//           justify-content: center;
+//           align-items: center;
 
-          .image {
-            max-width: 210px;
-            max-height: 210px;
-          }
-        }
-      }
-    }
-  }
-}
+//           .image {
+//             max-width: 210px;
+//             max-height: 210px;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
 </style>
