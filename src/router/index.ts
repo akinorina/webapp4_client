@@ -31,59 +31,59 @@ const router = createRouter({
     {
       path: '/signin',
       name: 'sign-in',
-      component: () => import('../views/SigninView.vue')
+      component: () => import('../views/auth/SigninView.vue')
     },
     {
       path: '/signin-google-redirect',
       name: 'sign-in-google-redirect',
-      component: () => import('../views/SigninGoogleView.vue')
+      component: () => import('../views/auth/SigninGoogleView.vue')
     },
     {
       path: '/signout',
       name: 'sign-out',
-      component: () => import('../views/SignOutView.vue')
+      component: () => import('../views/auth/SignOutView.vue')
     },
     {
       path: '/signup',
       name: 'sign-up',
-      component: () => import('../views/SignUpView.vue')
+      component: () => import('../views/auth/SignUpView.vue')
     },
     {
       path: '/signup-sent-email',
       name: 'sign-up-sent-email',
-      component: () => import('../views/SignUpSentEmailView.vue')
+      component: () => import('../views/auth/SignUpSentEmailView.vue')
     },
     {
       path: '/signup-register-info',
       name: 'sign-up-register-info',
-      component: () => import('../views/SignUpRegisterInfoView.vue'),
+      component: () => import('../views/auth/SignUpRegisterInfoView.vue'),
       props: true
     },
     {
       path: '/signup-completion',
       name: 'sign-up-completion',
-      component: () => import('../views/SignUpCompletionView.vue')
+      component: () => import('../views/auth/SignUpCompletionView.vue')
     },
     {
       path: '/reset-password',
       name: 'reset-password',
-      component: () => import('../views/ResetPassword.vue')
+      component: () => import('../views/auth/ResetPassword.vue')
     },
     {
       path: '/reset-password-sent-email',
       name: 'reset-password-sent-email',
-      component: () => import('../views/ResetPasswordSentEmailView.vue')
+      component: () => import('../views/auth/ResetPasswordSentEmailView.vue')
     },
     {
       path: '/reset-password-input',
       name: 'reset-password-input',
-      component: () => import('../views/ResetPasswordInputView.vue'),
+      component: () => import('../views/auth/ResetPasswordInputView.vue'),
       props: true
     },
     {
       path: '/reset-password-completion',
       name: 'reset-password-completion',
-      component: () => import('../views/ResetPasswordCompletionView.vue')
+      component: () => import('../views/auth/ResetPasswordCompletionView.vue')
     },
     {
       path: '/admin',
