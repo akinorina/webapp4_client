@@ -3,8 +3,8 @@ import { ref } from 'vue'
 
 const props = defineProps({
   isCloseModalBack: { type: Boolean, default: true },
-  classBg: { type: String, default: 'bg-gray-300' },
-  classFg: { type: String, default: 'bg-gray-50' },
+  classBg: { type: String, default: '' },
+  classFg: { type: String, default: '' },
   styleBg: { type: String, default: '' },
   styleFg: { type: String, default: '' }
 })
@@ -35,10 +35,17 @@ defineExpose({
       <div
         class="w-screen h-screen flex justify-center items-center"
         :class="props.classBg"
+        style="background-color: rgba(0, 0, 0, 0.75)"
         :style="props.styleBg"
         @click.stop.prevent="closeModalBack"
       >
-        <div :class="props.classFg" :style="props.styleFg" @click.stop>
+        <div
+          class="border rounded-md"
+          :class="props.classFg"
+          style="background-color: white"
+          :style="props.styleFg"
+          @click.stop
+        >
           <slot></slot>
         </div>
       </div>

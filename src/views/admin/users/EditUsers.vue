@@ -4,9 +4,12 @@ import { storeToRefs } from 'pinia'
 import { useUserStore } from '@/stores/user'
 import { useRouter } from 'vue-router'
 import { defineAsyncComponent, ref } from 'vue'
+import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
+import InputText from '@/components/ui/InputText.vue'
+import InputEmail from '@/components/ui/InputEmail.vue'
 
 //@ts-ignore
-const BsModal = defineAsyncComponent(() => import('@/components/BsModal.vue'))
+const ModalGeneral = defineAsyncComponent(() => import('@/components/ModalGeneral.vue'))
 
 // stores
 const router = useRouter()
@@ -19,105 +22,142 @@ const props = defineProps({
 const id = parseInt(props.id) ?? 0
 
 // modal
-const editModal = ref()
+const modalUpdateConfirm = ref()
+const modalUpdateSuccess = ref()
+const modalDeleteConfirm = ref()
+const modalDeleteSuccess = ref()
 
 // lifecycle
-onMounted(() => {
-  userStore.getUser(id)
+onMounted(async () => {
+  await userStore.getUser(id)
 })
 
 // functions
-const toDetail = () => {
-  router.push({ name: 'admin_users_detail', params: { id: id } })
+const toIndex = () => {
+  router.push({ name: 'admin_users', params: { id: id } })
 }
-const submitForm = async () => {
+const updateUser = async () => {
+  modalUpdateConfirm.value.close()
+  // ユーザー情報更新
   await userStore.updateUser(id)
-  router.push({ name: 'admin_users_detail', params: { id: id } })
+  // ユーザー情報 再取得
+  await userStore.getUser(id)
+  modalUpdateSuccess.value.open()
+  setTimeout(() => {
+    modalUpdateSuccess.value.close()
+  }, 3000)
+}
+const deleteUser = async () => {
+  modalDeleteConfirm.value.close()
+  // ユーザー情報 削除
+  await userStore.deleteUser(id)
+  modalDeleteSuccess.value.open()
+  setTimeout(() => {
+    modalDeleteSuccess.value.close()
+    router.push({ name: 'admin_users' })
+  }, 3000)
 }
 </script>
 
 <template>
-  <div class="container">
-    <div class="main">
-      <form class="needs-validation" novalidate @submit.stop.prevent="editModal.open()">
-        <div class="row g-3">
-          <div class="col-12">
-            <label for="username" class="form-label">ID</label>
-            <div class="py-2 px-3 my-1 border rounded item">
-              {{ user.id }}
-            </div>
+  <div class="container mx-auto">
+    <div class="mx-3 my-2">
+      <h2 class="font-bold my-2">ユーザー - 編集</h2>
+    </div>
+
+    <div class="border p-3 m-3">
+      <form class="" novalidate @submit.prevent="modalUpdateConfirm.open()">
+        <div class="">
+          <div class="p-3 flex">
+            <label for="username" class="block w-3/12">ID</label>
+            <div class="w-9/12">{{ user.id }}</div>
           </div>
 
-          <div class="col-12">
-            <label for="username" class="form-label">ユーザー名</label>
-            <input type="text" class="form-control" id="username" v-model="user.username" />
+          <div class="p-3 flex">
+            <label for="username" class="block w-3/12">ユーザー名</label>
+            <input-text class="w-9/12" id="username" v-model="user.username" />
           </div>
 
-          <div class="col-sm-6">
-            <label for="familyname" class="form-label">姓</label>
-            <input type="text" class="form-control" id="familyname" v-model="user.familyname" />
+          <div class="p-3 flex">
+            <label for="familyname" class="block w-3/12">姓</label>
+            <input-text class="w-9/12" id="familyname" v-model="user.familyname" />
           </div>
 
-          <div class="col-sm-6">
-            <label for="firstname" class="form-label">名</label>
-            <input type="text" class="form-control" id="firstname" v-model="user.firstname" />
+          <div class="p-3 flex">
+            <label for="firstname" class="block w-3/12">名</label>
+            <input-text class="w-9/12" id="firstname" v-model="user.firstname" />
           </div>
 
-          <div class="col-sm-6">
-            <label for="familynameKana" class="form-label">姓 ふりかな</label>
-            <input
-              type="text"
-              class="form-control"
-              id="familynameKana"
-              v-model="user.familynameKana"
-            />
+          <div class="p-3 flex">
+            <label for="familynameKana" class="block w-3/12">姓 ふりかな</label>
+            <input-text class="w-9/12" id="familynameKana" v-model="user.familynameKana" />
           </div>
 
-          <div class="col-sm-6">
-            <label for="firstnameKana" class="form-label">名 ふりがな</label>
-            <input
-              type="text"
-              class="form-control"
-              id="firstnameKana"
-              v-model="user.firstnameKana"
-            />
+          <div class="p-3 flex">
+            <label for="firstnameKana" class="block w-3/12">名 ふりがな</label>
+            <input-text class="w-9/12" id="firstnameKana" v-model="user.firstnameKana" />
           </div>
 
-          <div class="col-12">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" v-model="user.email" />
+          <div class="p-3 flex">
+            <label for="email" class="block w-3/12">Email</label>
+            <input-email class="w-9/12" id="email" v-model="user.email" />
           </div>
         </div>
 
-        <div class="mt-3">
-          <button type="button" class="btn btn-secondary me-2" @click="toDetail">戻る</button>
-          <button type="submit" class="btn btn-primary">更新</button>
+        <div class="p-3 flex justify-center">
+          <button-general type="button" class="me-2" @click="toIndex">戻る</button-general>
+          <button-general type="submit" class="me-2">更新</button-general>
+          <button-general type="button" class="" @click="modalDeleteConfirm.open()">
+            削除
+          </button-general>
         </div>
       </form>
     </div>
   </div>
 
-  <BsModal ref="editModal">
-    <template #button>更新</template>
-    <template #title>更新してよろしいですか？</template>
-    <template #footer>
-      <button type="button" class="btn btn-primary" @click="submitForm">更新</button>
-    </template>
-    <template #close>いいえ</template>
-  </BsModal>
+  <ModalGeneral ref="modalUpdateConfirm">
+    <div class="w-80 h-54 p-3 border rounded-lg">
+      <div class="text-center mb-3">
+        <div class="font-bold">ユーザー情報</div>
+        <div class="">更新してよろしいですか？</div>
+      </div>
+      <div class="text-center mb-3">
+        <button-general class="w-24 me-2" @click="updateUser">はい</button-general>
+        <button-general class="w-24" @click="modalUpdateConfirm.close()">いいえ</button-general>
+      </div>
+    </div>
+  </ModalGeneral>
+
+  <ModalGeneral ref="modalUpdateSuccess">
+    <div class="w-80 h-54 p-3 border rounded-lg">
+      <div class="text-center mb-3">
+        <div class="font-bold">ユーザー情報</div>
+        <div class="">更新しました。</div>
+      </div>
+    </div>
+  </ModalGeneral>
+
+  <ModalGeneral ref="modalDeleteConfirm">
+    <div class="w-80 h-54 p-3 border rounded-lg">
+      <div class="text-center mb-3">
+        <div class="font-bold">ユーザー情報</div>
+        <div class="">削除してよろしいですか？</div>
+      </div>
+      <div class="text-center mb-3">
+        <button-general class="w-24 me-2" @click="deleteUser">はい</button-general>
+        <button-general class="w-24" @click="modalDeleteConfirm.close()">いいえ</button-general>
+      </div>
+    </div>
+  </ModalGeneral>
+
+  <ModalGeneral ref="modalDeleteSuccess">
+    <div class="w-80 h-54 p-3 border rounded-lg">
+      <div class="text-center mb-3">
+        <div class="font-bold">ユーザー情報</div>
+        <div class="">削除しました。</div>
+      </div>
+    </div>
+  </ModalGeneral>
 </template>
 
-<style scoped lang="scss">
-.container {
-  min-height: 100vh;
-  color: var(--bs-body-color);
-  background-color: var(--bs-body-bg);
-
-  .main {
-    input[type='text'],
-    input[type='email'] {
-      background-color: var(--bs-secondary-bg);
-    }
-  }
-}
-</style>
+<style scoped lang="scss"></style>
