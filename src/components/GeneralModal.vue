@@ -2,7 +2,11 @@
 import { ref } from 'vue'
 
 const props = defineProps({
-  isCloseModalBack: { type: Boolean, default: true }
+  isCloseModalBack: { type: Boolean, default: true },
+  classBg: { type: String, default: 'bg-gray-300' },
+  classFg: { type: String, default: 'bg-gray-50' },
+  styleBg: { type: String, default: '' },
+  styleFg: { type: String, default: '' }
 })
 
 const status = ref(false)
@@ -27,9 +31,14 @@ defineExpose({
 
 <template>
   <Teleport to="body">
-    <div v-if="status" class="modal">
-      <div class="modal__background" @click.stop.prevent="closeModalBack">
-        <div class="modal__content" @click.stop>
+    <div v-if="status" class="absolute left-0 top-0">
+      <div
+        class="w-screen h-screen flex justify-center items-center"
+        :class="props.classBg"
+        :style="props.styleBg"
+        @click.stop.prevent="closeModalBack"
+      >
+        <div :class="props.classFg" :style="props.styleFg" @click.stop>
           <slot></slot>
         </div>
       </div>
@@ -37,22 +46,4 @@ defineExpose({
   </Teleport>
 </template>
 
-<style scoped lang="scss">
-.modal {
-  display: block;
-
-  .modal__background {
-    width: 100vw;
-    height: 100vh;
-    background-color: #00000088;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .modal__content {
-    overflow: hidden;
-  }
-}
-</style>
+<style scoped lang="scss"></style>
