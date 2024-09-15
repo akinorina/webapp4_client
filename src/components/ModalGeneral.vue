@@ -31,7 +31,7 @@ defineExpose({
 
 <template>
   <Teleport to="body">
-    <div v-if="status" class="absolute left-0 top-0">
+    <div v-if="status" class="fixed left-0 top-0 z-[1000]">
       <div
         class="w-screen h-screen flex justify-center items-center"
         :class="props.classBg"

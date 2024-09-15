@@ -2,6 +2,7 @@
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useBlogStore } from '@/stores/blog'
+import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
 
 // stores
 const router = useRouter()
@@ -16,26 +17,24 @@ onMounted(async () => {
 const toNew = () => {
   router.push({ name: 'admin_blogs_new', params: {} })
 }
-const toDetail = (iid: number) => {
-  router.push({ name: 'admin_blogs_detail', params: { id: iid } })
+const toEdit = (iid: number) => {
+  router.push({ name: 'admin_blogs_edit', params: { id: iid } })
 }
 </script>
 
 <template>
-  <div class="container">
-    <div class="mx-2 my-3">
-      <button type="button" class="btn btn-outline-primary" @click="toNew">
-        <i class="bi bi-file-earmark-plus display-6"></i>
-      </button>
+  <div class="container mx-auto">
+    <div class="mx-3 my-2">
+      <h2 class="font-bold my-2">Blog</h2>
     </div>
 
-    <div class="row g-0 m-2 frame">
-      <div
-        class="col-12 px-2 py-2 m-2 bg-secondary text-light"
-        v-for="(item, index) in blogStore.blogs"
-        :key="index"
-      >
-        <div @click="toDetail(item.id)">
+    <div class="m-2">
+      <button-general type="button" class="" @click.stop="toNew">新規作成</button-general>
+    </div>
+
+    <div class="m-2 grid grid-cols-1 gap-2">
+      <div class="bg-slate-100" v-for="(item, index) in blogStore.blogs" :key="index">
+        <div class="border p-3" @click.stop="toEdit(item.id)">
           <div>{{ item.subject }}</div>
         </div>
       </div>

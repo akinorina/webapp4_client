@@ -112,12 +112,6 @@ const router = createRouter({
       component: () => import('../views/admin/images/IndexImages.vue')
     },
     {
-      path: '/admin/images/:id',
-      name: 'admin_images_detail',
-      component: () => import('../views/admin/images/DetailImages.vue'),
-      props: true
-    },
-    {
       path: '/admin/images/:id/edit',
       name: 'admin_images_edit',
       component: () => import('../views/admin/images/EditImages.vue'),
@@ -133,12 +127,6 @@ const router = createRouter({
       path: '/admin/blogs',
       name: 'admin_blogs',
       component: () => import('../views/admin/blogs/IndexBlogs.vue')
-    },
-    {
-      path: '/admin/blogs/:id',
-      name: 'admin_blogs_detail',
-      component: () => import('../views/admin/blogs/DetailBlogs.vue'),
-      props: true
     },
     {
       path: '/admin/blogs/:id/edit',
