@@ -1,53 +1,60 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import GeneralModal from '@/components/GeneralModal.vue'
+import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
 
 const gmodal = ref()
+const gmodal2 = ref()
 </script>
 
 <template>
-  <div class="container my-3">
-    <div class="p-5 mb-3 text-center bg-body-tertiary rounded-3">
-      <h1 class="text-body-emphasis">Webapp4 - Samples</h1>
-      <p class="col-lg-8 mx-auto fs-5 text-muted">sample of general modal</p>
+  <div class="container mx-auto">
+    <div class="p-3 border">
+      <h2 class="font-bold">Webapp4 - Samples</h2>
+      <div class="">sample of general modal</div>
     </div>
 
-    <!--
-    <div class="py-2 my-3 border rounded">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb mx-4 my-0">
-          <li class="breadcrumb-item">
-            <router-link :to="{ name: 'admin' }">管理画面 Top</router-link>
-          </li>
-          <li class="breadcrumb-item">
-            <router-link :to="{ name: 'admin_samples' }">サンプルs</router-link>
-          </li>
-          <li class="breadcrumb-item active">GeneralModal</li>
-        </ol>
-      </nav>
-    </div>
-    -->
+    <!-- モーダル 1 -->
+    <div class="p-3 border m-3">
+      <button-general type="button" class="" @click="gmodal.open()">open modal 1</button-general>
 
-    <div class="body">
-      <button type="button" class="btn btn-primary" @click="gmodal.open()">open modal</button>
-      <general-modal ref="gmodal" :is-close-modal-back="false">
-        <div class="generalmodal__content">
-          <div>
+      <general-modal ref="gmodal" :is-close-modal-back="true">
+        <div class="">
+          <div class="w-96 h-54 p-3">
             ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。
             ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。
           </div>
-          <button class="btn btn-primary" @click="gmodal.close()">close</button>
+          <div class="text-center mb-3">
+            <button-general class="" @click="gmodal.close()">close</button-general>
+          </div>
+        </div>
+      </general-modal>
+    </div>
+
+    <!-- モーダル 2 -->
+    <div class="p-3 border m-3">
+      <button-general type="button" class="" @click="gmodal2.open()">open modal 2</button-general>
+
+      <general-modal
+        ref="gmodal2"
+        :is-close-modal-back="false"
+        :class-bg="''"
+        :class-fg="'bg-green-300'"
+        :style-bg="'background-color: rgba(255, 255, 200, 0.75)'"
+        :style-fg="''"
+      >
+        <div class="">
+          <div class="w-96 h-54 p-3">
+            ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。
+            ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。
+          </div>
+          <div class="text-center mb-3">
+            <button-general class="" @click="gmodal2.close()">close</button-general>
+          </div>
         </div>
       </general-modal>
     </div>
   </div>
 </template>
 
-<style scoped lang="scss">
-.generalmodal__content {
-  width: 400px;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: white;
-}
-</style>
+<style scoped lang="scss"></style>

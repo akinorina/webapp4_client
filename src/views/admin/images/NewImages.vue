@@ -3,6 +3,8 @@ import { onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useImageStore } from '@/stores/image'
 import { useRouter } from 'vue-router'
+import InputText from '@/components/ui/InputText.vue'
+import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
 
 // stores
 const router = useRouter()
@@ -20,8 +22,6 @@ const toList = () => {
 }
 
 const chooseImage = (ev: any) => {
-  console.log('ev.target.files', ev.target.files)
-
   const fi = ev.target.files[0]
   image.value.originalname = fi.name
   image.value.mimetype = fi.type
@@ -31,7 +31,6 @@ const chooseImage = (ev: any) => {
     if (typeof evt.target?.result === 'string') {
       image.value.data = evt.target?.result
     }
-    console.log('--- image.value', image.value)
   }
   reader.readAsDataURL(fi)
 }
@@ -43,20 +42,20 @@ const submitForm = async () => {
 </script>
 
 <template>
-  <div class="container">
-    <div class="main">
-      <form class="needs-validation" novalidate @submit.prevent="submitForm">
-        <div class="row">
-          <div class="col-12 item">
-            <label for="familyname" class="form-label">画像表示名</label>
-            <input type="text" class="form-control" id="familyname" v-model="image.name" />
+  <div class="container mx-auto">
+    <div class="border p-3">
+      <form class="" novalidate @submit.prevent="submitForm">
+        <div class="">
+          <div class="flex p-3">
+            <label for="familyname" class="block w-40">画像表示名</label>
+            <input-text class="w-60" id="familyname" v-model="image.name" />
           </div>
 
-          <div class="col-12 item">
-            <label for="familyname" class="form-label">画像ファイル</label>
+          <div class="flex p-3">
+            <label for="familyname" class="block w-40">画像ファイル</label>
             <input
               type="file"
-              class="form-control"
+              class="w-60"
               id="familyname"
               name="image_file"
               @change="chooseImage"
@@ -64,34 +63,13 @@ const submitForm = async () => {
           </div>
         </div>
 
-        <div class="mt-3">
-          <button type="button" class="btn btn-secondary me-2" @click="toList">戻る</button>
-          <button type="submit" class="btn btn-primary me-2">作成</button>
+        <div class="">
+          <button-general type="button" class="me-2" @click="toList">戻る</button-general>
+          <button-general type="submit" class="">作成</button-general>
         </div>
       </form>
     </div>
   </div>
 </template>
 
-<style scoped lang="scss">
-.container {
-  min-height: 100vh;
-  color: var(--bs-body-color);
-  background-color: var(--bs-body-bg);
-
-  .users_title {
-    position: relative;
-  }
-
-  .main {
-    input[type='text'],
-    input[type='email'] {
-      background-color: var(--bs-secondary-bg);
-    }
-
-    .item {
-      margin-bottom: 1rem;
-    }
-  }
-}
-</style>
+<style scoped lang="scss"></style>

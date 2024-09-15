@@ -5,6 +5,10 @@ import { useUserStore } from '@/stores/user'
 import { useRouter } from 'vue-router'
 import { AxiosError } from 'axios'
 import { digestMessage } from '@/lib/Functions'
+import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
+import InputText from '@/components/ui/InputText.vue'
+import InputEmail from '@/components/ui/InputEmail.vue'
+import InputPassword from '@/components/ui/InputPassword.vue'
 
 // stores
 const router = useRouter()
@@ -19,8 +23,8 @@ watch(passwordRaw, async (newPasswordRaw) => {
 const showErrorAlert = ref(false)
 
 // lifecycle
-onMounted(() => {
-  userStore.newUser()
+onMounted(async () => {
+  await userStore.newUser()
 })
 
 // functions
@@ -43,63 +47,57 @@ const submitForm = async () => {
 </script>
 
 <template>
-  <div class="container">
-    <div v-if="showErrorAlert">
-      <div class="alert alert-danger" role="alert">入力データに不備があります。</div>
+  <div class="container mx-auto">
+    <div class="mx-3 my-2">
+      <h2 class="font-bold my-2">ユーザー - 新規作成</h2>
     </div>
 
-    <div class="main">
-      <form class="needs-validation" novalidate @submit.prevent="submitForm">
-        <div class="row g-3">
-          <div class="col-12">
-            <label for="username" class="form-label">ユーザー名</label>
-            <input type="text" class="form-control" id="username" v-model="user.username" />
+    <div v-if="showErrorAlert">
+      <div class="" role="alert">入力データに不備があります。</div>
+    </div>
+
+    <div class="border p-3 m-3">
+      <form class="" novalidate @submit.prevent="submitForm">
+        <div class="">
+          <div class="flex p-3">
+            <label for="username" class="block w-3/12">ユーザー名</label>
+            <input-text class="w-9/12" id="username" v-model="user.username" />
           </div>
 
-          <div class="col-sm-6">
-            <label for="familyname" class="form-label">姓</label>
-            <input type="text" class="form-control" id="familyname" v-model="user.familyname" />
+          <div class="flex p-3">
+            <label for="familyname" class="block w-3/12">姓</label>
+            <input-text class="w-9/12" id="familyname" v-model="user.familyname" />
           </div>
 
-          <div class="col-sm-6">
-            <label for="firstname" class="form-label">名</label>
-            <input type="text" class="form-control" id="firstname" v-model="user.firstname" />
+          <div class="flex p-3">
+            <label for="firstname" class="block w-3/12">名</label>
+            <input-text class="w-9/12" id="firstname" v-model="user.firstname" />
           </div>
 
-          <div class="col-sm-6">
-            <label for="familynameKana" class="form-label">姓 ふりかな</label>
-            <input
-              type="text"
-              class="form-control"
-              id="familynameKana"
-              v-model="user.familynameKana"
-            />
+          <div class="flex p-3">
+            <label for="familynameKana" class="block w-3/12">姓 ふりかな</label>
+            <input-text class="w-9/12" id="familynameKana" v-model="user.familynameKana" />
           </div>
 
-          <div class="col-sm-6">
-            <label for="firstnameKana" class="form-label">名 ふりがな</label>
-            <input
-              type="text"
-              class="form-control"
-              id="firstnameKana"
-              v-model="user.firstnameKana"
-            />
+          <div class="flex p-3">
+            <label for="firstnameKana" class="block w-3/12">名 ふりがな</label>
+            <input-text class="w-9/12" id="firstnameKana" v-model="user.firstnameKana" />
           </div>
 
-          <div class="col-12">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" v-model="user.email" />
+          <div class="flex p-3">
+            <label for="email" class="block w-3/12">Email</label>
+            <input-email class="w-9/12" id="email" v-model="user.email" />
           </div>
 
-          <div class="col-12">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" v-model="passwordRaw" />
+          <div class="flex p-3">
+            <label for="password" class="block w-3/12">Password</label>
+            <input-password class="w-9/12" id="password" v-model="passwordRaw" />
           </div>
         </div>
 
-        <div class="mt-3">
-          <button type="button" class="btn btn-secondary me-2" @click="toList">戻る</button>
-          <button type="submit" class="btn btn-primary me-2">作成</button>
+        <div class="p-3 flex justify-center">
+          <button-general type="button" class="me-2" @click="toList">戻る</button-general>
+          <button-general type="submit" class="">作成</button-general>
         </div>
       </form>
     </div>
@@ -107,27 +105,27 @@ const submitForm = async () => {
 </template>
 
 <style scoped lang="scss">
-.container {
-  min-height: 100vh;
-  color: var(--bs-body-color);
-  background-color: var(--bs-body-bg);
+// .container {
+//   min-height: 100vh;
+//   color: var(--bs-body-color);
+//   background-color: var(--bs-body-bg);
 
-  .users_title {
-    position: relative;
+//   .users_title {
+//     position: relative;
 
-    &_text {
-      position: absolute;
-      left: 20px;
-      bottom: 0;
-      font-weight: bold;
-    }
-  }
+//     &_text {
+//       position: absolute;
+//       left: 20px;
+//       bottom: 0;
+//       font-weight: bold;
+//     }
+//   }
 
-  .main {
-    input[type='text'],
-    input[type='email'] {
-      background-color: var(--bs-secondary-bg);
-    }
-  }
-}
+//   .main {
+//     input[type='text'],
+//     input[type='email'] {
+//       background-color: var(--bs-secondary-bg);
+//     }
+//   }
+// }
 </style>

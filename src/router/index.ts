@@ -24,66 +24,61 @@ const router = createRouter({
       component: () => import('../views/samples/GeneralModalView.vue')
     },
     {
-      path: '/samples/bsmodal',
-      name: 'samples_bsmodal',
-      component: () => import('../views/samples/BsModalView.vue')
-    },
-    {
       path: '/signin',
       name: 'sign-in',
-      component: () => import('../views/SigninView.vue')
+      component: () => import('../views/auth/SigninView.vue')
     },
     {
       path: '/signin-google-redirect',
       name: 'sign-in-google-redirect',
-      component: () => import('../views/SigninGoogleView.vue')
+      component: () => import('../views/auth/SigninGoogleView.vue')
     },
     {
       path: '/signout',
       name: 'sign-out',
-      component: () => import('../views/SignOutView.vue')
+      component: () => import('../views/auth/SignOutView.vue')
     },
     {
       path: '/signup',
       name: 'sign-up',
-      component: () => import('../views/SignUpView.vue')
+      component: () => import('../views/auth/SignUpView.vue')
     },
     {
       path: '/signup-sent-email',
       name: 'sign-up-sent-email',
-      component: () => import('../views/SignUpSentEmailView.vue')
+      component: () => import('../views/auth/SignUpSentEmailView.vue')
     },
     {
       path: '/signup-register-info',
       name: 'sign-up-register-info',
-      component: () => import('../views/SignUpRegisterInfoView.vue'),
+      component: () => import('../views/auth/SignUpRegisterInfoView.vue'),
       props: true
     },
     {
       path: '/signup-completion',
       name: 'sign-up-completion',
-      component: () => import('../views/SignUpCompletionView.vue')
+      component: () => import('../views/auth/SignUpCompletionView.vue')
     },
     {
       path: '/reset-password',
       name: 'reset-password',
-      component: () => import('../views/ResetPassword.vue')
+      component: () => import('../views/auth/ResetPassword.vue')
     },
     {
       path: '/reset-password-sent-email',
       name: 'reset-password-sent-email',
-      component: () => import('../views/ResetPasswordSentEmailView.vue')
+      component: () => import('../views/auth/ResetPasswordSentEmailView.vue')
     },
     {
       path: '/reset-password-input',
       name: 'reset-password-input',
-      component: () => import('../views/ResetPasswordInputView.vue'),
+      component: () => import('../views/auth/ResetPasswordInputView.vue'),
       props: true
     },
     {
       path: '/reset-password-completion',
       name: 'reset-password-completion',
-      component: () => import('../views/ResetPasswordCompletionView.vue')
+      component: () => import('../views/auth/ResetPasswordCompletionView.vue')
     },
     {
       path: '/admin',
@@ -99,12 +94,6 @@ const router = createRouter({
       path: '/admin/users',
       name: 'admin_users',
       component: () => import('../views/admin/users/IndexUsers.vue')
-    },
-    {
-      path: '/admin/users/:id',
-      name: 'admin_users_detail',
-      component: () => import('../views/admin/users/DetailUsers.vue'),
-      props: true
     },
     {
       path: '/admin/users/:id/edit',
@@ -123,12 +112,6 @@ const router = createRouter({
       component: () => import('../views/admin/images/IndexImages.vue')
     },
     {
-      path: '/admin/images/:id',
-      name: 'admin_images_detail',
-      component: () => import('../views/admin/images/DetailImages.vue'),
-      props: true
-    },
-    {
       path: '/admin/images/:id/edit',
       name: 'admin_images_edit',
       component: () => import('../views/admin/images/EditImages.vue'),
@@ -144,12 +127,6 @@ const router = createRouter({
       path: '/admin/blogs',
       name: 'admin_blogs',
       component: () => import('../views/admin/blogs/IndexBlogs.vue')
-    },
-    {
-      path: '/admin/blogs/:id',
-      name: 'admin_blogs_detail',
-      component: () => import('../views/admin/blogs/DetailBlogs.vue'),
-      props: true
     },
     {
       path: '/admin/blogs/:id/edit',
@@ -171,7 +148,7 @@ router.beforeEach((to, from, next) => {
   // 行き先ページが管理者用ページである判定
   const isAdminPage = String(to.name).match(/^admin/) !== null
 
-  if (isAdminPage && !authStore.isAuthenticated) {
+  if (isAdminPage && !authStore.isAuthenticated()) {
     // 管理者用ページへ未認証状態で遷移の場合、ログイン画面へ遷移
     next({ name: 'sign-in' })
   } else {

@@ -18,39 +18,37 @@ const signUp = () => {
 </script>
 
 <template>
-  <div>
-    <header class="d-flex flex-wrap justify-content-between py-3 mb-4 border-bottom">
-      <div v-if="authStore.isAuthenticated">
-        <router-link
-          :to="{ name: 'admin' }"
-          class="d-flex align-items-center me-3 link-body-emphasis text-decoration-none"
-        >
-          <i class="bi bi-yin-yang me-2" style="font-size: 1.7rem; color: cornflowerblue"></i>
-          <span class="fs-4">Webapp4 UserPage</span>
+  <header class="container mx-auto flex bg-slate-100">
+    <div class="flex-auto" v-if="authStore.isAuthenticated()">
+      <div class="px-2 py-1 m-1">
+        <router-link :to="{ name: 'admin' }">
+          <span class="text-xl">Webapp4</span>
         </router-link>
       </div>
-      <div v-else>
-        <router-link
-          :to="{ name: 'index' }"
-          class="d-flex align-items-center me-3 link-body-emphasis text-decoration-none"
-        >
-          <i class="bi bi-yin-yang me-2" style="font-size: 1.7rem; color: cornflowerblue"></i>
-          <span class="fs-4">Webapp4</span>
+    </div>
+    <div class="flex-auto" v-else>
+      <div class="px-2 py-1 m-1">
+        <router-link :to="{ name: 'index' }">
+          <span class="text-xl">Webapp4</span>
         </router-link>
       </div>
+    </div>
 
-      <div class="d-flex justify-content-end col-md-4 text-end" v-if="authStore.isAuthenticated">
-        <div class="me-3 mt-2">
-          {{ authStore.username }}
-        </div>
-        <button type="button" class="btn btn-outline-primary" @click="signOut">Sign-out</button>
-      </div>
-      <div class="d-flex justify-content-end col-md-4 text-end" v-else>
-        <button type="button" class="btn btn-outline-primary me-2" @click="signIn">Sign-in</button>
-        <button type="button" class="btn btn-primary" @click="signUp">Sign-up</button>
-      </div>
-    </header>
-  </div>
+    <div class="flex items-center" v-if="authStore.isAuthenticated()">
+      <div class="me-2">{{ authStore.getUsername() }}</div>
+      <button type="button" class="px-2 py-1 m-1 border rounded-md bg-white" @click="signOut">
+        Sign-out
+      </button>
+    </div>
+    <div class="flex items-center" v-else>
+      <button type="button" class="px-2 py-1 m-1 border rounded-md bg-white" @click="signIn">
+        Sign-in
+      </button>
+      <button type="button" class="px-2 py-1 m-1 border rounded-md bg-white" @click="signUp">
+        Sign-up
+      </button>
+    </div>
+  </header>
 </template>
 
 <style scoped lang="scss"></style>

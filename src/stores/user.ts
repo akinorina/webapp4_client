@@ -2,7 +2,6 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { axios } from '@/lib/Axios'
 import User from '@/lib/User'
-import { digestMessage } from '@/lib/Functions'
 
 export const useUserStore = defineStore('user', () => {
   const user = ref<User>(new User())
@@ -53,12 +52,9 @@ export const useUserStore = defineStore('user', () => {
   }
 
   async function changePassword() {
-    const oldPw = await digestMessage(oldPassword.value)
-    const newPw = await digestMessage(newPassword.value)
-
     const options = {
-      oldPassword: oldPw,
-      newPassword: newPw
+      oldPassword: oldPassword.value,
+      newPassword: newPassword.value
     }
     await axios.put('/api/users/change-password', options)
   }
