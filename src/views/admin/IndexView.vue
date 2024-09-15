@@ -14,7 +14,7 @@ const authStore = useAuthStore()
 
     <div class="p-3 bg-slate-100">
       <div class="grid grid-cols-3 gap-3">
-        <div class="border rounded-md bg-slate-50 p-2" v-if="authStore.username === 'admin'">
+        <div class="border rounded-md bg-slate-50 p-2" v-if="authStore.getUsername() === 'admin'">
           <router-link :to="{ name: 'admin_users' }" class="">
             <div class="">
               <div class="flex flex-col items-center">

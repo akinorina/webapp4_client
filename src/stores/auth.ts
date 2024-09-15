@@ -3,17 +3,20 @@ import { defineStore } from 'pinia'
 import { useRouter } from 'vue-router'
 import dayjs from 'dayjs'
 import { axios } from '@/lib/Axios'
+import Profile from '@/lib/Profile'
 
 export const useAuthStore = defineStore('auth', () => {
   const router = useRouter()
 
-  const username = ref('')
+  // Sign-in 変数
   const email = ref('')
   const password = ref('')
-  const iat = ref(0)
-  const exp = ref(0)
-  const isAuthenticated = ref(false)
+
+  // setInterval ID.
   let iID: number = 0
+
+  // Profile
+  const profile = ref<Profile>(new Profile())
 
   // restore from localStorage
   if (localStorage.getItem('auth')) {
@@ -21,34 +24,23 @@ export const useAuthStore = defineStore('auth', () => {
     if (typeof jsonLsData === 'string') {
       const lsData = JSON.parse(jsonLsData)
       axios.defaults.headers['Authorization'] = 'Bearer ' + lsData.access_token
-      username.value = lsData.username
-      email.value = lsData.email
-      iat.value = lsData.iat
-      exp.value = lsData.exp
-      isAuthenticated.value = lsData.isAuthenticated
+      profile.value = new Profile(lsData)
     }
   }
 
+  // ユーザー表示名 取得
+  const getUsername = () => {
+    return profile.value.username
+  }
+
+  // サインイン有効期限内 判定
+  const isAuthenticated = () => {
+    return dayjs().isBefore(dayjs(profile.value.exp))
+  }
+
   // 時間切れ処理 on reload.
-  isAuthenticated.value = dayjs().isBefore(dayjs(exp.value))
-  if (isAuthenticated.value) {
-    iID = window.setInterval(() => {
-      isAuthenticated.value = dayjs().isBefore(dayjs(exp.value))
-      if (!isAuthenticated.value) {
-        // reset values
-        axios.defaults.headers['Authorization'] = null
-        username.value = ''
-        email.value = ''
-        iat.value = dayjs().valueOf()
-        exp.value = 0
-        isAuthenticated.value = false
-
-        clearInterval(iID)
-        localStorage.removeItem('auth')
-
-        router.push({ name: 'sign-out' })
-      }
-    }, 1000)
+  if (isAuthenticated()) {
+    setTimeoutProc()
   }
 
   async function signIn() {
@@ -62,41 +54,21 @@ export const useAuthStore = defineStore('auth', () => {
 
     // get profle
     const res2 = await getProfile()
-    username.value = res2.data.username
-    email.value = res2.data.email
-    iat.value = res2.data.iat * 1000
-    exp.value = res2.data.exp * 1000
-    isAuthenticated.value = dayjs().isBefore(dayjs(exp.value))
+
+    // set Profile obj.
+    profile.value.set({
+      access_token: res.data.access_token,
+      username: res2.data.username,
+      email: res2.data.email,
+      iat: res2.data.iat,
+      exp: res2.data.exp
+    })
 
     // save to localStorage
-    const lsData = {
-      access_token: res.data.access_token,
-      username: username.value,
-      email: email.value,
-      iat: iat.value,
-      exp: exp.value,
-      isAuthenticated: isAuthenticated.value
-    }
-    localStorage.setItem('auth', JSON.stringify(lsData))
+    localStorage.setItem('auth', JSON.stringify(profile.value))
 
     // 時間切れ処理
-    iID = window.setInterval(() => {
-      isAuthenticated.value = dayjs().isBefore(dayjs(exp.value))
-      if (!isAuthenticated.value) {
-        // reset values
-        axios.defaults.headers['Authorization'] = null
-        username.value = ''
-        email.value = ''
-        iat.value = dayjs().valueOf()
-        exp.value = 0
-        isAuthenticated.value = false
-
-        clearInterval(iID)
-        localStorage.removeItem('auth')
-
-        router.push({ name: 'sign-out' })
-      }
-    }, 1000)
+    setTimeoutProc()
   }
 
   async function signInByGoogle() {
@@ -111,41 +83,21 @@ export const useAuthStore = defineStore('auth', () => {
 
     // get profle
     const res2 = await getProfile()
-    username.value = res2.data.username
-    email.value = res2.data.email
-    iat.value = res2.data.iat * 1000
-    exp.value = res2.data.exp * 1000
-    isAuthenticated.value = dayjs().isBefore(dayjs(exp.value))
+
+    // set Profile obj.
+    profile.value.set({
+      access_token: query.access_token,
+      username: res2.data.username,
+      email: res2.data.email,
+      iat: res2.data.iat,
+      exp: res2.data.exp
+    })
 
     // save to localStorage
-    const lsData = {
-      access_token: query.access_token,
-      username: username.value,
-      email: email.value,
-      iat: iat.value,
-      exp: exp.value,
-      isAuthenticated: isAuthenticated.value
-    }
-    localStorage.setItem('auth', JSON.stringify(lsData))
+    localStorage.setItem('auth', JSON.stringify(profile.value))
 
     // 時間切れ処理
-    iID = window.setInterval(() => {
-      isAuthenticated.value = dayjs().isBefore(dayjs(exp.value))
-      if (!isAuthenticated.value) {
-        // reset values
-        axios.defaults.headers['Authorization'] = null
-        username.value = ''
-        email.value = ''
-        iat.value = dayjs().valueOf()
-        exp.value = 0
-        isAuthenticated.value = false
-
-        clearInterval(iID)
-        localStorage.removeItem('auth')
-
-        router.push({ name: 'sign-out' })
-      }
-    }, 1000)
+    setTimeoutProc()
 
     return true // Sign-in ok
   }
@@ -155,12 +107,7 @@ export const useAuthStore = defineStore('auth', () => {
     await axios.post('/api/auth/signout', {})
     // reset values
     axios.defaults.headers['Authorization'] = null
-    username.value = ''
-    email.value = ''
-    iat.value = dayjs().valueOf()
-    exp.value = 0
-    isAuthenticated.value = false
-
+    profile.value.clear()
     clearInterval(iID)
     localStorage.removeItem('auth')
   }
@@ -170,19 +117,32 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   function getExpiredTime(): string {
-    return dayjs(exp.value).format('YYYY-MM-DD HH:mm:ss')
+    return dayjs(profile.value.exp).format('YYYY-MM-DD HH:mm:ss')
+  }
+
+  function setTimeoutProc() {
+    // 時間切れ処理
+    iID = window.setInterval(() => {
+      if (!isAuthenticated()) {
+        axios.defaults.headers['Authorization'] = null
+        profile.value.clear()
+        clearInterval(iID)
+        localStorage.removeItem('auth')
+        router.push({ name: 'sign-out' })
+      }
+    }, 1000)
   }
 
   return {
-    username,
     email,
     password,
+    getUsername,
+    isAuthenticated,
     signIn,
     signInByGoogle,
     signInByGoogleRedirect,
     signOut,
     getProfile,
-    isAuthenticated,
     getExpiredTime
   }
 })

@@ -148,7 +148,7 @@ router.beforeEach((to, from, next) => {
   // 行き先ページが管理者用ページである判定
   const isAdminPage = String(to.name).match(/^admin/) !== null
 
-  if (isAdminPage && !authStore.isAuthenticated) {
+  if (isAdminPage && !authStore.isAuthenticated()) {
     // 管理者用ページへ未認証状態で遷移の場合、ログイン画面へ遷移
     next({ name: 'sign-in' })
   } else {

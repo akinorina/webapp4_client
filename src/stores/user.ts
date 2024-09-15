@@ -2,7 +2,6 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { axios } from '@/lib/Axios'
 import User from '@/lib/User'
-import { digestMessage } from '@/lib/Functions'
 
 export const useUserStore = defineStore('user', () => {
   const user = ref<User>(new User())

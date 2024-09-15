@@ -17,7 +17,7 @@ watch(passwordRaw, async (newPasswordRaw) => {
   authStore.password = await digestMessage(newPasswordRaw)
 })
 
-const submit = async () => {
+const submitSignin = async () => {
   try {
     await authStore.signIn()
     router.push({ name: 'admin' })
@@ -40,7 +40,7 @@ const signInGoogle = () => {
 
 <template>
   <div class="container mx-auto">
-    <form @submit.prevent="submit">
+    <form @submit.prevent="submitSignin">
       <div class="my-3 p-3 border">
         <div class="flex justify-center m-3">Please sign in</div>
 

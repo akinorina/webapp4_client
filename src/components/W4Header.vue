@@ -19,7 +19,7 @@ const signUp = () => {
 
 <template>
   <header class="container mx-auto flex bg-slate-100">
-    <div class="flex-auto" v-if="authStore.isAuthenticated">
+    <div class="flex-auto" v-if="authStore.isAuthenticated()">
       <div class="px-2 py-1 m-1">
         <router-link :to="{ name: 'admin' }">
           <span class="text-xl">Webapp4</span>
@@ -34,8 +34,8 @@ const signUp = () => {
       </div>
     </div>
 
-    <div class="flex items-center" v-if="authStore.isAuthenticated">
-      <div class="me-2">{{ authStore.username }}</div>
+    <div class="flex items-center" v-if="authStore.isAuthenticated()">
+      <div class="me-2">{{ authStore.getUsername() }}</div>
       <button type="button" class="px-2 py-1 m-1 border rounded-md bg-white" @click="signOut">
         Sign-out
       </button>
