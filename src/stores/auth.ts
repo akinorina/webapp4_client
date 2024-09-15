@@ -29,6 +29,28 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  // 時間切れ処理 on reload.
+  isAuthenticated.value = dayjs().isBefore(dayjs(exp.value))
+  if (isAuthenticated.value) {
+    iID = window.setInterval(() => {
+      isAuthenticated.value = dayjs().isBefore(dayjs(exp.value))
+      if (!isAuthenticated.value) {
+        // reset values
+        axios.defaults.headers['Authorization'] = null
+        username.value = ''
+        email.value = ''
+        iat.value = dayjs().valueOf()
+        exp.value = 0
+        isAuthenticated.value = false
+
+        clearInterval(iID)
+        localStorage.removeItem('auth')
+
+        router.push({ name: 'sign-out' })
+      }
+    }, 1000)
+  }
+
   async function signIn() {
     // sign-in
     const signinData = {
