@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
+import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
+import InputPassword from '@/components/ui/InputPassword.vue'
+import { digestMessage } from '@/lib/Functions'
 
 // stores
 const router = useRouter()
@@ -10,6 +13,16 @@ const userStore = useUserStore()
 // variables
 const resultSuccess = ref(false)
 const resultFailure = ref(false)
+
+const passwordOldRaw = ref('')
+watch(passwordOldRaw, async (passwordOldRaw) => {
+  userStore.oldPassword = await digestMessage(passwordOldRaw)
+})
+
+const passwordNewRaw = ref('')
+watch(passwordNewRaw, async (passwordNewRaw) => {
+  userStore.newPassword = await digestMessage(passwordNewRaw)
+})
 
 //
 onMounted(() => {
@@ -39,40 +52,27 @@ const submitForm = async () => {
 </script>
 
 <template>
-  <div class="container">
-    <div class="main">
-      <div class="alert alert-success" role="alert" v-if="resultSuccess">
-        パスワードが変更されました。
-      </div>
-      <div class="alert alert-danger" role="alert" v-if="resultFailure">
-        パスワード変更が失敗しました。
-      </div>
-      <form class="needs-validation" novalidate @submit.stop.prevent="submitForm">
-        <div class="row g-3">
-          <div class="col-12">
-            <label for="old_password" class="form-label">これまでのパスワード</label>
-            <input
-              type="password"
-              class="form-control"
-              id="old_password"
-              v-model="userStore.oldPassword"
-            />
+  <div class="container mx-auto">
+    <div class="border p-3">
+      <div class="p-3 bg-green-300 mb-3" v-if="resultSuccess">パスワードが変更されました。</div>
+      <div class="p-3 bg-red-300 mb-3" v-if="resultFailure">パスワード変更が失敗しました。</div>
+
+      <form class="" novalidate @submit.stop.prevent="submitForm">
+        <div class="flex flex-col items-center">
+          <div class="flex justify-start">
+            <label for="old_password" class="block w-48">これまでのパスワード</label>
+            <input-password class="w-80" id="old_password" v-model="passwordOldRaw" />
           </div>
 
-          <div class="col-12">
-            <label for="new_password" class="form-label">新しいパスワード</label>
-            <input
-              type="password"
-              class="form-control"
-              id="new_password"
-              v-model="userStore.newPassword"
-            />
+          <div class="flex justify-start mt-3">
+            <label for="new_password" class="block w-48">新しいパスワード</label>
+            <input-password class="w-80" id="new_password" v-model="passwordNewRaw" />
           </div>
         </div>
 
-        <div class="mt-3">
-          <button type="button" class="btn btn-secondary me-2" @click="toAdmin">戻る</button>
-          <button type="submit" class="btn btn-primary">更新</button>
+        <div class="mt-5 text-center">
+          <button-general type="button" class="me-2" @click="toAdmin">戻る</button-general>
+          <button-general type="submit" class="">更新</button-general>
         </div>
       </form>
     </div>

@@ -13,48 +13,45 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
-    <div class="container my-3">
-      <div class="p-5 mb-3 text-center bg-body-tertiary rounded-3">
-        <h1 class="text-body-emphasis">Webapp4</h1>
-        <p class="col-lg-8 mx-auto fs-5 text-muted">
-          Web アプリケーション テンプレート ver.4 です。<br />
-          Database, SMTP, ObjectStorage などのミドルウェアとともに動作。<br />
-          NestJSのRestAPI サーバー、および、Vue3 による クライアント により実現してます。
-        </p>
+  <div class="container mx-auto">
+    <div class="border p-3">
+      <div class="text-xs">
+        Web アプリケーション テンプレート ver.4 です。<br />
+        Database, SMTP, ObjectStorage などのミドルウェアとともに動作。<br />
+        NestJSのRestAPI サーバー、および、Vue3 による クライアント により実現してます。
       </div>
     </div>
 
-    <div class="container text-center">
-      <div class="row">
-        <div class="col-4">
-          <router-link :to="{ name: 'admin' }" class="text-decoration-none">
-            <div class="card bg-body-tertiary text-body border rounded p-3">
-              <div class="card-body px-2">
-                <h5 class="card-title">User Page</h5>
-                <p class="card-text">登録ユーザー用のページへ遷移。</p>
-              </div>
+    <div class="m-1">
+      <div class="grid grid-cols-2 gap-3">
+        <div class="border rounded bg-slate-100 p-3">
+          <router-link :to="{ name: 'admin' }" class="">
+            <div class="">
+              <div class="font-bold">User Page</div>
+              <div class="text-xs">登録ユーザー用のページへ遷移。</div>
             </div>
           </router-link>
         </div>
 
-        <div class="col-4">
-          <router-link :to="{ name: 'samples' }" class="text-decoration-none">
-            <div class="card bg-body-tertiary text-body border rounded p-3">
-              <div class="card-body px-2">
-                <h5 class="card-title">Samples</h5>
-                <p class="card-text">Webapp4 各種機能のサンプルページ。</p>
-              </div>
+        <div class="border rounded bg-slate-100 p-3">
+          <router-link :to="{ name: 'samples' }" class="">
+            <div class="">
+              <div class="font-bold">Samples</div>
+              <div class="text-xs">各種機能のサンプルページ。</div>
             </div>
           </router-link>
         </div>
       </div>
     </div>
 
-    <div class="container">
-      <div class="row g-0 mt-4">
-        <div class="col-4 photo" v-for="(image, index) in imagePublicStore.images" :key="index">
-          <img class="img-thumbnail photo__img" :src="pathPrefix + image.path" :alt="image.name" />
+    <div class="mt-16">
+      <div class="flex flex-wrap justify-center gap-8">
+        <div
+          class="size-40 border overflow-hidden flex items-center"
+          v-for="(image, index) in imagePublicStore.images"
+          :key="index"
+        >
+          <img class="" :src="pathPrefix + image.path" :alt="image.name" />
         </div>
       </div>
     </div>
@@ -66,7 +63,8 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 0 20px 0;
+  // margin: 0 0 20px 0;
+  background-color: #f0f0f0;
 
   &__img {
     border: 1px black solid;

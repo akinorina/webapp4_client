@@ -3,10 +3,13 @@ import { onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useImageStore } from '@/stores/image'
 import { useRouter } from 'vue-router'
-import { defineAsyncComponent, ref } from 'vue'
+import { ref } from 'vue'
+import ModalGeneral from '@/components/ModalGeneral.vue'
+import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
+import InputText from '@/components/ui/InputText.vue'
 
-//@ts-ignore
-const BsModal = defineAsyncComponent(() => import('@/components/BsModal.vue'))
+// //@ts-ignore
+// const BsModal = defineAsyncComponent(() => import('@/components/BsModal.vue'))
 
 // stores
 const router = useRouter()
@@ -17,7 +20,10 @@ const { image } = storeToRefs(imageStore)
 const pathPrefix = import.meta.env.VITE_STORAGE_PATH_PREFIX
 
 // modal
-const editModal = ref()
+const modalUpdateConfirm = ref()
+const modalUpdateSuccess = ref()
+const modalDeleteConfirm = ref()
+const modalDeleteSuccess = ref()
 
 const props = defineProps({
   id: { type: String, required: true }
@@ -30,56 +36,104 @@ onMounted(() => {
 })
 
 // functions
-const toDetail = () => {
-  router.push({ name: 'admin_images_detail', params: {} })
+const toList = () => {
+  router.push({ name: 'admin_images', params: {} })
 }
-const submitForm = async () => {
+const updateImage = async () => {
+  modalUpdateConfirm.value.close()
+  // 画像情報 更新
   await imageStore.updateImage(id)
-  router.push({ name: 'admin_images_detail', params: { id: id } })
+  modalUpdateSuccess.value.open()
+  setTimeout(() => {
+    modalUpdateSuccess.value.close()
+  }, 3000)
+}
+const deleteImage = async () => {
+  modalDeleteConfirm.value.close()
+  // 画像情報 削除
+  await imageStore.deleteImage(id)
+  modalDeleteSuccess.value.open()
+  setTimeout(() => {
+    modalDeleteSuccess.value.close()
+    router.push({ name: 'admin_images', params: {} })
+  }, 3000)
 }
 </script>
 
 <template>
-  <div class="container main">
-    <form class="needs-validation" novalidate @submit.stop.prevent="editModal.open()">
-      <div class="main">
-        <div class="row">
-          <div class="col-6">
-            <div class="p-3 my-1 border rounded item text-center align-item-center">
-              <img :src="pathPrefix + image.path" class="image" />
+  <div class="containter mx-auto">
+    <form class="" novalidate @submit.stop.prevent="modalUpdateConfirm.open()">
+      <div class="p-3">
+        <div class="flex gap-4">
+          <div class="">
+            <div class="w-96">
+              <img :src="pathPrefix + image.path" class="" />
             </div>
           </div>
-          <div class="col-6">
-            <div class="row">
-              <div class="col-sm-6" style="width: 100%">
-                <label for="imagename" class="form-label">表示名</label>
-                <input
-                  type="text"
-                  class="form-control imagename"
-                  id="imagename"
-                  v-model="image.name"
-                />
+          <div class="">
+            <div class="">
+              <div class="" style="width: 100%">
+                <label for="imagename" class="block">表示名</label>
+                <input-text class="" id="imagename" v-model="image.name" />
               </div>
             </div>
           </div>
         </div>
 
-        <div class="p-3 mt-3">
-          <button type="button" class="btn btn-secondary me-2" @click="toDetail">戻る</button>
-          <button type="submit" class="btn btn-primary">更新</button>
+        <div class="mt-3">
+          <button-general type="button" class="me-2" @click="toList">戻る</button-general>
+          <button-general type="submit" class="me-2"> 更新 </button-general>
+          <button-general type="button" class="" @click="modalDeleteConfirm.open()">
+            削除
+          </button-general>
         </div>
       </div>
     </form>
   </div>
 
-  <BsModal ref="editModal">
-    <template #button>更新</template>
-    <template #title>更新してよろしいですか？</template>
-    <template #footer>
-      <button type="button" class="btn btn-primary" @click="submitForm">更新</button>
-    </template>
-    <template #close>いいえ</template>
-  </BsModal>
+  <ModalGeneral ref="modalUpdateConfirm">
+    <div class="w-64 p-3">
+      <div class="text-center">
+        <div class="font-bold">画像情報</div>
+        <div class="m-3">更新してよろしいですか？</div>
+      </div>
+      <div class="text-center">
+        <button-general class="me-2" @click="updateImage">はい</button-general>
+        <button-general class="" @click="modalUpdateConfirm.close()">いいえ</button-general>
+      </div>
+    </div>
+  </ModalGeneral>
+
+  <ModalGeneral ref="modalUpdateSuccess">
+    <div class="w-64 p-3">
+      <div class="text-center">
+        <div class="font-bold">画像情報</div>
+        <div class="m-3">更新しました。</div>
+      </div>
+    </div>
+  </ModalGeneral>
+
+  <ModalGeneral ref="modalDeleteConfirm">
+    <div class="w-64 p-3">
+      <div class="text-center">
+        <div class="font-bold">画像情報</div>
+        <div class="m-3">削除してよろしいですか？</div>
+      </div>
+      <div class="text-center">
+        <button-general class="me-2" @click="deleteImage">はい</button-general>
+        <button-general class="" @click="modalDeleteConfirm.close()">いいえ</button-general>
+      </div>
+    </div>
+  </ModalGeneral>
+
+  <ModalGeneral ref="modalDeleteSuccess">
+    <div class="w-64 p-3">
+      <div class="text-center">
+        <div class="font-bold">画像情報</div>
+        <div class="m-3">削除しました。</div>
+      </div>
+    </div>
+  </ModalGeneral>
 </template>
 
 <style scoped lang="scss">

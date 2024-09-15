@@ -4,7 +4,10 @@ import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { AxiosError } from 'axios'
 import { useBlogStore } from '@/stores/blog'
-import MyCkeditor from '../../../components/MyCkeditor.vue'
+import CkeditorBalloon from '@/components/CkeditorBalloon.vue'
+import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
+import InputText from '@/components/ui/InputText.vue'
+import ModalGeneral from '@/components/ModalGeneral.vue'
 
 // stores
 const router = useRouter()
@@ -13,19 +16,32 @@ const { blog } = storeToRefs(blogStore)
 
 const showErrorAlert = ref(false)
 
+// modal
+const modalCreateConfirm = ref()
+const modalCreateSuccess = ref()
+
 // lifecycle
 onMounted(() => {
   blogStore.newBlog()
 })
 
 // functions
-const toList = () => {
+const toIndex = () => {
   router.push({ name: 'admin_blogs', params: {} })
 }
-const submitForm = async () => {
+const createBlog = async () => {
   try {
-    await blogStore.createBlog()
-    router.push({ name: 'admin_blogs', params: {} })
+    modalCreateConfirm.value.close()
+    // ブログ作成
+    const blog = await blogStore.createBlog()
+    console.log('blog', blog)
+
+    modalCreateSuccess.value.open()
+    setTimeout(() => {
+      modalCreateSuccess.value.close()
+      //
+      router.push({ name: 'admin_blogs', params: {} })
+    }, 3000)
   } catch (err) {
     if (err instanceof AxiosError) {
       showErrorAlert.value = true
@@ -38,34 +54,60 @@ const submitForm = async () => {
 </script>
 
 <template>
-  <div class="container">
-    <div v-if="showErrorAlert">
-      <div class="alert alert-danger" role="alert">入力データに不備があります。</div>
+  <div class="container mx-auto">
+    <div class="mx-3 my-2">
+      <h2 class="font-bold my-2">Blog</h2>
     </div>
 
-    <div class="main">
-      <form class="needs-validation" novalidate @submit.prevent="submitForm">
-        <div class="row g-3">
-          <div class="col-12">
-            <label for="username" class="form-label">表題</label>
-            <input type="text" class="form-control" id="username" v-model="blog.subject" />
+    <div v-if="showErrorAlert">
+      <div class="" role="alert">入力データに不備があります。</div>
+    </div>
+
+    <div class="">
+      <form class="" novalidate @submit.prevent="modalCreateConfirm.open()">
+        <div class="">
+          <div class="p-3 flex">
+            <label for="username" class="block w-20">表題</label>
+            <input-text class="w-80" id="username" v-model="blog.subject" />
           </div>
 
-          <div class="col-sm-12">
-            <label for="familyname" class="form-label">本文</label>
-            <div class="p-1 my-1 border rounded item">
-              <MyCkeditor v-model="blog.body" :placeholder="'ここに本文を書きます。'" />
+          <div class="p-3">
+            <label for="familyname" class="">本文</label>
+            <div class="">
+              <CkeditorBalloon v-model="blog.body" :placeholder="'ここに本文を書きます。'" />
             </div>
           </div>
         </div>
 
-        <div class="mt-3">
-          <button type="button" class="btn btn-secondary me-2" @click="toList">戻る</button>
-          <button type="submit" class="btn btn-primary me-2">作成</button>
+        <div class="">
+          <button-general type="button" class="me-2" @click="toIndex">戻る</button-general>
+          <button-general type="submit" class="">作成</button-general>
         </div>
       </form>
     </div>
   </div>
+
+  <ModalGeneral ref="modalCreateConfirm">
+    <div class="w-80 p-3">
+      <div class="text-center">
+        <div class="font-bold">ブログ</div>
+        <div class="m-3">作成します。よろしいですか？</div>
+      </div>
+      <div class="text-center">
+        <button-general class="me-2" @click.stop="createBlog">はい</button-general>
+        <button-general class="" @click.stop="modalCreateConfirm.close()">いいえ</button-general>
+      </div>
+    </div>
+  </ModalGeneral>
+
+  <ModalGeneral ref="modalCreateSuccess">
+    <div class="w-80 p-3">
+      <div class="text-center">
+        <div class="font-bold">ブログ</div>
+        <div class="m-3">作成しました。</div>
+      </div>
+    </div>
+  </ModalGeneral>
 </template>
 
 <style scoped lang="scss"></style>
