@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import GeneralModal from '@/components/GeneralModal.vue'
+import ModalGeneral from '@/components/ModalGeneral.vue'
 import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
 
 const gmodal = ref()
@@ -18,7 +18,7 @@ const gmodal2 = ref()
     <div class="p-3 border m-3">
       <button-general type="button" class="" @click="gmodal.open()">open modal 1</button-general>
 
-      <general-modal ref="gmodal" :is-close-modal-back="true">
+      <modal-general ref="gmodal" :is-close-modal-back="true">
         <div class="">
           <div class="w-96 h-54 p-3">
             ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。
@@ -28,14 +28,14 @@ const gmodal2 = ref()
             <button-general class="" @click="gmodal.close()">close</button-general>
           </div>
         </div>
-      </general-modal>
+      </modal-general>
     </div>
 
     <!-- モーダル 2 -->
     <div class="p-3 border m-3">
       <button-general type="button" class="" @click="gmodal2.open()">open modal 2</button-general>
 
-      <general-modal
+      <modal-general
         ref="gmodal2"
         :is-close-modal-back="false"
         :class-bg="''"
@@ -52,7 +52,7 @@ const gmodal2 = ref()
             <button-general class="" @click="gmodal2.close()">close</button-general>
           </div>
         </div>
-      </general-modal>
+      </modal-general>
     </div>
   </div>
 </template>
