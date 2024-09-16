@@ -21,7 +21,7 @@ const router = createRouter({
     {
       path: '/samples/generalmodal',
       name: 'samples_generalmodal',
-      component: () => import('../views/samples/GeneralModalView.vue')
+      component: () => import('../views/samples/ModalGeneralView.vue')
     },
     {
       path: '/signin',
