@@ -30,7 +30,7 @@ const toTop = async () => {
           <div class="">Userページへ進んでください。</div>
         </div>
 
-        <div class="p-3 border text-center">
+        <div class="border p-3 text-center">
           <button-general class="" @click="toUserPage">Userページ</button-general>
         </div>
       </div>

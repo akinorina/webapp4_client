@@ -12,10 +12,10 @@ const toTop = async () => {
 <template>
   <div class="container mx-auto">
     <div class="p-3">
-      <h1 class="text-center p-2">サインアウトしました。</h1>
+      <h1 class="p-2 text-center">サインアウトしました。</h1>
     </div>
 
-    <div class="text-center p-3">
+    <div class="p-3 text-center">
       <button-general class="" @click="toTop">Topページへ</button-general>
     </div>
   </div>

@@ -49,14 +49,14 @@ const submitForm = async () => {
 <template>
   <div class="container mx-auto">
     <div class="mx-3 my-2">
-      <h2 class="font-bold my-2">ユーザー - 新規作成</h2>
+      <h2 class="my-2 font-bold">ユーザー - 新規作成</h2>
     </div>
 
     <div v-if="showErrorAlert">
       <div class="" role="alert">入力データに不備があります。</div>
     </div>
 
-    <div class="border p-3 m-3">
+    <div class="m-3 border p-3">
       <form class="" novalidate @submit.prevent="submitForm">
         <div class="">
           <div class="flex p-3">
@@ -95,7 +95,7 @@ const submitForm = async () => {
           </div>
         </div>
 
-        <div class="p-3 flex justify-center">
+        <div class="flex justify-center p-3">
           <button-general type="button" class="me-2" @click="toList">戻る</button-general>
           <button-general type="submit" class="">作成</button-general>
         </div>
@@ -104,28 +104,4 @@ const submitForm = async () => {
   </div>
 </template>
 
-<style scoped lang="scss">
-// .container {
-//   min-height: 100vh;
-//   color: var(--bs-body-color);
-//   background-color: var(--bs-body-bg);
-
-//   .users_title {
-//     position: relative;
-
-//     &_text {
-//       position: absolute;
-//       left: 20px;
-//       bottom: 0;
-//       font-weight: bold;
-//     }
-//   }
-
-//   .main {
-//     input[type='text'],
-//     input[type='email'] {
-//       background-color: var(--bs-secondary-bg);
-//     }
-//   }
-// }
-</style>
+<style scoped lang="scss"></style>

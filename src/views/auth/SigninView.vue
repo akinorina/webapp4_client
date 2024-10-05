@@ -41,14 +41,14 @@ const signInGoogle = () => {
 <template>
   <div class="container mx-auto">
     <form @submit.prevent="submitSignin">
-      <div class="my-3 p-3 border">
-        <div class="flex justify-center m-3">Please sign in</div>
+      <div class="my-3 border p-3">
+        <div class="m-3 flex justify-center">Please sign in</div>
 
         <div class="flex justify-center" v-if="showErrorMessage">
           <div class="" role="alert">Email または Password が間違っています。</div>
         </div>
 
-        <div class="flex justify-center m-3">
+        <div class="m-3 flex justify-center">
           <div class="border p-3">
             <div class="flex p-3">
               <div class="w-24">
@@ -77,7 +77,7 @@ const signInGoogle = () => {
               </div>
             </div>
             <div class="flex justify-center">
-              <button-general type="submit" class="px-3 py-1 border rounded-md">
+              <button-general type="submit" class="rounded-md border px-3 py-1">
                 sign-in
               </button-general>
             </div>

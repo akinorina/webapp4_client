@@ -38,7 +38,7 @@ const submitForm = async () => {
 
 <template>
   <div class="container mx-auto">
-    <div class="mt-5 border rounded-md p-3">
+    <div class="mt-5 rounded-md border p-3">
       <div class="">
         <h1 class="">Webapp4 パスワードのリセット</h1>
         <p class="">
@@ -49,12 +49,12 @@ const submitForm = async () => {
     </div>
 
     <div v-if="showErrorAlert">
-      <div class="mt-5 border rounded-md p-3" style="line-height: 1rem" role="alert">
+      <div class="mt-5 rounded-md border p-3" style="line-height: 1rem" role="alert">
         <p class="">入力データに不備があります。</p>
       </div>
     </div>
 
-    <div class="mt-5 border rounded-md p-3">
+    <div class="mt-5 rounded-md border p-3">
       <form class="" novalidate @submit.prevent="submitForm">
         <div class="">
           <div class="">
@@ -69,30 +69,14 @@ const submitForm = async () => {
         </div>
 
         <div class="">
-          <button-general type="submit" class="m-2 px-2 py-1 border rounded-md">
+          <button-general type="submit" class="m-2 rounded-md border px-2 py-1">
             メールアドレス送信
           </button-general>
-          <button-general type="button" class="m-2 px-2 py-1 border rounded-md" @click="toIndex">
+          <button-general type="button" class="m-2 rounded-md border px-2 py-1" @click="toIndex">
             Topへ戻る
           </button-general>
         </div>
       </form>
-
-      <!--
-      <form class="" novalidate @submit.prevent="submitForm">
-        <div class="">
-          <div class="">
-            <label for="email" class="">Email</label>
-            <input type="email" class="" id="email" v-model="userStore.unverifiedEmail" />
-          </div>
-        </div>
-
-        <div class="">
-          <button type="submit" class="">メールアドレス送信</button>
-          <button type="button" class="" @click="toIndex">Topへ戻る</button>
-        </div>
-      </form>
-      -->
     </div>
   </div>
 </template>

@@ -61,7 +61,7 @@ const deleteBlog = async () => {
 <template>
   <div class="container mx-auto">
     <div class="mx-3 my-2">
-      <h2 class="font-bold my-2">Blog</h2>
+      <h2 class="my-2 font-bold">Blog</h2>
     </div>
 
     <div class="border">

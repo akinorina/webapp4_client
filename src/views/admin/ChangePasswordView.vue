@@ -54,8 +54,8 @@ const submitForm = async () => {
 <template>
   <div class="container mx-auto">
     <div class="border p-3">
-      <div class="p-3 bg-green-300 mb-3" v-if="resultSuccess">パスワードが変更されました。</div>
-      <div class="p-3 bg-red-300 mb-3" v-if="resultFailure">パスワード変更が失敗しました。</div>
+      <div class="mb-3 bg-green-300 p-3" v-if="resultSuccess">パスワードが変更されました。</div>
+      <div class="mb-3 bg-red-300 p-3" v-if="resultFailure">パスワード変更が失敗しました。</div>
 
       <form class="" novalidate @submit.stop.prevent="submitForm">
         <div class="flex flex-col items-center">
@@ -64,7 +64,7 @@ const submitForm = async () => {
             <input-password class="w-80" id="old_password" v-model="passwordOldRaw" />
           </div>
 
-          <div class="flex justify-start mt-3">
+          <div class="mt-3 flex justify-start">
             <label for="new_password" class="block w-48">新しいパスワード</label>
             <input-password class="w-80" id="new_password" v-model="passwordNewRaw" />
           </div>

@@ -20,14 +20,14 @@ const signUp = () => {
 <template>
   <header class="container mx-auto flex bg-slate-100">
     <div class="flex-auto" v-if="authStore.isAuthenticated()">
-      <div class="px-2 py-1 m-1">
+      <div class="m-1 px-2 py-1">
         <router-link :to="{ name: 'admin' }">
           <span class="text-xl">Webapp4</span>
         </router-link>
       </div>
     </div>
     <div class="flex-auto" v-else>
-      <div class="px-2 py-1 m-1">
+      <div class="m-1 px-2 py-1">
         <router-link :to="{ name: 'index' }">
           <span class="text-xl">Webapp4</span>
         </router-link>
@@ -36,15 +36,15 @@ const signUp = () => {
 
     <div class="flex items-center" v-if="authStore.isAuthenticated()">
       <div class="me-2">{{ authStore.getUsername() }}</div>
-      <button type="button" class="px-2 py-1 m-1 border rounded-md bg-white" @click="signOut">
+      <button type="button" class="m-1 rounded-md border bg-white px-2 py-1" @click="signOut">
         Sign-out
       </button>
     </div>
     <div class="flex items-center" v-else>
-      <button type="button" class="px-2 py-1 m-1 border rounded-md bg-white" @click="signIn">
+      <button type="button" class="m-1 rounded-md border bg-white px-2 py-1" @click="signIn">
         Sign-in
       </button>
-      <button type="button" class="px-2 py-1 m-1 border rounded-md bg-white" @click="signUp">
+      <button type="button" class="m-1 rounded-md border bg-white px-2 py-1" @click="signUp">
         Sign-up
       </button>
     </div>

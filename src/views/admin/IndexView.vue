@@ -12,9 +12,9 @@ const authStore = useAuthStore()
       <div class="">各ユーザーのための操作ができます。</div>
     </div>
 
-    <div class="p-3 bg-slate-100">
+    <div class="bg-slate-100 p-3">
       <div class="grid grid-cols-3 gap-3">
-        <div class="border rounded-md bg-slate-50 p-2" v-if="authStore.getUsername() === 'admin'">
+        <div class="rounded-md border bg-slate-50 p-2" v-if="authStore.getUsername() === 'admin'">
           <router-link :to="{ name: 'admin_users' }" class="">
             <div class="">
               <div class="flex flex-col items-center">
@@ -25,7 +25,7 @@ const authStore = useAuthStore()
           </router-link>
         </div>
 
-        <div class="border rounded-md bg-slate-50 p-2">
+        <div class="rounded-md border bg-slate-50 p-2">
           <router-link :to="{ name: 'admin_images' }" class="">
             <div class="">
               <div class="flex flex-col items-center">
@@ -36,7 +36,7 @@ const authStore = useAuthStore()
           </router-link>
         </div>
 
-        <div class="border rounded-md bg-slate-50 p-2">
+        <div class="rounded-md border bg-slate-50 p-2">
           <router-link :to="{ name: 'admin_blogs' }" class="">
             <div class="">
               <div class="flex flex-col items-center">
@@ -47,7 +47,7 @@ const authStore = useAuthStore()
           </router-link>
         </div>
 
-        <div class="border rounded-md bg-slate-50 p-2">
+        <div class="rounded-md border bg-slate-50 p-2">
           <router-link :to="{ name: 'admin_change-password' }" class="">
             <div class="">
               <div class="flex flex-col items-center">

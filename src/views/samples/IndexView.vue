@@ -2,7 +2,7 @@
 
 <template>
   <div class="container mx-auto">
-    <div class="p-3 border">
+    <div class="border p-3">
       <h2 class="font-bold">Webapp4 - Samples</h2>
       <p class="text-xs">
         Web アプリケーション テンプレート ver.4 のサンプルページです。<br />
@@ -10,7 +10,7 @@
       </p>
     </div>
 
-    <div class="border p-3 mt-3">
+    <div class="mt-3 border p-3">
       <div class="">
         <div class="">
           <router-link :to="{ name: 'samples_generalmodal' }" class="">

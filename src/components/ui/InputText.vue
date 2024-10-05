@@ -12,7 +12,7 @@ const props = defineProps({
     type="text"
     :id="props.id"
     :placeholder="props.placefolder"
-    class="border rounded-sm mx-1 px-2"
+    class="mx-1 rounded-sm border px-2"
     v-model="model"
   />
 </template>

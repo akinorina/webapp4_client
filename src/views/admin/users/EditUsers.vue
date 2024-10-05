@@ -62,49 +62,49 @@ const deleteUser = async () => {
 <template>
   <div class="container mx-auto">
     <div class="mx-3 my-2">
-      <h2 class="font-bold my-2">ユーザー - 編集</h2>
+      <h2 class="my-2 font-bold">ユーザー - 編集</h2>
     </div>
 
-    <div class="border p-3 m-3">
+    <div class="m-3 border p-3">
       <form class="" novalidate @submit.prevent="modalUpdateConfirm.open()">
         <div class="">
-          <div class="p-3 flex">
+          <div class="flex p-3">
             <label for="username" class="block w-3/12">ID</label>
             <div class="w-9/12">{{ user.id }}</div>
           </div>
 
-          <div class="p-3 flex">
+          <div class="flex p-3">
             <label for="username" class="block w-3/12">ユーザー名</label>
             <input-text class="w-9/12" id="username" v-model="user.username" />
           </div>
 
-          <div class="p-3 flex">
+          <div class="flex p-3">
             <label for="familyname" class="block w-3/12">姓</label>
             <input-text class="w-9/12" id="familyname" v-model="user.familyname" />
           </div>
 
-          <div class="p-3 flex">
+          <div class="flex p-3">
             <label for="firstname" class="block w-3/12">名</label>
             <input-text class="w-9/12" id="firstname" v-model="user.firstname" />
           </div>
 
-          <div class="p-3 flex">
+          <div class="flex p-3">
             <label for="familynameKana" class="block w-3/12">姓 ふりかな</label>
             <input-text class="w-9/12" id="familynameKana" v-model="user.familynameKana" />
           </div>
 
-          <div class="p-3 flex">
+          <div class="flex p-3">
             <label for="firstnameKana" class="block w-3/12">名 ふりがな</label>
             <input-text class="w-9/12" id="firstnameKana" v-model="user.firstnameKana" />
           </div>
 
-          <div class="p-3 flex">
+          <div class="flex p-3">
             <label for="email" class="block w-3/12">Email</label>
             <input-email class="w-9/12" id="email" v-model="user.email" />
           </div>
         </div>
 
-        <div class="p-3 flex justify-center">
+        <div class="flex justify-center p-3">
           <button-general type="button" class="me-2" @click="toIndex">戻る</button-general>
           <button-general type="submit" class="me-2">更新</button-general>
           <button-general type="button" class="" @click="modalDeleteConfirm.open()">
@@ -116,21 +116,21 @@ const deleteUser = async () => {
   </div>
 
   <ModalGeneral ref="modalUpdateConfirm">
-    <div class="w-80 h-54 p-3 border rounded-lg">
-      <div class="text-center mb-3">
+    <div class="h-54 w-80 rounded-lg border p-3">
+      <div class="mb-3 text-center">
         <div class="font-bold">ユーザー情報</div>
         <div class="">更新してよろしいですか？</div>
       </div>
-      <div class="text-center mb-3">
-        <button-general class="w-24 me-2" @click="updateUser">はい</button-general>
+      <div class="mb-3 text-center">
+        <button-general class="me-2 w-24" @click="updateUser">はい</button-general>
         <button-general class="w-24" @click="modalUpdateConfirm.close()">いいえ</button-general>
       </div>
     </div>
   </ModalGeneral>
 
   <ModalGeneral ref="modalUpdateSuccess">
-    <div class="w-80 h-54 p-3 border rounded-lg">
-      <div class="text-center mb-3">
+    <div class="h-54 w-80 rounded-lg border p-3">
+      <div class="mb-3 text-center">
         <div class="font-bold">ユーザー情報</div>
         <div class="">更新しました。</div>
       </div>
@@ -138,21 +138,21 @@ const deleteUser = async () => {
   </ModalGeneral>
 
   <ModalGeneral ref="modalDeleteConfirm">
-    <div class="w-80 h-54 p-3 border rounded-lg">
-      <div class="text-center mb-3">
+    <div class="h-54 w-80 rounded-lg border p-3">
+      <div class="mb-3 text-center">
         <div class="font-bold">ユーザー情報</div>
         <div class="">削除してよろしいですか？</div>
       </div>
-      <div class="text-center mb-3">
-        <button-general class="w-24 me-2" @click="deleteUser">はい</button-general>
+      <div class="mb-3 text-center">
+        <button-general class="me-2 w-24" @click="deleteUser">はい</button-general>
         <button-general class="w-24" @click="modalDeleteConfirm.close()">いいえ</button-general>
       </div>
     </div>
   </ModalGeneral>
 
   <ModalGeneral ref="modalDeleteSuccess">
-    <div class="w-80 h-54 p-3 border rounded-lg">
-      <div class="text-center mb-3">
+    <div class="h-54 w-80 rounded-lg border p-3">
+      <div class="mb-3 text-center">
         <div class="font-bold">ユーザー情報</div>
         <div class="">削除しました。</div>
       </div>

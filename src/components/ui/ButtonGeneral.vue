@@ -13,7 +13,7 @@ const props = withDefaults(
   <button
     :id="props.id"
     :type="props.type"
-    class="bg-sky-500 hover:bg-sky-700 text-slate-50 px-3 py-1 rounded-md"
+    class="rounded-md bg-sky-500 px-3 py-1 text-slate-50 hover:bg-sky-700"
     :class="props.class"
     @click="$emit('click')"
   >
