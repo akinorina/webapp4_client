@@ -54,7 +54,7 @@ const submitForm = async () => {
 
 <template>
   <div class="container mx-auto">
-    <div class="p-2 border mt-3">
+    <div class="mt-3 border p-2">
       <div class="flex justify-center">
         <div>
           <div class="text-xl font-bold">Webapp4 ユーザー登録</div>
@@ -62,14 +62,14 @@ const submitForm = async () => {
         </div>
       </div>
 
-      <div class="flex justify-center mt-3" v-if="showErrorAlert">
+      <div class="mt-3 flex justify-center" v-if="showErrorAlert">
         <div class="" style="line-height: 1rem" role="alert">
           <p class="">入力データに不備があります。</p>
           <p>メールアドレスが既に登録済みの場合があります。</p>
         </div>
       </div>
 
-      <div class="flex justify-center mt-3">
+      <div class="mt-3 flex justify-center">
         <form class="" novalidate @submit.prevent="submitForm">
           <div class="flex flex-col">
             <div class="flex p-3">

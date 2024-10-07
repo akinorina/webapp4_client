@@ -56,7 +56,7 @@ const createBlog = async () => {
 <template>
   <div class="container mx-auto">
     <div class="mx-3 my-2">
-      <h2 class="font-bold my-2">Blog</h2>
+      <h2 class="my-2 font-bold">Blog</h2>
     </div>
 
     <div v-if="showErrorAlert">
@@ -66,7 +66,7 @@ const createBlog = async () => {
     <div class="">
       <form class="" novalidate @submit.prevent="modalCreateConfirm.open()">
         <div class="">
-          <div class="p-3 flex">
+          <div class="flex p-3">
             <label for="username" class="block w-20">表題</label>
             <input-text class="w-80" id="username" v-model="blog.subject" />
           </div>

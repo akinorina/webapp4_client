@@ -24,7 +24,7 @@ onMounted(() => {
 
     <div class="m-1">
       <div class="grid grid-cols-2 gap-3">
-        <div class="border rounded bg-slate-100 p-3">
+        <div class="rounded border bg-slate-100 p-3">
           <router-link :to="{ name: 'admin' }" class="">
             <div class="">
               <div class="font-bold">User Page</div>
@@ -33,7 +33,7 @@ onMounted(() => {
           </router-link>
         </div>
 
-        <div class="border rounded bg-slate-100 p-3">
+        <div class="rounded border bg-slate-100 p-3">
           <router-link :to="{ name: 'samples' }" class="">
             <div class="">
               <div class="font-bold">Samples</div>
@@ -47,7 +47,7 @@ onMounted(() => {
     <div class="mt-16">
       <div class="flex flex-wrap justify-center gap-8">
         <div
-          class="size-40 border overflow-hidden flex items-center"
+          class="flex size-40 items-center overflow-hidden border"
           v-for="(image, index) in imagePublicStore.images"
           :key="index"
         >
@@ -58,19 +58,4 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped lang="scss">
-.photo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  // margin: 0 0 20px 0;
-  background-color: #f0f0f0;
-
-  &__img {
-    border: 1px black solid;
-    height: calc(100vw / 3.5);
-    width: calc(100vw / 3.5);
-    object-fit: cover;
-  }
-}
-</style>
+<style scoped lang="scss"></style>

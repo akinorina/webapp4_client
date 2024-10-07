@@ -46,7 +46,7 @@ const submitForm = async () => {
 
 <template>
   <div class="container mx-auto">
-    <div class="border p-3 mt-3">
+    <div class="mt-3 border p-3">
       <div class="px-2">
         <div class="text-xl">Webapp4 ユーザー登録</div>
         <p class="text-xs">
@@ -56,7 +56,7 @@ const submitForm = async () => {
       </div>
 
       <div v-if="showErrorAlert">
-        <div class="border my-3 p-3" role="alert">
+        <div class="my-3 border p-3" role="alert">
           <p class="">入力データに不備があります。</p>
           <p>メールアドレスが既に登録済みの場合があります。</p>
         </div>
@@ -77,10 +77,10 @@ const submitForm = async () => {
           </div>
 
           <div class="">
-            <button-general type="submit" class="m-2 px-2 py-1 border rounded-md">
+            <button-general type="submit" class="m-2 rounded-md border px-2 py-1">
               メールアドレス送信
             </button-general>
-            <button-general type="button" class="m-2 px-2 py-1 border rounded-md" @click="toIndex">
+            <button-general type="button" class="m-2 rounded-md border px-2 py-1" @click="toIndex">
               Topへ戻る
             </button-general>
           </div>

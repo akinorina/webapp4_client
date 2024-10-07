@@ -18,7 +18,7 @@ const toSignin = () => {
       <p class="">ユーザー登録が完了しました。</p>
     </div>
 
-    <div class="border p-3 mt-2">
+    <div class="mt-2 border p-3">
       <button-general class="" @click="toSignin">サインイン</button-general>
     </div>
   </div>

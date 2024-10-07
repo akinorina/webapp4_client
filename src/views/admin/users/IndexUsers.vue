@@ -25,7 +25,7 @@ const toEdit = (iid: number) => {
 <template>
   <div class="container mx-auto">
     <div class="mx-3 my-2">
-      <h2 class="font-bold my-2">ユーザー</h2>
+      <h2 class="my-2 font-bold">ユーザー</h2>
     </div>
 
     <div class="mx-3 my-2">
@@ -37,7 +37,7 @@ const toEdit = (iid: number) => {
     <div class="p-2">
       <div class="grid grid-cols-1 gap-2">
         <div
-          class="bg-slate-50 border rounded-sm p-3"
+          class="rounded-sm border bg-slate-50 p-3"
           v-for="(item, index) in userStore.users"
           :key="index"
         >

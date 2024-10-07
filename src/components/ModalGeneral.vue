@@ -33,14 +33,14 @@ defineExpose({
   <Teleport to="body">
     <div v-if="status" class="fixed left-0 top-0 z-[1000]">
       <div
-        class="w-screen h-screen flex justify-center items-center"
+        class="flex h-screen w-screen items-center justify-center"
         :class="props.classBg"
         style="background-color: rgba(0, 0, 0, 0.75)"
         :style="props.styleBg"
         @click.stop.prevent="closeModalBack"
       >
         <div
-          class="border rounded-md"
+          class="rounded-md border"
           :class="props.classFg"
           style="background-color: white"
           :style="props.styleFg"

@@ -19,7 +19,7 @@ const toSignin = () => {
         <div class="">ユーザー登録が完了しました。</div>
       </div>
 
-      <div class="text-center p-3">
+      <div class="p-3 text-center">
         <button-general class="" @click="toSignin">サインイン</button-general>
       </div>
     </div>

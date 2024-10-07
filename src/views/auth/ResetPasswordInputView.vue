@@ -89,10 +89,10 @@ const submitForm = async () => {
         </div>
 
         <div class="">
-          <button-general type="submit" class="m-2 px-2 py-1 border rounded-md">
+          <button-general type="submit" class="m-2 rounded-md border px-2 py-1">
             メールアドレス送信
           </button-general>
-          <button-general type="button" class="m-2 px-2 py-1 border rounded-md" @click="toIndex">
+          <button-general type="button" class="m-2 rounded-md border px-2 py-1" @click="toIndex">
             Topへ戻る
           </button-general>
         </div>

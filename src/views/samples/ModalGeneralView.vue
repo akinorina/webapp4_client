@@ -9,22 +9,22 @@ const gmodal2 = ref()
 
 <template>
   <div class="container mx-auto">
-    <div class="p-3 border">
+    <div class="border p-3">
       <h2 class="font-bold">Webapp4 - Samples</h2>
       <div class="">sample of general modal</div>
     </div>
 
     <!-- モーダル 1 -->
-    <div class="p-3 border m-3">
+    <div class="m-3 border p-3">
       <button-general type="button" class="" @click="gmodal.open()">open modal 1</button-general>
 
       <modal-general ref="gmodal" :is-close-modal-back="true">
         <div class="">
-          <div class="w-96 h-54 p-3">
+          <div class="h-54 w-96 p-3">
             ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。
             ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。
           </div>
-          <div class="text-center mb-3">
+          <div class="mb-3 text-center">
             <button-general class="" @click="gmodal.close()">close</button-general>
           </div>
         </div>
@@ -32,7 +32,7 @@ const gmodal2 = ref()
     </div>
 
     <!-- モーダル 2 -->
-    <div class="p-3 border m-3">
+    <div class="m-3 border p-3">
       <button-general type="button" class="" @click="gmodal2.open()">open modal 2</button-general>
 
       <modal-general
@@ -44,11 +44,11 @@ const gmodal2 = ref()
         :style-fg="''"
       >
         <div class="">
-          <div class="w-96 h-54 p-3">
+          <div class="h-54 w-96 p-3">
             ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。
             ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。ここに本文を書きます。
           </div>
-          <div class="text-center mb-3">
+          <div class="mb-3 text-center">
             <button-general class="" @click="gmodal2.close()">close</button-general>
           </div>
         </div>

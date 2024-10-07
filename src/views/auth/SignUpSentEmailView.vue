@@ -20,7 +20,7 @@ const toSignin = () => {
     </div>
 
     <div class="p-2">
-      <button-general type="submit" class="px-2 py-1 border rounded-md" @click="toSignin">
+      <button-general type="submit" class="rounded-md border px-2 py-1" @click="toSignin">
         Sign-in ページへ戻る
       </button-general>
     </div>
