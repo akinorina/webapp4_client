@@ -24,6 +24,11 @@ const router = createRouter({
       component: () => import('../views/samples/ModalGeneralView.vue')
     },
     {
+      path: '/samples/ckeditor',
+      name: 'samples_ckeditor',
+      component: () => import('../views/samples/CkeditorView.vue')
+    },
+    {
       path: '/signin',
       name: 'sign-in',
       component: () => import('../views/auth/SigninView.vue')

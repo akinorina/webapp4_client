@@ -11,18 +11,25 @@
     </div>
 
     <div class="mt-3 border p-3">
-      <div class="">
+      <router-link :to="{ name: 'samples_generalmodal' }" class="">
         <div class="">
-          <router-link :to="{ name: 'samples_generalmodal' }" class="">
-            <div class="">
-              <div class="">
-                <h5 class="">General modal</h5>
-                <p class="">General モーダルダイアログのサンプルです。</p>
-              </div>
-            </div>
-          </router-link>
+          <div class="">
+            <h5 class="">General modal</h5>
+            <p class="">General モーダルダイアログのサンプルです。</p>
+          </div>
         </div>
-      </div>
+      </router-link>
+    </div>
+
+    <div class="mt-3 border p-3">
+      <router-link :to="{ name: 'samples_ckeditor' }" class="">
+        <div class="">
+          <div class="">
+            <h5 class="">CKEditor</h5>
+            <p class="">WYSWIGエディター</p>
+          </div>
+        </div>
+      </router-link>
     </div>
   </div>
 </template>
