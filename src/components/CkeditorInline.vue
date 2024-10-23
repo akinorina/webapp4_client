@@ -9,22 +9,16 @@ import {
   Autosave,
   BalloonToolbar,
   BlockQuote,
-  BlockToolbar,
   Bold,
-  CloudServices,
-  Code,
-  CodeBlock,
   Essentials,
-  FindAndReplace,
   FontBackgroundColor,
   FontColor,
   FontFamily,
   FontSize,
   GeneralHtmlSupport,
   Heading,
-  Highlight,
-  HtmlComment,
   ImageBlock,
+  ImageCaption,
   ImageInline,
   ImageInsert,
   ImageInsertViaUrl,
@@ -33,17 +27,16 @@ import {
   ImageTextAlternative,
   ImageToolbar,
   ImageUpload,
-  Indent,
-  IndentBlock,
   Italic,
   Link,
   LinkImage,
   List,
   ListProperties,
+  MediaEmbed,
   Paragraph,
+  PasteFromOffice,
   RemoveFormat,
   SelectAll,
-  ShowBlocks,
   SimpleUploadAdapter,
   SpecialCharacters,
   SpecialCharactersArrows,
@@ -52,11 +45,9 @@ import {
   SpecialCharactersLatin,
   SpecialCharactersMathematical,
   SpecialCharactersText,
-  Strikethrough,
   Style,
-  Subscript,
-  Superscript,
   Table,
+  TableCaption,
   TableCellProperties,
   TableColumnResize,
   TableProperties,
@@ -75,9 +66,10 @@ const props = defineProps<{
   placeholder?: string
 }>()
 
-const vmodel = defineModel({ type: String, default: '' })
+const data = defineModel<string>({ required: true })
 
 const editor = InlineEditor
+
 const editorConfig: any = {
   plugins: [
     AccessibilityHelp,
@@ -88,22 +80,16 @@ const editorConfig: any = {
     Autosave,
     BalloonToolbar,
     BlockQuote,
-    BlockToolbar,
     Bold,
-    CloudServices,
-    Code,
-    CodeBlock,
     Essentials,
-    FindAndReplace,
     FontBackgroundColor,
     FontColor,
     FontFamily,
     FontSize,
     GeneralHtmlSupport,
     Heading,
-    Highlight,
-    HtmlComment,
     ImageBlock,
+    ImageCaption,
     ImageInline,
     ImageInsert,
     ImageInsertViaUrl,
@@ -112,17 +98,16 @@ const editorConfig: any = {
     ImageTextAlternative,
     ImageToolbar,
     ImageUpload,
-    Indent,
-    IndentBlock,
     Italic,
     Link,
     LinkImage,
     List,
     ListProperties,
+    MediaEmbed,
     Paragraph,
+    PasteFromOffice,
     RemoveFormat,
     SelectAll,
-    ShowBlocks,
     SimpleUploadAdapter,
     SpecialCharacters,
     SpecialCharactersArrows,
@@ -131,11 +116,9 @@ const editorConfig: any = {
     SpecialCharactersLatin,
     SpecialCharactersMathematical,
     SpecialCharactersText,
-    Strikethrough,
     Style,
-    Subscript,
-    Superscript,
     Table,
+    TableCaption,
     TableCellProperties,
     TableColumnResize,
     TableProperties,
@@ -150,10 +133,6 @@ const editorConfig: any = {
       'undo',
       'redo',
       '|',
-      'showBlocks',
-      'findAndReplace',
-      'selectAll',
-      '|',
       'heading',
       'style',
       '|',
@@ -165,29 +144,20 @@ const editorConfig: any = {
       'bold',
       'italic',
       'underline',
-      'strikethrough',
-      'subscript',
-      'superscript',
-      'code',
       'removeFormat',
       '|',
       'specialCharacters',
       'link',
       'insertImage',
+      'mediaEmbed',
       'insertTable',
-      'highlight',
       'blockQuote',
-      'codeBlock',
       '|',
       'alignment',
       '|',
       'bulletedList',
       'numberedList',
-      'todoList',
-      'outdent',
-      'indent',
-      '|',
-      'accessibilityHelp'
+      'todoList'
     ],
     shouldNotGroupWhenFull: false
   },
@@ -200,23 +170,6 @@ const editorConfig: any = {
     '|',
     'bulletedList',
     'numberedList'
-  ],
-  blockToolbar: [
-    'fontSize',
-    'fontColor',
-    'fontBackgroundColor',
-    '|',
-    'bold',
-    'italic',
-    '|',
-    'link',
-    'insertImage',
-    'insertTable',
-    '|',
-    'bulletedList',
-    'numberedList',
-    'outdent',
-    'indent'
   ],
   fontFamily: {
     supportAllValues: true
@@ -282,6 +235,7 @@ const editorConfig: any = {
   },
   image: {
     toolbar: [
+      'toggleImageCaption',
       'imageTextAlternative',
       '|',
       'imageStyle:inline',
@@ -397,17 +351,12 @@ onMounted(() => {
   <div>
     <div class="main-container">
       <div
-        class="editor-container editor-container_inline-editor editor-container_include-style editor-container_include-block-toolbar"
+        class="editor-container editor-container_inline-editor editor-container_include-style"
         ref="editorContainerElement"
       >
         <div class="editor-container__editor">
           <div ref="editorElement">
-            <ckeditor
-              v-model="vmodel"
-              :editor="editor"
-              :config="editorConfig"
-              v-if="isLayoutReady"
-            />
+            <ckeditor v-model="data" :editor="editor" :config="editorConfig" v-if="isLayoutReady" />
           </div>
         </div>
       </div>

@@ -24,9 +24,19 @@ const router = createRouter({
       component: () => import('../views/samples/ModalGeneralView.vue')
     },
     {
-      path: '/samples/ckeditor',
-      name: 'samples_ckeditor',
-      component: () => import('../views/samples/CkeditorView.vue')
+      path: '/samples/ckeditor/classic',
+      name: 'samples_ckeditor_classic',
+      component: () => import('../views/samples/CkeditorClassicView.vue')
+    },
+    {
+      path: '/samples/ckeditor/inline',
+      name: 'samples_ckeditor_inline',
+      component: () => import('../views/samples/CkeditorInlineView.vue')
+    },
+    {
+      path: '/samples/ckeditor/balloon',
+      name: 'samples_ckeditor_balloon',
+      component: () => import('../views/samples/CkeditorBalloonView.vue')
     },
     {
       path: '/signin',

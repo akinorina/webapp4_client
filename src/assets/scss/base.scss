@@ -32,8 +32,3 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-// for CKEditor on Tailwindcss
-.ck-content * {
-  all: revert;
-}

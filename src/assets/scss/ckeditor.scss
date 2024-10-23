@@ -9,8 +9,7 @@
 
 .main-container {
   font-family: 'Lato';
-  // width: fit-content;
-  width: 100%;
+  width: fit-content;
   margin-left: auto;
   margin-right: auto;
 }
@@ -21,10 +20,18 @@
   word-break: break-word;
 }
 
-.editor-container_balloon-editor .editor-container__editor {
-  // min-width: 390px;
-  // max-width: 795px;
-  width: 100%;
+// for CKEditor on Tailwindcss
+.ck-content * {
+  all: revert;
+}
+
+.ck-content h2.document-title {
+  font-family: 'Oswald';
+  font-size: 50px;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
 .ck-content h3.category {
@@ -152,4 +159,19 @@
   background: #dddfe0;
   color: #000;
   box-shadow: 5px 5px 0 #b3b3b3;
+}
+
+.editor-container_classic-editor .editor-container__editor {
+  min-width: 795px;
+  max-width: 795px;
+}
+
+.editor-container_inline-editor .editor-container__editor {
+  min-width: 795px;
+  max-width: 795px;
+}
+
+.editor-container_balloon-editor .editor-container__editor {
+  min-width: 795px;
+  max-width: 795px;
 }

@@ -22,11 +22,33 @@
     </div>
 
     <div class="mt-3 border p-3">
-      <router-link :to="{ name: 'samples_ckeditor' }" class="">
+      <router-link :to="{ name: 'samples_ckeditor_classic' }" class="">
         <div class="">
           <div class="">
-            <h5 class="">CKEditor</h5>
-            <p class="">WYSWIGエディター</p>
+            <h5 class="">CKEditor - classic</h5>
+            <p class="">WYSWIGエディター CLASSIC</p>
+          </div>
+        </div>
+      </router-link>
+    </div>
+
+    <div class="mt-3 border p-3">
+      <router-link :to="{ name: 'samples_ckeditor_inline' }" class="">
+        <div class="">
+          <div class="">
+            <h5 class="">CKEditor - inline</h5>
+            <p class="">WYSWIGエディター INLINE</p>
+          </div>
+        </div>
+      </router-link>
+    </div>
+
+    <div class="mt-3 border p-3">
+      <router-link :to="{ name: 'samples_ckeditor_balloon' }" class="">
+        <div class="">
+          <div class="">
+            <h5 class="">CKEditor - balloon</h5>
+            <p class="">WYSWIGエディター Balloon</p>
           </div>
         </div>
       </router-link>

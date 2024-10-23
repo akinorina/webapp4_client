@@ -80,7 +80,7 @@ const deleteBlog = async () => {
           <div class="p-2">
             <label for="familyname" class="">本文</label>
             <div class="w-full">
-              <CkeditorBalloon v-model="blog.body" />
+              <CkeditorBalloon v-model="blog.body" :placeholder="'ここに本文を書きます。'" />
             </div>
           </div>
         </div>

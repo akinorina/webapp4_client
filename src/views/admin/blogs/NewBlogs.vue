@@ -73,7 +73,7 @@ const createBlog = async () => {
 
           <div class="p-3">
             <label for="familyname" class="">本文</label>
-            <div class="">
+            <div class="w-full">
               <CkeditorBalloon v-model="blog.body" :placeholder="'ここに本文を書きます。'" />
             </div>
           </div>
