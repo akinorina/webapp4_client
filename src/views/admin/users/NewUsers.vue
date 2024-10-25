@@ -5,10 +5,10 @@ import { useUserStore } from '@/stores/user'
 import { useRouter } from 'vue-router'
 import { AxiosError } from 'axios'
 import { digestMessage } from '@/lib/Functions'
-import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
-import InputText from '@/components/ui/InputText.vue'
-import InputEmail from '@/components/ui/InputEmail.vue'
-import InputPassword from '@/components/ui/InputPassword.vue'
+import ButtonGeneral from '@/components/general/ButtonGeneral.vue'
+import InputText from '@/components/general/InputText.vue'
+import InputEmail from '@/components/general/InputEmail.vue'
+import InputPassword from '@/components/general/InputPassword.vue'
 
 // stores
 const router = useRouter()
@@ -96,8 +96,8 @@ const submitForm = async () => {
         </div>
 
         <div class="flex justify-center p-3">
-          <button-general type="button" class="me-2" @click="toList">戻る</button-general>
-          <button-general type="submit" class="">作成</button-general>
+          <ButtonGeneral type="button" class="me-2" @click="toList">戻る</ButtonGeneral>
+          <ButtonGeneral type="submit" class="">作成</ButtonGeneral>
         </div>
       </form>
     </div>

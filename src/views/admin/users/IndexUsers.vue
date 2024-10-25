@@ -2,7 +2,7 @@
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
-import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
+import ButtonGeneral from '@/components/general/ButtonGeneral.vue'
 
 // stores
 const router = useRouter()
@@ -29,9 +29,9 @@ const toEdit = (iid: number) => {
     </div>
 
     <div class="mx-3 my-2">
-      <button-general type="button" class="" @click="toNew">
+      <ButtonGeneral type="button" class="" @click="toNew">
         <i class="">新規追加</i>
-      </button-general>
+      </ButtonGeneral>
     </div>
 
     <div class="p-2">

@@ -4,9 +4,9 @@ import { useRouter, useRoute } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { AxiosError } from 'axios'
 import { digestMessage } from '@/lib/Functions'
-import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
-import InputEmail from '@/components/ui/InputEmail.vue'
-import InputPassword from '@/components/ui/InputPassword.vue'
+import ButtonGeneral from '@/components/general/ButtonGeneral.vue'
+import InputEmail from '@/components/general/InputEmail.vue'
+import InputPassword from '@/components/general/InputPassword.vue'
 
 // stores
 const router = useRouter()
@@ -89,12 +89,12 @@ const submitForm = async () => {
         </div>
 
         <div class="">
-          <button-general type="submit" class="m-2 rounded-md border px-2 py-1">
+          <ButtonGeneral type="submit" class="m-2 rounded-md border px-2 py-1">
             メールアドレス送信
-          </button-general>
-          <button-general type="button" class="m-2 rounded-md border px-2 py-1" @click="toIndex">
+          </ButtonGeneral>
+          <ButtonGeneral type="button" class="m-2 rounded-md border px-2 py-1" @click="toIndex">
             Topへ戻る
-          </button-general>
+          </ButtonGeneral>
         </div>
       </form>
     </div>

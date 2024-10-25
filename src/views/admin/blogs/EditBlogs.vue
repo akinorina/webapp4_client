@@ -4,10 +4,10 @@ import { storeToRefs } from 'pinia'
 import { useBlogStore } from '@/stores/blog'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
-import CkeditorBalloon from '@/components/CkeditorBalloon.vue'
-import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
-import InputText from '@/components/ui/InputText.vue'
-import ModalGeneral from '@/components/ModalGeneral.vue'
+import CkeditorBalloon from '@/components/general/CkeditorBalloon.vue'
+import ButtonGeneral from '@/components/general/ButtonGeneral.vue'
+import InputText from '@/components/general/InputText.vue'
+import ModalGeneral from '@/components/general/ModalGeneral.vue'
 
 // stores
 const router = useRouter()
@@ -85,11 +85,11 @@ const deleteBlog = async () => {
           </div>
         </div>
         <div class="p-2">
-          <button-general type="button" class="me-2" @click="toIndex">戻る</button-general>
-          <button-general type="submit" class="me-2">更新</button-general>
-          <button-general type="button" class="" @click="modalDeleteConfirm.open()">
+          <ButtonGeneral type="button" class="me-2" @click="toIndex">戻る</ButtonGeneral>
+          <ButtonGeneral type="submit" class="me-2">更新</ButtonGeneral>
+          <ButtonGeneral type="button" class="" @click="modalDeleteConfirm.open()">
             削除
-          </button-general>
+          </ButtonGeneral>
         </div>
       </form>
     </div>
@@ -102,8 +102,8 @@ const deleteBlog = async () => {
         <div class="m-3">更新してよろしいですか？</div>
       </div>
       <div class="text-center">
-        <button-general class="me-2" @click="updateBlog">はい</button-general>
-        <button-general class="" @click="modalUpdateConfirm.close()">いいえ</button-general>
+        <ButtonGeneral class="me-2" @click="updateBlog">はい</ButtonGeneral>
+        <ButtonGeneral class="" @click="modalUpdateConfirm.close()">いいえ</ButtonGeneral>
       </div>
     </div>
   </ModalGeneral>
@@ -124,8 +124,8 @@ const deleteBlog = async () => {
         <div class="m-3">削除してよろしいですか？</div>
       </div>
       <div class="text-center">
-        <button-general class="me-2" @click.stop="deleteBlog">はい</button-general>
-        <button-general class="" @click.stop="modalDeleteConfirm.close()">いいえ</button-general>
+        <ButtonGeneral class="me-2" @click.stop="deleteBlog">はい</ButtonGeneral>
+        <ButtonGeneral class="" @click.stop="modalDeleteConfirm.close()">いいえ</ButtonGeneral>
       </div>
     </div>
   </ModalGeneral>

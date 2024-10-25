@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  InlineEditor,
+  ClassicEditor,
   AccessibilityHelp,
   Alignment,
   Autoformat,
@@ -62,13 +62,14 @@ import 'ckeditor5/ckeditor5.css'
 import { onMounted, ref } from 'vue'
 import { axios } from '@/lib/Axios'
 
-const props = defineProps<{
+export interface Props {
   placeholder?: string
-}>()
+}
+const { placeholder = '' } = defineProps<Props>()
 
 const data = defineModel<string>({ required: true })
 
-const editor = InlineEditor
+const editor = ClassicEditor
 
 const editorConfig: any = {
   plugins: [
@@ -267,7 +268,7 @@ const editorConfig: any = {
       reversed: true
     }
   },
-  placeholder: props.placeholder,
+  placeholder: placeholder,
   style: {
     definitions: [
       {
@@ -351,7 +352,7 @@ onMounted(() => {
   <div>
     <div class="main-container">
       <div
-        class="editor-container editor-container_inline-editor editor-container_include-style"
+        class="editor-container editor-container_classic-editor editor-container_include-style"
         ref="editorContainerElement"
       >
         <div class="editor-container__editor">
