@@ -4,10 +4,10 @@ import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { AxiosError } from 'axios'
 import { useBlogStore } from '@/stores/blog'
-import CkeditorBalloon from '@/components/CkeditorBalloon.vue'
-import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
-import InputText from '@/components/ui/InputText.vue'
-import ModalGeneral from '@/components/ModalGeneral.vue'
+import CkeditorBalloon from '@/components/general/CkeditorBalloon.vue'
+import ButtonGeneral from '@/components/general/ButtonGeneral.vue'
+import InputText from '@/components/general/InputText.vue'
+import ModalGeneral from '@/components/general/ModalGeneral.vue'
 
 // stores
 const router = useRouter()
@@ -73,15 +73,15 @@ const createBlog = async () => {
 
           <div class="p-3">
             <label for="familyname" class="">本文</label>
-            <div class="">
+            <div class="w-full">
               <CkeditorBalloon v-model="blog.body" :placeholder="'ここに本文を書きます。'" />
             </div>
           </div>
         </div>
 
         <div class="">
-          <button-general type="button" class="me-2" @click="toIndex">戻る</button-general>
-          <button-general type="submit" class="">作成</button-general>
+          <ButtonGeneral type="button" class="me-2" @click="toIndex">戻る</ButtonGeneral>
+          <ButtonGeneral type="submit" class="">作成</ButtonGeneral>
         </div>
       </form>
     </div>
@@ -94,8 +94,8 @@ const createBlog = async () => {
         <div class="m-3">作成します。よろしいですか？</div>
       </div>
       <div class="text-center">
-        <button-general class="me-2" @click.stop="createBlog">はい</button-general>
-        <button-general class="" @click.stop="modalCreateConfirm.close()">いいえ</button-general>
+        <ButtonGeneral class="me-2" @click.stop="createBlog">はい</ButtonGeneral>
+        <ButtonGeneral class="" @click.stop="modalCreateConfirm.close()">いいえ</ButtonGeneral>
       </div>
     </div>
   </ModalGeneral>

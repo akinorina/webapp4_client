@@ -4,12 +4,12 @@ import { storeToRefs } from 'pinia'
 import { useUserStore } from '@/stores/user'
 import { useRouter } from 'vue-router'
 import { defineAsyncComponent, ref } from 'vue'
-import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
-import InputText from '@/components/ui/InputText.vue'
-import InputEmail from '@/components/ui/InputEmail.vue'
+import ButtonGeneral from '@/components/general/ButtonGeneral.vue'
+import InputText from '@/components/general/InputText.vue'
+import InputEmail from '@/components/general/InputEmail.vue'
 
 //@ts-ignore
-const ModalGeneral = defineAsyncComponent(() => import('@/components/ModalGeneral.vue'))
+const ModalGeneral = defineAsyncComponent(() => import('@/components/general/ModalGeneral.vue'))
 
 // stores
 const router = useRouter()
@@ -105,11 +105,11 @@ const deleteUser = async () => {
         </div>
 
         <div class="flex justify-center p-3">
-          <button-general type="button" class="me-2" @click="toIndex">戻る</button-general>
-          <button-general type="submit" class="me-2">更新</button-general>
-          <button-general type="button" class="" @click="modalDeleteConfirm.open()">
+          <ButtonGeneral type="button" class="me-2" @click="toIndex">戻る</ButtonGeneral>
+          <ButtonGeneral type="submit" class="me-2">更新</ButtonGeneral>
+          <ButtonGeneral type="button" class="" @click="modalDeleteConfirm.open()">
             削除
-          </button-general>
+          </ButtonGeneral>
         </div>
       </form>
     </div>
@@ -122,8 +122,8 @@ const deleteUser = async () => {
         <div class="">更新してよろしいですか？</div>
       </div>
       <div class="mb-3 text-center">
-        <button-general class="me-2 w-24" @click="updateUser">はい</button-general>
-        <button-general class="w-24" @click="modalUpdateConfirm.close()">いいえ</button-general>
+        <ButtonGeneral class="me-2 w-24" @click="updateUser">はい</ButtonGeneral>
+        <ButtonGeneral class="w-24" @click="modalUpdateConfirm.close()">いいえ</ButtonGeneral>
       </div>
     </div>
   </ModalGeneral>
@@ -144,8 +144,8 @@ const deleteUser = async () => {
         <div class="">削除してよろしいですか？</div>
       </div>
       <div class="mb-3 text-center">
-        <button-general class="me-2 w-24" @click="deleteUser">はい</button-general>
-        <button-general class="w-24" @click="modalDeleteConfirm.close()">いいえ</button-general>
+        <ButtonGeneral class="me-2 w-24" @click="deleteUser">はい</ButtonGeneral>
+        <ButtonGeneral class="w-24" @click="modalDeleteConfirm.close()">いいえ</ButtonGeneral>
       </div>
     </div>
   </ModalGeneral>

@@ -10,17 +10,15 @@ import {
   BalloonToolbar,
   BlockQuote,
   Bold,
-  CloudServices,
-  Code,
   Essentials,
-  FindAndReplace,
   FontBackgroundColor,
   FontColor,
   FontFamily,
   FontSize,
   GeneralHtmlSupport,
-  Highlight,
+  Heading,
   ImageBlock,
+  ImageCaption,
   ImageInline,
   ImageInsert,
   ImageInsertViaUrl,
@@ -29,17 +27,13 @@ import {
   ImageTextAlternative,
   ImageToolbar,
   ImageUpload,
-  Indent,
-  IndentBlock,
   Italic,
   Link,
   LinkImage,
   List,
   ListProperties,
-  Markdown,
   MediaEmbed,
   Paragraph,
-  PasteFromMarkdownExperimental,
   PasteFromOffice,
   RemoveFormat,
   SelectAll,
@@ -51,10 +45,7 @@ import {
   SpecialCharactersLatin,
   SpecialCharactersMathematical,
   SpecialCharactersText,
-  Strikethrough,
   Style,
-  Subscript,
-  Superscript,
   Table,
   TableCaption,
   TableCellProperties,
@@ -71,55 +62,16 @@ import 'ckeditor5/ckeditor5.css'
 import { onMounted, ref } from 'vue'
 import { axios } from '@/lib/Axios'
 
-const props = defineProps<{
+export interface Props {
   placeholder?: string
-}>()
+}
+const { placeholder = '' } = defineProps<Props>()
 
-const vmodel = defineModel({ type: String, default: '' })
+const data = defineModel<string>({ required: true })
 
 const editor = BalloonEditor
+
 const editorConfig: any = {
-  toolbar: {
-    items: [
-      'undo',
-      'redo',
-      '|',
-      'findAndReplace',
-      '|',
-      'style',
-      '|',
-      'fontSize',
-      'fontFamily',
-      'fontColor',
-      'fontBackgroundColor',
-      '|',
-      'bold',
-      'italic',
-      'underline',
-      'strikethrough',
-      'subscript',
-      'superscript',
-      'code',
-      'removeFormat',
-      '|',
-      'specialCharacters',
-      'link',
-      'insertImage',
-      'mediaEmbed',
-      'insertTable',
-      'highlight',
-      'blockQuote',
-      '|',
-      'alignment',
-      '|',
-      'bulletedList',
-      'numberedList',
-      'todoList',
-      'outdent',
-      'indent'
-    ],
-    shouldNotGroupWhenFull: false
-  },
   plugins: [
     AccessibilityHelp,
     Alignment,
@@ -130,17 +82,15 @@ const editorConfig: any = {
     BalloonToolbar,
     BlockQuote,
     Bold,
-    CloudServices,
-    Code,
     Essentials,
-    FindAndReplace,
     FontBackgroundColor,
     FontColor,
     FontFamily,
     FontSize,
     GeneralHtmlSupport,
-    Highlight,
+    Heading,
     ImageBlock,
+    ImageCaption,
     ImageInline,
     ImageInsert,
     ImageInsertViaUrl,
@@ -149,17 +99,13 @@ const editorConfig: any = {
     ImageTextAlternative,
     ImageToolbar,
     ImageUpload,
-    Indent,
-    IndentBlock,
     Italic,
     Link,
     LinkImage,
     List,
     ListProperties,
-    Markdown,
     MediaEmbed,
     Paragraph,
-    PasteFromMarkdownExperimental,
     PasteFromOffice,
     RemoveFormat,
     SelectAll,
@@ -171,10 +117,7 @@ const editorConfig: any = {
     SpecialCharactersLatin,
     SpecialCharactersMathematical,
     SpecialCharactersText,
-    Strikethrough,
     Style,
-    Subscript,
-    Superscript,
     Table,
     TableCaption,
     TableCellProperties,
@@ -186,6 +129,39 @@ const editorConfig: any = {
     Underline,
     Undo
   ],
+  toolbar: {
+    items: [
+      'undo',
+      'redo',
+      '|',
+      'heading',
+      'style',
+      '|',
+      'fontSize',
+      'fontFamily',
+      'fontColor',
+      'fontBackgroundColor',
+      '|',
+      'bold',
+      'italic',
+      'underline',
+      'removeFormat',
+      '|',
+      'specialCharacters',
+      'link',
+      'insertImage',
+      'mediaEmbed',
+      'insertTable',
+      'blockQuote',
+      '|',
+      'alignment',
+      '|',
+      'bulletedList',
+      'numberedList',
+      'todoList'
+    ],
+    shouldNotGroupWhenFull: false
+  },
   balloonToolbar: [
     'bold',
     'italic',
@@ -203,6 +179,51 @@ const editorConfig: any = {
     options: [10, 12, 14, 'default', 18, 20, 22],
     supportAllValues: true
   },
+  heading: {
+    options: [
+      {
+        model: 'paragraph',
+        title: 'Paragraph',
+        class: 'ck-heading_paragraph'
+      },
+      {
+        model: 'heading1',
+        view: 'h1',
+        title: 'Heading 1',
+        class: 'ck-heading_heading1'
+      },
+      {
+        model: 'heading2',
+        view: 'h2',
+        title: 'Heading 2',
+        class: 'ck-heading_heading2'
+      },
+      {
+        model: 'heading3',
+        view: 'h3',
+        title: 'Heading 3',
+        class: 'ck-heading_heading3'
+      },
+      {
+        model: 'heading4',
+        view: 'h4',
+        title: 'Heading 4',
+        class: 'ck-heading_heading4'
+      },
+      {
+        model: 'heading5',
+        view: 'h5',
+        title: 'Heading 5',
+        class: 'ck-heading_heading5'
+      },
+      {
+        model: 'heading6',
+        view: 'h6',
+        title: 'Heading 6',
+        class: 'ck-heading_heading6'
+      }
+    ]
+  },
   htmlSupport: {
     allow: [
       {
@@ -215,6 +236,7 @@ const editorConfig: any = {
   },
   image: {
     toolbar: [
+      'toggleImageCaption',
       'imageTextAlternative',
       '|',
       'imageStyle:inline',
@@ -246,7 +268,7 @@ const editorConfig: any = {
       reversed: true
     }
   },
-  placeholder: props.placeholder,
+  placeholder: placeholder,
   style: {
     definitions: [
       {
@@ -335,12 +357,7 @@ onMounted(() => {
       >
         <div class="editor-container__editor">
           <div ref="editorElement">
-            <ckeditor
-              v-model="vmodel"
-              :editor="editor"
-              :config="editorConfig"
-              v-if="isLayoutReady"
-            />
+            <ckeditor v-model="data" :editor="editor" :config="editorConfig" v-if="isLayoutReady" />
           </div>
         </div>
       </div>

@@ -2,8 +2,8 @@
 import { ref, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
-import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
-import InputPassword from '@/components/ui/InputPassword.vue'
+import ButtonGeneral from '@/components/general/ButtonGeneral.vue'
+import InputPassword from '@/components/general/InputPassword.vue'
 import { digestMessage } from '@/lib/Functions'
 
 // stores
@@ -71,8 +71,8 @@ const submitForm = async () => {
         </div>
 
         <div class="mt-5 text-center">
-          <button-general type="button" class="me-2" @click="toAdmin">戻る</button-general>
-          <button-general type="submit" class="">更新</button-general>
+          <ButtonGeneral type="button" class="me-2" @click="toAdmin">戻る</ButtonGeneral>
+          <ButtonGeneral type="submit" class="">更新</ButtonGeneral>
         </div>
       </form>
     </div>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
+import ButtonGeneral from '@/components/general/ButtonGeneral.vue'
 
 // stores
 const router = useRouter()
@@ -20,7 +20,7 @@ const toSignin = () => {
       </div>
 
       <div class="p-3 text-center">
-        <button-general class="" @click="toSignin">サインイン</button-general>
+        <ButtonGeneral class="" @click="toSignin">サインイン</ButtonGeneral>
       </div>
     </div>
   </div>

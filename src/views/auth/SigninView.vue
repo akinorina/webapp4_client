@@ -4,9 +4,9 @@ import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 import { digestMessage } from '@/lib/Functions'
 
-import InputText from '@/components/ui/InputText.vue'
-import InputPassword from '@/components/ui/InputPassword.vue'
-import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
+import InputText from '@/components/general/InputText.vue'
+import InputPassword from '@/components/general/InputPassword.vue'
+import ButtonGeneral from '@/components/general/ButtonGeneral.vue'
 
 const authStore = useAuthStore()
 const router = useRouter()
@@ -77,9 +77,9 @@ const signInGoogle = () => {
               </div>
             </div>
             <div class="flex justify-center">
-              <button-general type="submit" class="rounded-md border px-3 py-1">
+              <ButtonGeneral type="submit" class="rounded-md border px-3 py-1">
                 sign-in
-              </button-general>
+              </ButtonGeneral>
             </div>
           </div>
         </div>

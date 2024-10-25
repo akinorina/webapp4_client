@@ -5,8 +5,8 @@ import { useUserStore } from '@/stores/user'
 import { useRouter } from 'vue-router'
 import { AxiosError } from 'axios'
 import { digestMessage } from '@/lib/Functions'
-import InputEmail from '@/components/ui/InputEmail.vue'
-import ButtonGeneral from '@/components/ui/ButtonGeneral.vue'
+import InputEmail from '@/components/general/InputEmail.vue'
+import ButtonGeneral from '@/components/general/ButtonGeneral.vue'
 
 // stores
 const router = useRouter()
@@ -77,12 +77,12 @@ const submitForm = async () => {
           </div>
 
           <div class="">
-            <button-general type="submit" class="m-2 rounded-md border px-2 py-1">
+            <ButtonGeneral type="submit" class="m-2 rounded-md border px-2 py-1">
               メールアドレス送信
-            </button-general>
-            <button-general type="button" class="m-2 rounded-md border px-2 py-1" @click="toIndex">
+            </ButtonGeneral>
+            <ButtonGeneral type="button" class="m-2 rounded-md border px-2 py-1" @click="toIndex">
               Topへ戻る
-            </button-general>
+            </ButtonGeneral>
           </div>
         </form>
       </div>
