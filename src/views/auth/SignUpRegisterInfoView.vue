@@ -21,12 +21,23 @@ watch(passwordRaw, async (newPasswordRaw) => {
   user.value.password = await digestMessage(newPasswordRaw)
 })
 
+const showErrorUrlInvalid = ref(false)
 const showErrorAlert = ref(false)
 
 // lifecycle
-onMounted(() => {
+onMounted(async () => {
   // QueryString取得
   const queryData: any = route.query
+
+  // email と email_hash が未登録である確認
+  try {
+    await userStore.checkVerifyingEmail(queryData.email, queryData.hash)
+  } catch (error) {
+    // VerifyingEmail無効（期限切れ、既に登録済み、ほか）
+    showErrorUrlInvalid.value = true
+    return false
+  }
+
   // 新樹ユーザーデータ作成
   userStore.newUser()
   user.value.email = queryData.email
@@ -54,7 +65,10 @@ const submitForm = async () => {
 
 <template>
   <div class="container mx-auto">
-    <div class="mt-3 border p-2">
+    <div class="mt-3 border p-2" v-if="showErrorUrlInvalid">
+      このメールアドレスへの登録は有効期限切れ、または、既に登録されたため無効です。
+    </div>
+    <div class="mt-3 border p-2" v-else>
       <div class="flex justify-center">
         <div>
           <div class="text-xl font-bold">Webapp4 ユーザー登録</div>
@@ -121,7 +135,7 @@ const submitForm = async () => {
 
           <div class="flex justify-center p-3">
             <ButtonGeneral type="submit" class="me-2">登録</ButtonGeneral>
-            <ButtonGeneral class="" @click="toIndex">Topへ戻る</ButtonGeneral>
+            <ButtonGeneral type="button" class="me-0" @click="toIndex">Topへ戻る</ButtonGeneral>
           </div>
         </form>
       </div>
