@@ -11,6 +11,18 @@ const router = createRouter({
       component: IndexView
     },
     {
+      path: '/blog',
+      name: 'blog',
+      component: () => import('../views/blog/IndexView.vue'),
+      props: true
+    },
+    {
+      path: '/blog/:id',
+      name: 'blog_detail',
+      component: () => import('../views/blog/DetailView.vue'),
+      props: true
+    },
+    {
       path: '/samples',
       name: 'samples',
       // route level code-splitting

@@ -33,8 +33,7 @@ const createBlog = async () => {
   try {
     modalCreateConfirm.value.close()
     // ブログ作成
-    const blog = await blogStore.createBlog()
-    console.log('blog', blog)
+    await blogStore.createBlog()
 
     modalCreateSuccess.value.open()
     setTimeout(() => {
@@ -69,6 +68,13 @@ const createBlog = async () => {
           <div class="flex p-3">
             <label for="username" class="block w-20">表題</label>
             <input-text class="w-80" id="username" v-model="blog.subject" />
+          </div>
+
+          <div class="flex p-3">
+            <label for="datetime" class="block w-24">ブログ日時</label>
+            <div class="w-80">
+              <VueDatePicker id="datetime" v-model="blog.blogAt" />
+            </div>
           </div>
 
           <div class="p-3">

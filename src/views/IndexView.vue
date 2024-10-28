@@ -2,6 +2,7 @@
 import { onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useImagePublicStore } from '@/stores/imagePublic'
+import Blog from '../lib/Blog'
 
 const imagePublicStore = useImagePublicStore()
 
@@ -38,6 +39,15 @@ onMounted(() => {
             <div class="">
               <div class="font-bold">Samples</div>
               <div class="text-xs">各種機能のサンプルページ。</div>
+            </div>
+          </router-link>
+        </div>
+
+        <div class="rounded border bg-slate-100 p-3">
+          <router-link :to="{ name: 'blog' }" class="">
+            <div class="">
+              <div class="font-bold">Blog</div>
+              <div class="text-xs">ブログ閲覧ページ</div>
             </div>
           </router-link>
         </div>

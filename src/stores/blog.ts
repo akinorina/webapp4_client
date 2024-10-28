@@ -7,10 +7,9 @@ export const useBlogStore = defineStore('blog', () => {
   const blog = ref<Blog>(new Blog())
   const blogs = ref<Blog[]>([])
 
-  async function getBlogs() {
+  async function getBlogs(options: any) {
     blogs.value = []
-    const options = {}
-    const response = await axios.get('/api/blogs', options)
+    const response = await axios.get('/api/blogs', { params: options })
     blogs.value = response.data
   }
 

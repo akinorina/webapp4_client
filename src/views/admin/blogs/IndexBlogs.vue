@@ -10,7 +10,8 @@ const blogStore = useBlogStore()
 
 // lifecycle
 onMounted(async () => {
-  await blogStore.getBlogs()
+  const options = { orders: 'blogAt:desc' }
+  await blogStore.getBlogs(options)
 })
 
 // functions
