@@ -2,7 +2,6 @@
 import { onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useImagePublicStore } from '@/stores/imagePublic'
-import Blog from '../lib/Blog'
 
 const imagePublicStore = useImagePublicStore()
 

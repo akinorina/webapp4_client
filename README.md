@@ -1,4 +1,4 @@
-# webapp4_client_vue3
+# webapp4_client
 
 This template should help get you started developing with Vue 3 in Vite.
 
