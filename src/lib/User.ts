@@ -29,15 +29,19 @@ export default class User {
   // パスワード
   password: string = ''
 
+  // 利用規約の承認 (1:承認 / 0:not)
+  agreeTerms: string = '0'
+
   constructor(user: any = {}) {
     this.id = user.id ?? 0
-    this.username = user.username
-    this.familyname = user.familyname
-    this.firstname = user.firstname
-    this.familynameKana = user.familynameKana
-    this.firstnameKana = user.firstnameKana
-    this.email = user.email
-    this.email_hash = user.email_hash
-    this.password = user.password
+    this.username = user.username ?? ''
+    this.familyname = user.familyname ?? ''
+    this.firstname = user.firstname ?? ''
+    this.familynameKana = user.familynameKana ?? ''
+    this.firstnameKana = user.firstnameKana ?? ''
+    this.email = user.email ?? ''
+    this.email_hash = user.email_hash ?? ''
+    this.password = user.password ?? ''
+    this.agreeTerms = user.agreeTerms ?? '0'
   }
 }

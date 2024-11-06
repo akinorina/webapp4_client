@@ -77,6 +77,13 @@ const deleteBlog = async () => {
             <input-text class="w-80" id="username" v-model="blog.subject" />
           </div>
 
+          <div class="flex p-3">
+            <label for="datetime" class="block w-24">ブログ日時</label>
+            <div class="w-80">
+              <VueDatePicker id="datetime" v-model="blog.blogAt" />
+            </div>
+          </div>
+
           <div class="p-2">
             <label for="familyname" class="">本文</label>
             <div class="w-full">

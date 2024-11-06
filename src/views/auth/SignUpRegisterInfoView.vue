@@ -9,6 +9,7 @@ import InputText from '@/components/general/InputText.vue'
 import InputEmail from '@/components/general/InputEmail.vue'
 import InputPassword from '@/components/general/InputPassword.vue'
 import ButtonGeneral from '@/components/general/ButtonGeneral.vue'
+import kiyaku from '../../assets/text/kiyaku.txt?raw'
 
 // stores
 const router = useRouter()
@@ -131,10 +132,36 @@ const submitForm = async () => {
                 v-model="passwordRaw"
               />
             </div>
+
+            <div class="flex justify-start p-3">
+              <div class="">
+                <input
+                  type="checkbox"
+                  id="kiyaku"
+                  class="m-2 h-5 w-5"
+                  :true-value="'1'"
+                  :false-value="'0'"
+                  v-model="user.agreeTerms"
+                />
+                <label for="kiyaku">利用規約をすべて読み、同意します。</label>
+              </div>
+            </div>
+            <div class="ms-50 w-full p-3">
+              <div class="w-full">
+                <textarea class="h-40 w-full border p-2 text-xs" v-model="kiyaku"></textarea>
+              </div>
+            </div>
           </div>
 
           <div class="flex justify-center p-3">
-            <ButtonGeneral type="submit" class="me-2">登録</ButtonGeneral>
+            <ButtonGeneral
+              type="submit"
+              :disabled="user.agreeTerms === '0'"
+              class="me-2"
+              :class="{ 'bg-slate-300 hover:bg-slate-300': user.agreeTerms === '0' }"
+            >
+              登録
+            </ButtonGeneral>
             <ButtonGeneral type="button" class="me-0" @click="toIndex">Topへ戻る</ButtonGeneral>
           </div>
         </form>
