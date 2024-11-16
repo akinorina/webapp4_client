@@ -148,7 +148,11 @@ const submitForm = async () => {
             </div>
             <div class="ms-50 w-full p-3">
               <div class="w-full">
-                <textarea class="h-40 w-full border p-2 text-xs" readonly v-model="kiyaku"></textarea>
+                <textarea
+                  class="h-40 w-full border p-2 text-xs"
+                  readonly
+                  v-model="kiyaku"
+                ></textarea>
               </div>
             </div>
           </div>
