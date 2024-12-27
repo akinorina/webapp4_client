@@ -101,6 +101,16 @@
       </router-link>
     </div>
 
+    <div class="mt-3 border p-3">
+      <router-link :to="{ name: 'samples_audio' }" class="">
+        <div class="">
+          <div class="">
+            <h5 class="">Volume Meter</h5>
+            <p class="">Mic 入力の Volume Meter サンプルです。</p>
+          </div>
+        </div>
+      </router-link>
+    </div>
 </div>
 </template>
 
