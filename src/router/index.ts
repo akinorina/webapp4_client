@@ -31,6 +31,11 @@ const router = createRouter({
       component: () => import('../views/samples/IndexView.vue')
     },
     {
+      path: '/samples/buttons',
+      name: 'samples_buttons',
+      component: () => import('../views/samples/ButtonsView.vue')
+    },
+    {
       path: '/samples/generalmodal',
       name: 'samples_generalmodal',
       component: () => import('../views/samples/ModalGeneralView.vue')
@@ -79,6 +84,11 @@ const router = createRouter({
       path: '/samples/audio',
       name: 'samples_audio',
       component: () => import('../views/samples/AudioView.vue')
+    },
+    {
+      path: '/samples/draggable',
+      name: 'samples_draggable',
+      component: () => import('../views/samples/DraggableView.vue')
     },
     {
       path: '/signin',
