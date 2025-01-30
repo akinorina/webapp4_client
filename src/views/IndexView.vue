@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { useRouter, RouterLink } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { useImagePublicStore } from '@/stores/imagePublic'
 import ButtonGeneral from '@/components/general/ButtonGeneral.vue';
 
