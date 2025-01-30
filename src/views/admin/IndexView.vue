@@ -43,6 +43,13 @@ const authStore = useAuthStore()
             <p class="text-xs">パスワード変更</p>
           </div>
         </ButtonGeneral>
+
+        <ButtonGeneral class="h-24 px-1 py-3" @click="router.push({ name: 'samples' })">
+          <div class="flex flex-col items-center">
+            <h5 class="font-bold leading-5 mb-2">samples</h5>
+            <p class="text-xs">サンプルコード集</p>
+          </div>
+        </ButtonGeneral>
       </div>
     </div>
   </div>

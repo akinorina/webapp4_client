@@ -22,7 +22,7 @@ const hideButtonExplaining = () => {
 <template>
   <button
     :type="type"
-    class="relative rounded-md bg-sky-400 px-3 py-1 text-slate-50 hover:bg-sky-500"
+    class="relative rounded-md bg-primary-400 px-3 py-1 text-slate-50 hover:bg-primary-500"
     :disabled="disabled"
     @mouseover="showButtonExplaining"
     @mouseout="hideButtonExplaining"

@@ -22,19 +22,16 @@ const hideButtonExplaining = () => {
 <template>
   <button
     :type="type"
-    class="relative rounded-md bg-sky-400 px-3 py-1 text-slate-50 hover:bg-sky-500"
+    class="relative rounded-md bg-danger-400 px-3 py-1 text-slate-50 hover:bg-danger-500"
     :disabled="disabled"
     @mouseover="showButtonExplaining"
     @mouseout="hideButtonExplaining"
   >
     <slot></slot>
-    <div
-      class="explanation m-0 bg-slate-50 p-0 text-black"
-      :class="{ show: buttonExplaining }"
-      v-if="$slots.explain"
-    >
+    <div class="explanation m-0 bg-slate-50 p-0 text-black" :class="{ show: buttonExplaining }">
       <slot name="explain"></slot>
     </div>
+    <!-- v-if="$slots.explain" -->
   </button>
 </template>
 
