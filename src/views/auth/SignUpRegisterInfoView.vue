@@ -133,6 +133,14 @@ const submitForm = async () => {
               />
             </div>
 
+            <div class="p-3 text-sm">
+              アカウントにログインすると
+              <a class="text-blue-700 underline" href="#" target="_blank">利用規約</a>
+              と
+              <a class="text-blue-700 underline" href="#" target="_blank">プライバシーポリシー</a>
+              に同意したものとみなされます。
+            </div>
+
             <div class="flex justify-start p-3">
               <div class="">
                 <input

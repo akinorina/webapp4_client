@@ -56,7 +56,9 @@ const signInGoogle = () => {
           </div>
 
           <div class="flex justify-center" v-if="showErrorMessage">
-            <div class="p-3 bg-red-500 text-white font-bold" role="alert">メールアドレス、または、パスワードに誤りがあります。</div>
+            <div class="p-3 rounded bg-red-400 text-white text-sm font-bold" role="alert">
+              メールアドレス、または、パスワードに誤りがあります。
+            </div>
           </div>
 
           <div class="w-full max-w-96 mx-auto">
@@ -81,33 +83,38 @@ const signInGoogle = () => {
               />
             </div>
 
-            <div class="flex justify-center px-1 py-3">
-              <ButtonGeneral type="submit" class="rounded-md border px-3 py-1">
+            <div class="">
+              <ButtonGeneral type="submit" class="py-2 my-3 w-full flex justify-center items-center">
                 sign-in
               </ButtonGeneral>
             </div>
           </div>
         </form>
 
+        <div class="my-0">
+          または
+        </div>
+
         <div class="my-3 w-full flex justify-center items-center">
           <ButtonGeneral
-            class="w-full rounded-lg bg-slate-400 text-black py-3 text-black hover:bg-slate-500"
+            class="w-full py-2 flex justify-center items-center"
+            @click="signInGoogle"
+          >
+            <img :src="googleIcon" class="me-2 w-6" />
+            googleアカウントでサインイン
+          </ButtonGeneral>
+        </div>
+
+        <div class="my-5">&nbsp;</div>
+
+        <div class="my-3 w-full flex justify-center items-center">
+          <ButtonGeneral
+            class="w-full py-2 flex justify-center items-center bg-slate-500 hover:bg-slate-600"
             @click="router.push({ name: 'reset-password' })"
           >
             <router-link :to="{ name: 'reset-password' }"> パスワードを忘れた場合 </router-link>
           </ButtonGeneral>
         </div>
-
-        <div class="my-3 w-full flex justify-center items-center">
-          <ButtonGeneral
-            class="w-full rounded-lg bg-slate-400 text-black py-3 flex items-center justify-center"
-            @click="signInGoogle"
-          >
-            <img :src="googleIcon" class="me-2 w-6" />
-            googleアカウントでログイン
-          </ButtonGeneral>
-        </div>
-
       </div>
     </div>
   </div>

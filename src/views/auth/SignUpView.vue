@@ -53,7 +53,7 @@ const signInGoogle = () => {
 
 <template>
   <div class="container mx-auto">
-    <div class="px-3">
+    <div class="max-w-96 mx-auto px-3">
       <div class="">
         <div class="m-3 text-center font-bold text-lg">
           Sign-up
@@ -94,14 +94,13 @@ const signInGoogle = () => {
           class="w-full py-2 flex justify-center items-center"
           @click="signInGoogle"
         >
-        <!-- w-full -->
           <img :src="googleIcon" class="me-2 w-6" />
           googleアカウントでログイン
         </ButtonGeneral>
       </div>
 
       <div class="p-3 text-sm">
-        アカウントを作成すると
+        アカウントにログインすると
         <a class="text-blue-700 underline" href="#" target="_blank">利用規約</a>
         と
         <a class="text-blue-700 underline" href="#" target="_blank">プライバシーポリシー</a>

@@ -18,7 +18,7 @@ const authStore = useAuthStore()
       <div class="grid grid-cols-3 gap-3">
         <ButtonGeneral class="h-24 px-1 py-3" @click="router.push({ name: 'admin_users' })" v-if="authStore.getUsername() === 'admin'">
           <div class="flex flex-col items-center">
-            <h5 class="font-bold leading-5 mb-2">Image</h5>
+            <h5 class="font-bold leading-5 mb-2">User</h5>
             <p class="text-xs">ユーザー管理</p>
           </div>
         </ButtonGeneral>
