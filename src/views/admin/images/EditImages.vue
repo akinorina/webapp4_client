@@ -62,20 +62,16 @@ const deleteImage = async () => {
 
 <template>
   <div class="containter mx-auto">
-    <form class="" novalidate @submit.stop.prevent="modalUpdateConfirm.open()">
-      <div class="p-3">
-        <div class="flex gap-4">
+    <form class="p-2 m-2 border" novalidate @submit.stop.prevent="modalUpdateConfirm.open()">
+      <div class="w-full">
+        <div class="">
           <div class="">
-            <div class="w-96">
-              <img :src="pathPrefix + image.path" class="" />
+            <div class="w-full flex justify-center">
+              <img :src="pathPrefix + image.path" class="w-72" />
             </div>
-          </div>
-          <div class="">
-            <div class="">
-              <div class="" style="width: 100%">
-                <label for="imagename" class="block">表示名</label>
-                <input-text class="" id="imagename" v-model="image.name" />
-              </div>
+            <div class="w-full p-2">
+              <label for="imagename" class="block p-2">表示名</label>
+              <input-text class="w-full" id="imagename" v-model="image.name" />
             </div>
           </div>
         </div>
