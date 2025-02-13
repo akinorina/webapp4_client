@@ -90,7 +90,7 @@ const submitForm = async () => {
 
         <div class="">
           <ButtonGeneral type="submit" class="m-2 rounded-md border px-2 py-1">
-            メールアドレス送信
+            パスワード変更
           </ButtonGeneral>
           <ButtonGeneral type="button" class="m-2 rounded-md border px-2 py-1" @click="toIndex">
             Topへ戻る

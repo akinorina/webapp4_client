@@ -52,7 +52,7 @@ const signInGoogle = () => {
       <div class="m-0 max-w-96 mx-auto">
         <form @submit.prevent="submitSignin">
           <div class="m-3 text-center font-bold text-lg">
-            Sign-in をどうぞ
+            Sign-in
           </div>
 
           <div class="flex justify-center" v-if="showErrorMessage">
@@ -91,7 +91,7 @@ const signInGoogle = () => {
 
         <div class="my-3 w-full flex justify-center items-center">
           <ButtonGeneral
-            class="w-full rounded-lg bg-slate-200 text-black py-3 text-black hover:bg-slate-300"
+            class="w-full rounded-lg bg-slate-400 text-black py-3 text-black hover:bg-slate-500"
             @click="router.push({ name: 'reset-password' })"
           >
             <router-link :to="{ name: 'reset-password' }"> パスワードを忘れた場合 </router-link>
@@ -100,7 +100,7 @@ const signInGoogle = () => {
 
         <div class="my-3 w-full flex justify-center items-center">
           <ButtonGeneral
-            class="w-full rounded-lg bg-slate-200 text-black py-3 flex items-center justify-center"
+            class="w-full rounded-lg bg-slate-400 text-black py-3 flex items-center justify-center"
             @click="signInGoogle"
           >
             <img :src="googleIcon" class="me-2 w-6" />

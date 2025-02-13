@@ -76,15 +76,16 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   async function signInByGoogleRedirect(query: any) {
+    // access_token 設定
     if (query.access_token === 'no_user_from_google') {
       return false // Sign-in failure
     }
     axios.defaults.headers['Authorization'] = 'Bearer ' + query.access_token
 
-    // get profle
+    // profle情報取得
     const res2 = await getProfile()
 
-    // set Profile obj.
+    // profle情報設定
     profile.value.set({
       access_token: query.access_token,
       username: res2.data.username,

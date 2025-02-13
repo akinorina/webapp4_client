@@ -14,8 +14,8 @@ const toSignin = () => {
 <template>
   <div class="container mx-auto">
     <div class="border p-3">
-      <h1 class="">ユーザー登録</h1>
-      <p class="">ユーザー登録が完了しました。</p>
+      <h1 class="font-bold">パスワード変更</h1>
+      <p class="">パスワード変更が完了しました。</p>
     </div>
 
     <div class="mt-2 border p-3">
