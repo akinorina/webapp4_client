@@ -215,6 +215,58 @@ const changeBackground = async () => {
     }
   }
 }
+
+// 10秒間の録画
+const bRecordBtnDisabled = ref(false)
+const recordStream = async () => {
+  // button disabled ON
+  bRecordBtnDisabled.value = true
+
+  // Optional frames per second argument.
+  const recordedChunks: any[] = [];
+
+  console.log(mediaStream.value);
+  const options = { mimeType: "video/webm; codecs=vp9" };
+  const mediaRecorder = new MediaRecorder(mediaStream.value, options);
+
+  mediaRecorder.ondataavailable = handleDataAvailable;
+  mediaRecorder.start();
+
+  function handleDataAvailable(event: any) {
+    console.log("data-available");
+    if (event.data.size > 0) {
+      recordedChunks.push(event.data);
+      console.log(recordedChunks);
+      download();
+    } else {
+      // …
+    }
+  }
+  function download() {
+    const blob = new Blob(recordedChunks, {
+      type: "video/webm",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a") as HTMLAnchorElement;
+    document.body.appendChild(a);
+    a.style.display = "none";
+    a.href = url;
+    a.download = "test.webm";
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
+
+  // demo: to download after 5sec
+  setTimeout(() => {
+    console.log('----- recordStream() -----')
+
+    console.log("stopping");
+    mediaRecorder.stop();
+
+    // button disabled OFF
+    bRecordBtnDisabled.value = false
+  }, 10000)
+}
 </script>
 
 <template>
@@ -314,6 +366,12 @@ const changeBackground = async () => {
           </svg>
         </ButtonGeneralPrimary>
         <!-- // mic on/off -->
+
+        <!-- 10sec. recording -->
+        <ButtonGeneralPrimary class="me-3 h-12 w-24 disabled:bg-red-500" :disabled="bRecordBtnDisabled" @click="recordStream()">
+          10秒録画
+        </ButtonGeneralPrimary>
+        <!-- // 10sec. recording -->
       </div>
     </div>
 
