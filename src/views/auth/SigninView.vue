@@ -28,7 +28,7 @@ onMounted(() => {
 const submitSignin = async () => {
   try {
     await authStore.signIn()
-    router.push({ name: 'admin' })
+    router.push({ name: 'sign-in-redirect' })
   } catch (err: any) {
     if (err.response.status === 401) {
       showErrorMessage.value = true
@@ -64,13 +64,13 @@ const signInGoogle = () => {
           <div class="w-full max-w-96 mx-auto">
 
             <div class="flex px-1 py-3">
-                <label class="w-1/4 p-2 text-sm" for="floatingInput">Email</label>
-                <input-text
-                  id="floatingInput"
-                  v-model="authStore.email"
-                  placefolder="name@example.com"
-                  class="w-3/4 p-2"
-                />
+              <label class="w-1/4 p-2 text-sm" for="floatingInput">Email</label>
+              <input-text
+                id="floatingInput"
+                v-model="authStore.email"
+                placefolder="name@example.com"
+                class="w-3/4 p-2"
+              />
             </div>
 
             <div class="flex px-1 py-3">

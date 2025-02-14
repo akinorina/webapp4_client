@@ -96,6 +96,11 @@ const router = createRouter({
       component: () => import('../views/auth/SigninView.vue')
     },
     {
+      path: '/signin-redirect',
+      name: 'sign-in-redirect',
+      component: () => import('../views/auth/SigninRedirectView.vue')
+    },
+    {
       path: '/signin-google-redirect',
       name: 'sign-in-google-redirect',
       component: () => import('../views/auth/SigninGoogleRedirectView.vue')
