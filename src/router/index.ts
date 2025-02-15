@@ -23,74 +23,6 @@ const router = createRouter({
       props: true
     },
     {
-      path: '/samples',
-      name: 'samples',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/samples/IndexView.vue')
-    },
-    {
-      path: '/samples/buttons',
-      name: 'samples_buttons',
-      component: () => import('../views/samples/ButtonsView.vue')
-    },
-    {
-      path: '/samples/generalmodal',
-      name: 'samples_generalmodal',
-      component: () => import('../views/samples/ModalGeneralView.vue')
-    },
-    {
-      path: '/samples/ckeditor/classic',
-      name: 'samples_ckeditor_classic',
-      component: () => import('../views/samples/CkeditorClassicView.vue')
-    },
-    {
-      path: '/samples/ckeditor/inline',
-      name: 'samples_ckeditor_inline',
-      component: () => import('../views/samples/CkeditorInlineView.vue')
-    },
-    {
-      path: '/samples/ckeditor/balloon',
-      name: 'samples_ckeditor_balloon',
-      component: () => import('../views/samples/CkeditorBalloonView.vue')
-    },
-    {
-      path: '/samples/media',
-      name: 'samples_media',
-      component: () => import('../views/samples/MediaView.vue')
-    },
-    {
-      path: '/samples/media-normal',
-      name: 'samples_media-normal',
-      component: () => import('../views/samples/MediaNormalView.vue')
-    },
-    {
-      path: '/samples/media-alttext',
-      name: 'samples_media-alttext',
-      component: () => import('../views/samples/MediaAltTextView.vue')
-    },
-    {
-      path: '/samples/media-blur',
-      name: 'samples_media-blur',
-      component: () => import('../views/samples/MediaBlurView.vue')
-    },
-    {
-      path: '/samples/media-vbg',
-      name: 'samples_media-vbg',
-      component: () => import('../views/samples/MediaVbgView.vue')
-    },
-    {
-      path: '/samples/audio',
-      name: 'samples_audio',
-      component: () => import('../views/samples/AudioView.vue')
-    },
-    {
-      path: '/samples/draggable',
-      name: 'samples_draggable',
-      component: () => import('../views/samples/DraggableView.vue')
-    },
-    {
       path: '/signin',
       name: 'sign-in',
       component: () => import('../views/auth/SigninView.vue')
@@ -210,12 +142,87 @@ const router = createRouter({
       path: '/admin/blogs/new',
       name: 'admin_blogs_new',
       component: () => import('../views/admin/blogs/NewBlogs.vue')
+    },
+    {
+      path: '/samples',
+      name: 'samples',
+      component: () => import('../views/samples/IndexView.vue')
+    },
+    {
+      path: '/samples/buttons',
+      name: 'samples_buttons',
+      component: () => import('../views/samples/ButtonsView.vue')
+    },
+    {
+      path: '/samples/generalmodal',
+      name: 'samples_generalmodal',
+      component: () => import('../views/samples/ModalGeneralView.vue')
+    },
+    {
+      path: '/samples/ckeditor/classic',
+      name: 'samples_ckeditor_classic',
+      component: () => import('../views/samples/CkeditorClassicView.vue')
+    },
+    {
+      path: '/samples/ckeditor/inline',
+      name: 'samples_ckeditor_inline',
+      component: () => import('../views/samples/CkeditorInlineView.vue')
+    },
+    {
+      path: '/samples/ckeditor/balloon',
+      name: 'samples_ckeditor_balloon',
+      component: () => import('../views/samples/CkeditorBalloonView.vue')
+    },
+    {
+      path: '/samples/media',
+      name: 'samples_media',
+      component: () => import('../views/samples/MediaView.vue')
+    },
+    {
+      path: '/samples/media-normal',
+      name: 'samples_media-normal',
+      component: () => import('../views/samples/MediaNormalView.vue')
+    },
+    {
+      path: '/samples/media-alttext',
+      name: 'samples_media-alttext',
+      component: () => import('../views/samples/MediaAltTextView.vue')
+    },
+    {
+      path: '/samples/media-blur',
+      name: 'samples_media-blur',
+      component: () => import('../views/samples/MediaBlurView.vue')
+    },
+    {
+      path: '/samples/media-vbg',
+      name: 'samples_media-vbg',
+      component: () => import('../views/samples/MediaVbgView.vue')
+    },
+    {
+      path: '/samples/audio',
+      name: 'samples_audio',
+      component: () => import('../views/samples/AudioView.vue')
+    },
+    {
+      path: '/samples/draggable',
+      name: 'samples_draggable',
+      component: () => import('../views/samples/DraggableView.vue')
+    },
+    {
+      path: '/samples/trial',
+      name: 'samples_trial',
+      component: () => import('../views/samples/TrialView.vue')
     }
   ]
 })
 
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
+
+  if (authStore.isAuthenticated()) {
+    // 再Sign-in処理実行
+    authStore.resignIn()
+  }
 
   // 行き先ページが管理者用ページである判定
   const isAdminPage = String(to.name).match(/^admin/) !== null

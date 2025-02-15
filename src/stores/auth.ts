@@ -12,7 +12,7 @@ export const useAuthStore = defineStore('auth', () => {
   const email = ref('')
   const password = ref('')
 
-  // setInterval ID.
+  // setInterval ID. : Sign-in 有効期限が過ぎたら Sign-out 処理実行
   let iID: number = 0
 
   // Profile
@@ -50,6 +50,34 @@ export const useAuthStore = defineStore('auth', () => {
       password: password.value
     }
     const res = await axios.post('/api/auth/signin', signinData)
+    axios.defaults.headers['Authorization'] = 'Bearer ' + res.data.access_token
+
+    // get profle
+    const res2 = await getProfile()
+
+    // set Profile obj.
+    profile.value.set({
+      access_token: res.data.access_token,
+      username: res2.data.username,
+      email: res2.data.email,
+      iat: res2.data.iat,
+      exp: res2.data.exp
+    })
+
+    // save to localStorage
+    localStorage.setItem('auth', JSON.stringify(profile.value))
+
+    // 時間切れ処理
+    setTimeoutProc()
+  }
+
+  async function resignIn() {
+    // 再sign-in
+    const signinData = {
+      email: email.value,
+      password: password.value
+    }
+    const res = await axios.post('/api/auth/resignin', signinData)
     axios.defaults.headers['Authorization'] = 'Bearer ' + res.data.access_token
 
     // get profle
@@ -117,18 +145,26 @@ export const useAuthStore = defineStore('auth', () => {
     return await axios.get('/api/auth/profile')
   }
 
+  // トークン発行日時の取得
+  function getIssuedAt(): string {
+    return dayjs(profile.value.iat).format('YYYY-MM-DD HH:mm:ss')
+  }
+  // トークン有効期限日時の取得
   function getExpiredTime(): string {
     return dayjs(profile.value.exp).format('YYYY-MM-DD HH:mm:ss')
   }
 
+  // 残り時間 (msec.)
+  async function getSigninTimeRemaining() {
+    return dayjs(profile.value.exp).diff(dayjs().valueOf(), 'milliseconds')
+  }
+
+  // 1秒ごとに、Sign-in有効期限を過ぎたら Sign-out 処理実行
   function setTimeoutProc() {
     // 時間切れ処理
     iID = window.setInterval(() => {
       if (!isAuthenticated()) {
-        axios.defaults.headers['Authorization'] = null
-        profile.value.clear()
-        clearInterval(iID)
-        localStorage.removeItem('auth')
+        signOut()
         router.push({ name: 'sign-out' })
       }
     }, 1000)
@@ -142,8 +178,11 @@ export const useAuthStore = defineStore('auth', () => {
     signIn,
     signInByGoogle,
     signInByGoogleRedirect,
+    resignIn,
     signOut,
     getProfile,
-    getExpiredTime
+    getIssuedAt,
+    getExpiredTime,
+    getSigninTimeRemaining
   }
 })
