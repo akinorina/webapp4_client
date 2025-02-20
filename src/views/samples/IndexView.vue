@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { RouterLink } from 'vue-router'
+</script>
 
 <template>
   <div class="container mx-auto">
@@ -11,7 +13,6 @@
     </div>
 
     <div class="">
-
       <div class="mt-3 border p-3">
         <h2 class="font-bold">General</h2>
 
@@ -124,6 +125,19 @@
             <div class="m-3 rounded-lg border p-3 hover:bg-sky-200">
               <h5 class="">Volume Meter</h5>
               <p class="">Mic 入力の Volume Meter サンプルです。</p>
+            </div>
+          </div>
+        </router-link>
+      </div>
+
+      <div class="mt-3 border p-3">
+        <h2 class="font-bold">トライアル</h2>
+
+        <router-link :to="{ name: 'samples_trial' }" class="">
+          <div class="">
+            <div class="m-3 rounded-lg border p-3 hover:bg-sky-200">
+              <h5 class="">トライアルページ</h5>
+              <p class="">実装のお試しページです。</p>
             </div>
           </div>
         </router-link>

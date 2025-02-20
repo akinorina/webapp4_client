@@ -30,7 +30,7 @@ const sort001 = () => {
         handle=".handle"
       >
         <template #item="{ element }">
-          <div class="handle m-2 p-2 border-4 border-slate-200 bg-white cursor-pointer">
+          <div class="handle m-2 cursor-pointer border-4 border-slate-200 bg-white p-2">
             <div>{{ element.id }} - {{ element.name }}</div>
           </div>
         </template>
@@ -43,5 +43,4 @@ const sort001 = () => {
   </div>
 </template>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

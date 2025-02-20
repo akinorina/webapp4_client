@@ -12,7 +12,7 @@ export const useAuthStore = defineStore('auth', () => {
   const email = ref('')
   const password = ref('')
 
-  // setInterval ID.
+  // setInterval ID. : Sign-in 有効期限が過ぎたら Sign-out 処理実行
   let iID: number = 0
 
   // Profile
@@ -35,7 +35,10 @@ export const useAuthStore = defineStore('auth', () => {
 
   // サインイン有効期限内 判定
   const isAuthenticated = () => {
-    return dayjs().isBefore(dayjs(profile.value.exp))
+    const availableProfile = profile.value.exp !== 0
+    const availableTime = dayjs().isBefore(dayjs(profile.value.exp))
+    // console.log('isAuthenticated() - ret', ret)
+    return availableProfile && availableTime
   }
 
   // 時間切れ処理 on reload.
@@ -71,20 +74,49 @@ export const useAuthStore = defineStore('auth', () => {
     setTimeoutProc()
   }
 
-  async function signInByGoogle() {
-    location.href = '/api/auth/signin-google'
-  }
-
-  async function signInByGoogleRedirect(query: any) {
-    if (query.access_token === 'no_user_from_google') {
-      return false // Sign-in failure
+  async function resignIn() {
+    // 再sign-in
+    const signinData = {
+      email: email.value,
+      password: password.value
     }
-    axios.defaults.headers['Authorization'] = 'Bearer ' + query.access_token
+    const res = await axios.post('/api/auth/resignin', signinData)
+    axios.defaults.headers['Authorization'] = 'Bearer ' + res.data.access_token
 
     // get profle
     const res2 = await getProfile()
 
     // set Profile obj.
+    profile.value.set({
+      access_token: res.data.access_token,
+      username: res2.data.username,
+      email: res2.data.email,
+      iat: res2.data.iat,
+      exp: res2.data.exp
+    })
+
+    // save to localStorage
+    localStorage.setItem('auth', JSON.stringify(profile.value))
+
+    // 時間切れ処理
+    setTimeoutProc()
+  }
+
+  async function signInByGoogle() {
+    location.href = '/api/auth/signin-google'
+  }
+
+  async function signInByGoogleRedirect(query: any) {
+    // access_token 設定
+    if (query.access_token === 'no_user_from_google') {
+      return false // Sign-in failure
+    }
+    axios.defaults.headers['Authorization'] = 'Bearer ' + query.access_token
+
+    // profle情報取得
+    const res2 = await getProfile()
+
+    // profle情報設定
     profile.value.set({
       access_token: query.access_token,
       username: res2.data.username,
@@ -116,18 +148,27 @@ export const useAuthStore = defineStore('auth', () => {
     return await axios.get('/api/auth/profile')
   }
 
+  // トークン発行日時の取得
+  function getIssuedAt(): string {
+    return dayjs(profile.value.iat).format('YYYY-MM-DD HH:mm:ss')
+  }
+  // トークン有効期限日時の取得
   function getExpiredTime(): string {
     return dayjs(profile.value.exp).format('YYYY-MM-DD HH:mm:ss')
   }
 
+  // 残り時間 (msec.)
+  async function getSigninTimeRemaining() {
+    return dayjs(profile.value.exp).diff(dayjs().valueOf(), 'milliseconds')
+  }
+
+  // 1秒ごとに、Sign-in有効期限を過ぎたら Sign-out 処理実行
   function setTimeoutProc() {
     // 時間切れ処理
     iID = window.setInterval(() => {
-      if (!isAuthenticated()) {
-        axios.defaults.headers['Authorization'] = null
-        profile.value.clear()
-        clearInterval(iID)
-        localStorage.removeItem('auth')
+      if (!isAuthenticated() && profile.value.exp !== 0) {
+        // profileがクリアされておらず、無効な状態だったら、Sign-out処理実行
+        signOut()
         router.push({ name: 'sign-out' })
       }
     }, 1000)
@@ -141,8 +182,11 @@ export const useAuthStore = defineStore('auth', () => {
     signIn,
     signInByGoogle,
     signInByGoogleRedirect,
+    resignIn,
     signOut,
     getProfile,
-    getExpiredTime
+    getIssuedAt,
+    getExpiredTime,
+    getSigninTimeRemaining
   }
 })

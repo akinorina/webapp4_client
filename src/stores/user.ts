@@ -18,6 +18,7 @@ export const useUserStore = defineStore('user', () => {
   const email = ref('')
   const hash = ref('')
 
+  // ユーザー検索・一覧取得
   async function getUsers() {
     users.value = []
     const options = {}
@@ -25,15 +26,18 @@ export const useUserStore = defineStore('user', () => {
     users.value = response.data
   }
 
+  // 新規ユーザーデータ生成
   async function newUser() {
     user.value = new User()
   }
 
+  // ユーザー作成
   async function createUser() {
     const options = user.value
     await axios.post('/api/users', options)
   }
 
+  // ユーザー情報 取得
   async function getUser(id: number) {
     user.value = new User()
     const options = {}
@@ -41,16 +45,48 @@ export const useUserStore = defineStore('user', () => {
     user.value = new User(response.data)
   }
 
+  // ユーザー更新
   async function updateUser(id: number) {
     const options = user.value
     await axios.put('/api/users/' + id, options)
   }
 
+  // ユーザー削除
   async function deleteUser(id: number) {
     const options = {}
     await axios.delete('/api/users/' + id, options)
   }
 
+  // メールアドレス確認 - メール送信
+  async function sendVerifyingEmail(action: 'sign-up' | 'reset-password') {
+    const options = {
+      email: unverifiedEmail.value,
+      action: action
+    }
+    await axios.post('/api/users/send-verifying-email', options)
+  }
+
+  // メールアドレス確認 - メールアドレス検証
+  async function checkVerifyingEmail(email: string, hash: string) {
+    // options
+    const options = {
+      email: email,
+      hash: hash
+    }
+    await axios.post('/api/users/check-verifying-email', options)
+  }
+
+  // リセット・パスワード
+  async function resetPassword() {
+    const options = {
+      email: email.value,
+      hash: hash.value,
+      password: newPassword.value
+    }
+    await axios.post('/api/users/reset-password', options)
+  }
+
+  // パスワード変更
   async function changePassword() {
     const options = {
       oldPassword: oldPassword.value,
@@ -59,37 +95,9 @@ export const useUserStore = defineStore('user', () => {
     await axios.put('/api/users/change-password', options)
   }
 
-  async function verifyingEmail(nextPageUrlPath: string) {
-    // メールアドレス確認
-    const options = {
-      email: unverifiedEmail.value,
-      next_url_path: nextPageUrlPath
-    }
-    await axios.post('/api/users/verifing-email', options)
-  }
-
-  async function checkVerifyingEmail(email: string, hash: string) {
-    // options
-    const options = {
-      email: email,
-      hash: hash
-    }
-    await axios.post('/api/users/check_verifying_email', options)
-  }
-
+  // ユーザー登録
   async function registerUser() {
-    // ユーザー登録
     await axios.post('/api/users/register-user', user.value)
-  }
-
-  async function resetPassword() {
-    // パスワード更新
-    const options = {
-      email: email.value,
-      hash: hash.value,
-      password: newPassword.value
-    }
-    await axios.post('/api/users/reset-password', options)
   }
 
   return {
@@ -107,7 +115,7 @@ export const useUserStore = defineStore('user', () => {
     updateUser,
     deleteUser,
     changePassword,
-    verifyingEmail,
+    sendVerifyingEmail,
     checkVerifyingEmail,
     registerUser,
     resetPassword

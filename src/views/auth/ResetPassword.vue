@@ -23,7 +23,7 @@ const toIndex = () => {
 }
 const submitForm = async () => {
   try {
-    await userStore.verifyingEmail('/reset-password-input')
+    await userStore.sendVerifyingEmail('reset-password')
     router.push({ name: 'reset-password-sent-email' })
   } catch (err) {
     if (err instanceof AxiosError) {

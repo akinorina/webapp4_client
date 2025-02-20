@@ -29,6 +29,9 @@ export default class User {
   // パスワード
   password: string = ''
 
+  // アカウントタイプ (normal|google)
+  accountType: 'normal' | 'google' = 'normal'
+
   // 利用規約の承認 (1:承認 / 0:not)
   agreeTerms: string = '0'
 
@@ -42,6 +45,7 @@ export default class User {
     this.email = user.email ?? ''
     this.email_hash = user.email_hash ?? ''
     this.password = user.password ?? ''
+    this.accountType = user.accountType ?? 'normal'
     this.agreeTerms = user.agreeTerms ?? '0'
   }
 }

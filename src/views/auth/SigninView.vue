@@ -28,7 +28,7 @@ onMounted(() => {
 const submitSignin = async () => {
   try {
     await authStore.signIn()
-    router.push({ name: 'admin' })
+    router.push({ name: 'sign-in-redirect' })
   } catch (err: any) {
     if (err.response.status === 401) {
       showErrorMessage.value = true
@@ -49,26 +49,25 @@ const signInGoogle = () => {
 <template>
   <div class="container mx-auto">
     <div class="m-1 border-8 border-slate-50 p-3">
-      <div class="m-0 max-w-96 mx-auto">
+      <div class="m-0 mx-auto max-w-96">
         <form @submit.prevent="submitSignin">
-          <div class="m-3 text-center font-bold text-lg">
-            Sign-in をどうぞ
-          </div>
+          <div class="m-3 text-center text-lg font-bold">Sign-in</div>
 
           <div class="flex justify-center" v-if="showErrorMessage">
-            <div class="p-3 bg-red-500 text-white font-bold" role="alert">メールアドレス、または、パスワードに誤りがあります。</div>
+            <div class="rounded bg-red-400 p-3 text-sm font-bold text-white" role="alert">
+              メールアドレス、または、パスワードに誤りがあります。
+            </div>
           </div>
 
-          <div class="w-full max-w-96 mx-auto">
-
+          <div class="mx-auto w-full max-w-96">
             <div class="flex px-1 py-3">
-                <label class="w-1/4 p-2 text-sm" for="floatingInput">Email</label>
-                <input-text
-                  id="floatingInput"
-                  v-model="authStore.email"
-                  placefolder="name@example.com"
-                  class="w-3/4 p-2"
-                />
+              <label class="w-1/4 p-2 text-sm" for="floatingInput">Email</label>
+              <input-text
+                id="floatingInput"
+                v-model="authStore.email"
+                placefolder="name@example.com"
+                class="w-3/4 p-2"
+              />
             </div>
 
             <div class="flex px-1 py-3">
@@ -81,33 +80,36 @@ const signInGoogle = () => {
               />
             </div>
 
-            <div class="flex justify-center px-1 py-3">
-              <ButtonGeneral type="submit" class="rounded-md border px-3 py-1">
+            <div class="">
+              <ButtonGeneral
+                type="submit"
+                class="my-3 flex w-full items-center justify-center py-2"
+              >
                 sign-in
               </ButtonGeneral>
             </div>
           </div>
         </form>
 
-        <div class="my-3 w-full flex justify-center items-center">
+        <div class="my-0">または</div>
+
+        <div class="my-3 flex w-full items-center justify-center">
+          <ButtonGeneral class="flex w-full items-center justify-center py-2" @click="signInGoogle">
+            <img :src="googleIcon" class="me-2 w-6" />
+            googleアカウントでサインイン
+          </ButtonGeneral>
+        </div>
+
+        <div class="my-5">&nbsp;</div>
+
+        <div class="my-3 flex w-full items-center justify-center">
           <ButtonGeneral
-            class="w-full rounded-lg bg-slate-200 text-black py-3 text-black hover:bg-slate-300"
+            class="flex w-full items-center justify-center bg-slate-500 py-2 hover:bg-slate-600"
             @click="router.push({ name: 'reset-password' })"
           >
             <router-link :to="{ name: 'reset-password' }"> パスワードを忘れた場合 </router-link>
           </ButtonGeneral>
         </div>
-
-        <div class="my-3 w-full flex justify-center items-center">
-          <ButtonGeneral
-            class="w-full rounded-lg bg-slate-200 text-black py-3 flex items-center justify-center"
-            @click="signInGoogle"
-          >
-            <img :src="googleIcon" class="me-2 w-6" />
-            googleアカウントでログイン
-          </ButtonGeneral>
-        </div>
-
       </div>
     </div>
   </div>

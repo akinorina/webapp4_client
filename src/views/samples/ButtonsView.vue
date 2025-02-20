@@ -17,16 +17,30 @@ import ButtonGeneralDanger from '@/components/general/ButtonGeneralDanger.vue'
 
     <div class="mt-3 border p-3">
       <div class="m-3">
-        <ButtonGeneral class="me-3">ButtonGeneral<template #explain>ここに説明が入ります。</template></ButtonGeneral>
+        <ButtonGeneral class="me-3"
+          >ButtonGeneral<template #explain>ここに説明が入ります。</template></ButtonGeneral
+        >
       </div>
       <div class="m-3">
-        <ButtonGeneralPrimary class="me-3">ButtonGeneralPrimary<template #explain>ここに説明が入ります。</template></ButtonGeneralPrimary>
+        <ButtonGeneralPrimary class="me-3"
+          >ButtonGeneralPrimary<template #explain
+            >ここに説明が入ります。</template
+          ></ButtonGeneralPrimary
+        >
       </div>
       <div class="m-3">
-        <ButtonGeneralSecondary class="me-3">ButtonGeneralSecondary<template #explain>ここに説明が入ります。</template></ButtonGeneralSecondary>
+        <ButtonGeneralSecondary class="me-3"
+          >ButtonGeneralSecondary<template #explain
+            >ここに説明が入ります。</template
+          ></ButtonGeneralSecondary
+        >
       </div>
       <div class="m-3">
-        <ButtonGeneralDanger class="me-3">ButtonGeneralDanger<template #explain>ここに説明が入ります。</template></ButtonGeneralDanger>
+        <ButtonGeneralDanger class="me-3"
+          >ButtonGeneralDanger<template #explain
+            >ここに説明が入ります。</template
+          ></ButtonGeneralDanger
+        >
       </div>
     </div>
   </div>

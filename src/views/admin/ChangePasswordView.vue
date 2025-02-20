@@ -53,29 +53,33 @@ const submitForm = async () => {
 
 <template>
   <div class="container mx-auto p-2">
-    <div class="max-w-96 mx-auto border-0 border-red-600">
-      <div class="w-full mx-auto p-3 text-lg font-bold text-center">
-        パスワード変更
+    <div class="mx-auto max-w-96 border-0 border-red-600">
+      <div class="mx-auto w-full p-3 text-center text-lg font-bold">パスワード変更</div>
+
+      <div class="mb-3 bg-green-500 p-3 font-bold text-white" v-if="resultSuccess">
+        パスワードが変更されました。
+      </div>
+      <div class="mb-3 bg-red-500 p-3 font-bold text-white" v-if="resultFailure">
+        パスワード変更が失敗しました。
       </div>
 
-      <div class="mb-3 bg-green-500 text-white font-bold p-3" v-if="resultSuccess">パスワードが変更されました。</div>
-      <div class="mb-3 bg-red-500 text-white font-bold p-3" v-if="resultFailure">パスワード変更が失敗しました。</div>
-
       <form class="" novalidate @submit.stop.prevent="submitForm">
-        <div class="w-full flex flex-col items-center">
-          <div class="w-full m-3 flex">
-            <label  class="w-2/5 py-2" for="old_password">パスワード</label>
+        <div class="flex w-full flex-col items-center">
+          <div class="m-3 flex w-full">
+            <label class="w-2/5 py-2" for="old_password">パスワード</label>
             <input-password class="w-3/5 p-2 text-3xl" id="old_password" v-model="passwordOldRaw" />
           </div>
 
-          <div class="w-full m-3 flex">
+          <div class="m-3 flex w-full">
             <label class="w-2/5 py-2" for="new_password">新しいパスワード</label>
             <input-password class="w-3/5 p-2 text-3xl" id="new_password" v-model="passwordNewRaw" />
           </div>
         </div>
 
         <div class="mt-5 text-center">
-          <ButtonGeneral type="button" class="me-2 bg-slate-400 hover:bg-slate-500" @click="toAdmin">戻る</ButtonGeneral>
+          <ButtonGeneral type="button" class="me-2 bg-slate-400 hover:bg-slate-500" @click="toAdmin"
+            >戻る</ButtonGeneral
+          >
           <ButtonGeneral type="submit" class="me-0">更新</ButtonGeneral>
         </div>
       </form>

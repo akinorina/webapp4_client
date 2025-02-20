@@ -23,82 +23,19 @@ const router = createRouter({
       props: true
     },
     {
-      path: '/samples',
-      name: 'samples',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/samples/IndexView.vue')
-    },
-    {
-      path: '/samples/buttons',
-      name: 'samples_buttons',
-      component: () => import('../views/samples/ButtonsView.vue')
-    },
-    {
-      path: '/samples/generalmodal',
-      name: 'samples_generalmodal',
-      component: () => import('../views/samples/ModalGeneralView.vue')
-    },
-    {
-      path: '/samples/ckeditor/classic',
-      name: 'samples_ckeditor_classic',
-      component: () => import('../views/samples/CkeditorClassicView.vue')
-    },
-    {
-      path: '/samples/ckeditor/inline',
-      name: 'samples_ckeditor_inline',
-      component: () => import('../views/samples/CkeditorInlineView.vue')
-    },
-    {
-      path: '/samples/ckeditor/balloon',
-      name: 'samples_ckeditor_balloon',
-      component: () => import('../views/samples/CkeditorBalloonView.vue')
-    },
-    {
-      path: '/samples/media',
-      name: 'samples_media',
-      component: () => import('../views/samples/MediaView.vue')
-    },
-    {
-      path: '/samples/media-normal',
-      name: 'samples_media-normal',
-      component: () => import('../views/samples/MediaNormalView.vue')
-    },
-    {
-      path: '/samples/media-alttext',
-      name: 'samples_media-alttext',
-      component: () => import('../views/samples/MediaAltTextView.vue')
-    },
-    {
-      path: '/samples/media-blur',
-      name: 'samples_media-blur',
-      component: () => import('../views/samples/MediaBlurView.vue')
-    },
-    {
-      path: '/samples/media-vbg',
-      name: 'samples_media-vbg',
-      component: () => import('../views/samples/MediaVbgView.vue')
-    },
-    {
-      path: '/samples/audio',
-      name: 'samples_audio',
-      component: () => import('../views/samples/AudioView.vue')
-    },
-    {
-      path: '/samples/draggable',
-      name: 'samples_draggable',
-      component: () => import('../views/samples/DraggableView.vue')
-    },
-    {
       path: '/signin',
       name: 'sign-in',
       component: () => import('../views/auth/SigninView.vue')
     },
     {
+      path: '/signin-redirect',
+      name: 'sign-in-redirect',
+      component: () => import('../views/auth/SigninRedirectView.vue')
+    },
+    {
       path: '/signin-google-redirect',
       name: 'sign-in-google-redirect',
-      component: () => import('../views/auth/SigninGoogleView.vue')
+      component: () => import('../views/auth/SigninGoogleRedirectView.vue')
     },
     {
       path: '/signout',
@@ -116,8 +53,8 @@ const router = createRouter({
       component: () => import('../views/auth/SignUpSentEmailView.vue')
     },
     {
-      path: '/signup-register-info',
-      name: 'sign-up-register-info',
+      path: '/signup-input',
+      name: 'sign-up-input',
       component: () => import('../views/auth/SignUpRegisterInfoView.vue'),
       props: true
     },
@@ -205,6 +142,76 @@ const router = createRouter({
       path: '/admin/blogs/new',
       name: 'admin_blogs_new',
       component: () => import('../views/admin/blogs/NewBlogs.vue')
+    },
+    {
+      path: '/samples',
+      name: 'samples',
+      component: () => import('../views/samples/IndexView.vue')
+    },
+    {
+      path: '/samples/buttons',
+      name: 'samples_buttons',
+      component: () => import('../views/samples/ButtonsView.vue')
+    },
+    {
+      path: '/samples/generalmodal',
+      name: 'samples_generalmodal',
+      component: () => import('../views/samples/ModalGeneralView.vue')
+    },
+    {
+      path: '/samples/ckeditor/classic',
+      name: 'samples_ckeditor_classic',
+      component: () => import('../views/samples/CkeditorClassicView.vue')
+    },
+    {
+      path: '/samples/ckeditor/inline',
+      name: 'samples_ckeditor_inline',
+      component: () => import('../views/samples/CkeditorInlineView.vue')
+    },
+    {
+      path: '/samples/ckeditor/balloon',
+      name: 'samples_ckeditor_balloon',
+      component: () => import('../views/samples/CkeditorBalloonView.vue')
+    },
+    {
+      path: '/samples/media',
+      name: 'samples_media',
+      component: () => import('../views/samples/MediaView.vue')
+    },
+    {
+      path: '/samples/media-normal',
+      name: 'samples_media-normal',
+      component: () => import('../views/samples/MediaNormalView.vue')
+    },
+    {
+      path: '/samples/media-alttext',
+      name: 'samples_media-alttext',
+      component: () => import('../views/samples/MediaAltTextView.vue')
+    },
+    {
+      path: '/samples/media-blur',
+      name: 'samples_media-blur',
+      component: () => import('../views/samples/MediaBlurView.vue')
+    },
+    {
+      path: '/samples/media-vbg',
+      name: 'samples_media-vbg',
+      component: () => import('../views/samples/MediaVbgView.vue')
+    },
+    {
+      path: '/samples/audio',
+      name: 'samples_audio',
+      component: () => import('../views/samples/AudioView.vue')
+    },
+    {
+      path: '/samples/draggable',
+      name: 'samples_draggable',
+      component: () => import('../views/samples/DraggableView.vue')
+    },
+    {
+      path: '/samples/trial',
+      name: 'samples_trial',
+      component: () => import('../views/samples/TrialView.vue')
     }
   ]
 })
