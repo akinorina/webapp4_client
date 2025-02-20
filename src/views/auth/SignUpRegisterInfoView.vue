@@ -67,7 +67,8 @@ const submitForm = async () => {
 <template>
   <div class="container mx-auto">
     <div class="mt-3 border p-2" v-if="showErrorUrlInvalid">
-      このメールアドレスへの登録は有効期限切れ、または、既に登録されたため無効です。
+      このメールアドレスへの登録は有効期限切れ、または、既に登録されたため無効です。<br />
+      必要なら改めて最初から登録手続きを行なってください。
     </div>
     <div class="mt-3 border p-2" v-else>
       <div class="flex justify-center">

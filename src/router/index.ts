@@ -53,8 +53,8 @@ const router = createRouter({
       component: () => import('../views/auth/SignUpSentEmailView.vue')
     },
     {
-      path: '/signup-register-info',
-      name: 'sign-up-register-info',
+      path: '/signup-input',
+      name: 'sign-up-input',
       component: () => import('../views/auth/SignUpRegisterInfoView.vue'),
       props: true
     },
@@ -218,11 +218,6 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
-
-  if (authStore.isAuthenticated()) {
-    // 再Sign-in処理実行
-    authStore.resignIn()
-  }
 
   // 行き先ページが管理者用ページである判定
   const isAdminPage = String(to.name).match(/^admin/) !== null

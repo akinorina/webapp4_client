@@ -25,6 +25,7 @@ const showErrorAlert = ref(false)
 
 // lifecycle
 onMounted(() => {
+  userStore.unverifiedEmail = ''
   userStore.newUser()
 })
 
@@ -34,7 +35,7 @@ const toIndex = () => {
 }
 const submitForm = async () => {
   try {
-    await userStore.verifyingEmail('/signup-register-info')
+    await userStore.sendVerifyingEmail('sign-up')
     router.push({ name: 'sign-up-sent-email' })
   } catch (err) {
     if (err instanceof AxiosError) {
