@@ -2,7 +2,7 @@
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useImagePublicStore } from '@/stores/imagePublic'
-import ButtonGeneral from '@/components/general/ButtonGeneral.vue';
+import ButtonGeneral from '@/components/general/ButtonGeneral.vue'
 
 const router = useRouter()
 const imagePublicStore = useImagePublicStore()
@@ -25,9 +25,8 @@ onMounted(() => {
     </div>
 
     <div class="m-1">
-
       <div class="py-3">
-        <ButtonGeneral class="w-full my-0" @click="router.push({ name: 'admin' })">
+        <ButtonGeneral class="my-0 w-full" @click="router.push({ name: 'admin' })">
           <div class="">
             <div class="text-xl font-bold">User Page</div>
             <div class="text-xs">登録ユーザー用のページへ遷移。</div>
@@ -36,7 +35,7 @@ onMounted(() => {
       </div>
 
       <div class="py-3">
-        <ButtonGeneral class="w-full my-0" @click="router.push({ name: 'samples' })">
+        <ButtonGeneral class="my-0 w-full" @click="router.push({ name: 'samples' })">
           <div class="">
             <div class="text-xl font-bold">Samples</div>
             <div class="text-xs">各種機能のサンプルページ。</div>
@@ -45,15 +44,13 @@ onMounted(() => {
       </div>
 
       <div class="py-3">
-        <ButtonGeneral class="w-full my-0" @click="router.push({ name: 'blog' })">
+        <ButtonGeneral class="my-0 w-full" @click="router.push({ name: 'blog' })">
           <div class="">
             <div class="text-xl font-bold">Blog</div>
             <div class="text-xs">ブログ閲覧ページ</div>
           </div>
         </ButtonGeneral>
       </div>
-
-
 
       <!--
       <div class="grid grid-cols-2 gap-3">

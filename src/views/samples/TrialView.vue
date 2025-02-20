@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { useAuthStore } from '@/stores/auth';
+import { onMounted } from 'vue'
+import { useAuthStore } from '@/stores/auth'
 
 const authStore = useAuthStore()
 
@@ -14,14 +14,10 @@ onMounted(() => {
   <div class="container mx-auto">
     <div class="border p-3">
       <h2 class="font-bold">Webapp4 - Samples</h2>
-      <p class="text-xs">
-        Trial View - お試し画面
-      </p>
+      <p class="text-xs">Trial View - お試し画面</p>
     </div>
 
-    <div class="">
-      おためし。
-    </div>
+    <div class="">おためし。</div>
   </div>
 </template>
 

@@ -49,20 +49,17 @@ const signInGoogle = () => {
 <template>
   <div class="container mx-auto">
     <div class="m-1 border-8 border-slate-50 p-3">
-      <div class="m-0 max-w-96 mx-auto">
+      <div class="m-0 mx-auto max-w-96">
         <form @submit.prevent="submitSignin">
-          <div class="m-3 text-center font-bold text-lg">
-            Sign-in
-          </div>
+          <div class="m-3 text-center text-lg font-bold">Sign-in</div>
 
           <div class="flex justify-center" v-if="showErrorMessage">
-            <div class="p-3 rounded bg-red-400 text-white text-sm font-bold" role="alert">
+            <div class="rounded bg-red-400 p-3 text-sm font-bold text-white" role="alert">
               メールアドレス、または、パスワードに誤りがあります。
             </div>
           </div>
 
-          <div class="w-full max-w-96 mx-auto">
-
+          <div class="mx-auto w-full max-w-96">
             <div class="flex px-1 py-3">
               <label class="w-1/4 p-2 text-sm" for="floatingInput">Email</label>
               <input-text
@@ -84,22 +81,20 @@ const signInGoogle = () => {
             </div>
 
             <div class="">
-              <ButtonGeneral type="submit" class="py-2 my-3 w-full flex justify-center items-center">
+              <ButtonGeneral
+                type="submit"
+                class="my-3 flex w-full items-center justify-center py-2"
+              >
                 sign-in
               </ButtonGeneral>
             </div>
           </div>
         </form>
 
-        <div class="my-0">
-          または
-        </div>
+        <div class="my-0">または</div>
 
-        <div class="my-3 w-full flex justify-center items-center">
-          <ButtonGeneral
-            class="w-full py-2 flex justify-center items-center"
-            @click="signInGoogle"
-          >
+        <div class="my-3 flex w-full items-center justify-center">
+          <ButtonGeneral class="flex w-full items-center justify-center py-2" @click="signInGoogle">
             <img :src="googleIcon" class="me-2 w-6" />
             googleアカウントでサインイン
           </ButtonGeneral>
@@ -107,9 +102,9 @@ const signInGoogle = () => {
 
         <div class="my-5">&nbsp;</div>
 
-        <div class="my-3 w-full flex justify-center items-center">
+        <div class="my-3 flex w-full items-center justify-center">
           <ButtonGeneral
-            class="w-full py-2 flex justify-center items-center bg-slate-500 hover:bg-slate-600"
+            class="flex w-full items-center justify-center bg-slate-500 py-2 hover:bg-slate-600"
             @click="router.push({ name: 'reset-password' })"
           >
             <router-link :to="{ name: 'reset-password' }"> パスワードを忘れた場合 </router-link>

@@ -54,11 +54,9 @@ const signInGoogle = () => {
 
 <template>
   <div class="container mx-auto">
-    <div class="max-w-96 mx-auto px-3">
+    <div class="mx-auto max-w-96 px-3">
       <div class="">
-        <div class="m-3 text-center font-bold text-lg">
-          Sign-up
-        </div>
+        <div class="m-3 text-center text-lg font-bold">Sign-up</div>
         <div class="text-sm">
           webapp4 ユーザー登録ページです。<br />
           メールアドレス入力後［送信］を押してください。
@@ -73,7 +71,11 @@ const signInGoogle = () => {
       </div>
 
       <div class="border p-3">
-        <form class="w-full flex justify-center items-center m-3" novalidate @submit.prevent="submitForm">
+        <form
+          class="m-3 flex w-full items-center justify-center"
+          novalidate
+          @submit.prevent="submitForm"
+        >
           <label for="email" class="">email</label>
           <input-email
             id="email"
@@ -83,18 +85,13 @@ const signInGoogle = () => {
           />
 
           <div class="">
-            <ButtonGeneral type="submit" class="">
-              送信
-            </ButtonGeneral>
+            <ButtonGeneral type="submit" class=""> 送信 </ButtonGeneral>
           </div>
         </form>
 
-        <div class="w-full py-3 flex justify-center items-center">または</div>
+        <div class="flex w-full items-center justify-center py-3">または</div>
 
-        <ButtonGeneral
-          class="w-full py-2 flex justify-center items-center"
-          @click="signInGoogle"
-        >
+        <ButtonGeneral class="flex w-full items-center justify-center py-2" @click="signInGoogle">
           <img :src="googleIcon" class="me-2 w-6" />
           googleアカウントでログイン
         </ButtonGeneral>
@@ -108,7 +105,11 @@ const signInGoogle = () => {
         に同意したものとみなされます。
       </div>
 
-      <ButtonGeneral type="button" class="m-2 rounded-md bg-slate-400 border px-2 py-1" @click="toIndex">
+      <ButtonGeneral
+        type="button"
+        class="m-2 rounded-md border bg-slate-400 px-2 py-1"
+        @click="toIndex"
+      >
         Topへ戻る
       </ButtonGeneral>
     </div>

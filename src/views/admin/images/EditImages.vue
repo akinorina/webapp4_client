@@ -62,11 +62,11 @@ const deleteImage = async () => {
 
 <template>
   <div class="containter mx-auto">
-    <form class="p-2 m-2 border" novalidate @submit.stop.prevent="modalUpdateConfirm.open()">
+    <form class="m-2 border p-2" novalidate @submit.stop.prevent="modalUpdateConfirm.open()">
       <div class="w-full">
         <div class="">
           <div class="">
-            <div class="w-full flex justify-center">
+            <div class="flex w-full justify-center">
               <img :src="pathPrefix + image.path" class="w-72" />
             </div>
             <div class="w-full p-2">

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router';
+import { RouterLink } from 'vue-router'
 </script>
 
 <template>
@@ -13,7 +13,6 @@ import { RouterLink } from 'vue-router';
     </div>
 
     <div class="">
-
       <div class="mt-3 border p-3">
         <h2 class="font-bold">General</h2>
 
