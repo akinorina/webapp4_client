@@ -35,7 +35,10 @@ export const useAuthStore = defineStore('auth', () => {
 
   // サインイン有効期限内 判定
   const isAuthenticated = () => {
-    return dayjs().isBefore(dayjs(profile.value.exp))
+    const availableProfile = profile.value.exp !== 0
+    const availableTime = dayjs().isBefore(dayjs(profile.value.exp))
+    // console.log('isAuthenticated() - ret', ret)
+    return availableProfile && availableTime
   }
 
   // 時間切れ処理 on reload.
@@ -163,7 +166,8 @@ export const useAuthStore = defineStore('auth', () => {
   function setTimeoutProc() {
     // 時間切れ処理
     iID = window.setInterval(() => {
-      if (!isAuthenticated()) {
+      if (!isAuthenticated() && profile.value.exp !== 0) {
+        // profileがクリアされておらず、無効な状態だったら、Sign-out処理実行
         signOut()
         router.push({ name: 'sign-out' })
       }
