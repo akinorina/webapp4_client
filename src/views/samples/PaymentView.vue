@@ -27,20 +27,14 @@ const stripe = ref<Stripe>()
 
 // 価格リスト
 const prices = ref()
-// 商品リスト
-const products = ref()
 
 // 価格
 const targetPrice = ref()
-// 商品
-const targetProduct = ref()
 
 // 顧客
 const targetCustomer = ref()
-// const customerId = ref('')
 const name = ref('Akinori Nakata')
 const email = ref('')
-// const priceId = ref('')
 
 // 顧客の支払い方法
 const targetPaymentMethods = ref<any[]>([])
@@ -101,14 +95,32 @@ onMounted(async () => {
   }
 
   // Subscription 既存から取得
-  subscriptions.value = (await stripeStore.listSubscriptionByCustomer(targetCustomer.value.id))
+  subscriptions.value = (await stripeStore.listSubscriptionByCustomer(targetCustomer.value.id, 'all'))
+  console.log('subscriptions.value', subscriptions.value)
   if (subscriptions.value.subscriptions.length > 0) {
     targetSubscription.value = subscriptions.value.subscriptions[0]
+    console.log('targetSubscription.value', targetSubscription.value)
+    console.log('targetSubscription.value.status', targetSubscription.value.status)
 
+    // サブスクリプションに関する請求書
     targetInvoices.value = await stripeStore.listInvoicesBySubscription(targetSubscription.value.id);
 
     // サブスクリプション表示
-    if (targetSubscription.value.status === 'active') {
+    console.log('period_start', dayjs(targetSubscription.value.period_start).format('YYYY-MM-DD HH:mm:ss'))
+    console.log('period_end  ', dayjs(targetSubscription.value.period_end).format('YYYY-MM-DD HH:mm:ss'))
+    console.log('current_period_start', dayjs(targetSubscription.value.current_period_start * 1000).format('YYYY-MM-DD HH:mm:ss'))
+    console.log('current_period_end  ', dayjs(targetSubscription.value.current_period_end * 1000).format('YYYY-MM-DD HH:mm:ss'))
+
+    if (targetSubscription.value.status === 'active' || targetSubscription.value.status === 'canceled') {
+      //
+      if (targetSubscription.value.status === 'canceled'
+        && dayjs('2025-03-23 01:34:00').isAfter(dayjs(targetSubscription.value.ended_at * 1000))
+      ) {
+        console.log('---- HIT: isAfter ----')
+        stepName.value = 'create1'
+        return false
+      }
+
       // Subscription -> Price 取得
       const subscriptionPriceIds = targetSubscription.value.items.data.map((item: any) => {
         if (item.price.id) {
@@ -284,13 +296,10 @@ const changeDefaultPaymentMethod = async (paymentMethodId: string) => {
 
 // サブスクリプションのキャンセル
 const cancelSubscription = async () => {
-  // console.log('--- cancelSubscription() ---')
-
-  // // Subscription キャンセルを実行
-  // stripeStore.cancelSubscription(subscription.value.id)
-
-  // // 画面遷移
-  // stepName.value = 'canceled'
+  // Subscription キャンセルを実行
+  await stripeStore.cancelSubscription(targetSubscription.value.id)
+  // 画面遷移
+  stepName.value = 'canceled'
 }
 
 const _setMessage = (message: string) => {
@@ -301,12 +310,10 @@ const _setMessage = (message: string) => {
 
 <template>
   <div class="container mx-auto w-screen bg-inherit">
-    <div class="">
-      Payment
-    </div>
+    <h1 class="mt-3 ps-3 py-3 text-3xl bg-slate-50 font-bold">bc-meeting 決済</h1>
 
-    <div class="border p-3 my-3" v-if="stepName === 'create1'">
-      <h1 class="mb-3 text-xl font-bold">支払いフォーム</h1>
+    <div class="border p-3 mb-3" v-if="stepName === 'create1'">
+      <h2 class="mb-3 text-xl font-bold">サブスクリプション</h2>
 
       <div class="">
         <div class="">
@@ -344,7 +351,7 @@ const _setMessage = (message: string) => {
     </div>
 
     <div class="border p-3 my-3" v-else-if="stepName === 'create2'">
-      <h1 class="mb-3 text-xl font-bold">支払いフォーム</h1>
+      <h2 class="mb-3 text-xl font-bold">サブスクリプション</h2>
 
       <div class="">
         <form id="subscribe-form" @submit.prevent="submitSubscribe2">
@@ -357,7 +364,7 @@ const _setMessage = (message: string) => {
                 <span class="font-bold">
                   {{ targetPrice.unit_amount }}
                   {{ targetPrice.currency === 'jpy' ? '円' : targetPrice.currency }}
-                  / {{ targetPrice.recurring.interval === 'month' ? '月' : targetPrice.recurring.interval === 'year' ? '年' : priceSelected.recurring.interval }}
+                  / {{ targetPrice.recurring.interval === 'month' ? '月' : targetPrice.recurring.interval === 'year' ? '年' : targetPrice.recurring.interval }}
                 </span>
               </div>
             </div>
@@ -384,18 +391,20 @@ const _setMessage = (message: string) => {
     </div>
 
     <div class="border p-3 my-3" v-else-if="stepName === 'available'">
-      <h1 class="mb-3 text-xl font-bold">サブスクリプション</h1>
+      <h2 class="mb-3 text-xl font-bold">サブスクリプション</h2>
 
       <div class="">
         <div class="my-3">
           <div class="">サブスクリプションID: {{ targetSubscription.id }}</div>
           <div class="">サービス名: {{ targetPrice.product.name }}</div>
-          <div class="">サービス開始日: {{ dayjs(targetSubscription.start_date * 1000).format('YYYY-MM-DD') }}</div>
-          <div class="">現在の期間: {{ dayjs(targetSubscription.current_period_start * 1000).format('YYYY-MM-DD') }} 〜 {{ dayjs(targetSubscription.current_period_end * 1000).format('YYYY-MM-DD') }}</div>
+          <div class="">サービス開始日時: {{ dayjs(targetSubscription.start_date * 1000).format('YYYY-MM-DD HH:mm') }}</div>
+          <div class="" v-if="targetSubscription.ended_at">サービス終了日時: {{ dayjs(targetSubscription.ended_at * 1000).format('YYYY-MM-DD HH:mm') }}</div>
+          <div class="" v-if="targetSubscription.cancel_at">サービスキャンセル日時: {{ dayjs(targetSubscription.cancel_at * 1000).format('YYYY-MM-DD HH:mm') }}</div>
+          <div class="">現在の期間: {{ dayjs(targetSubscription.current_period_start * 1000).format('YYYY-MM-DD HH:mm') }} 〜 {{ dayjs(targetSubscription.current_period_end * 1000).format('YYYY-MM-DD HH:mm') }}</div>
           <div class="">状態: {{ targetSubscription.status }}</div>
         </div>
 
-        <div class="my-3">
+        <div class="my-3" v-if="targetSubscription.status !== 'canceled' && !targetSubscription.cancel_at_period_end">
           <ButtonGeneralPrimary @click="cancelSubscription">
             サブスクリプションをキャンセル
           </ButtonGeneralPrimary>
@@ -452,7 +461,7 @@ const _setMessage = (message: string) => {
     </div>
 
     <div class="border p-3 my-3" v-else-if="stepName === 'canceled'">
-      <h1 class="mb-3 text-xl font-bold">サブスクリプション</h1>
+      <h2 class="mb-3 text-xl font-bold">サブスクリプション</h2>
 
       <div class="">
         キャンセルしました。

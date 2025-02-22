@@ -103,9 +103,12 @@ export const useStripeStore = defineStore('stripe', () => {
   /**
    * Subscription(サブスクリプション) - 一覧取得
    */
-  async function listSubscriptionByCustomer(customerId: string) {
+  async function listSubscriptionByCustomer(
+    customerId: string,
+    status: string | undefined = undefined
+  ) {
     try {
-      const options = { customerId: customerId }
+      const options = { customerId: customerId, status: status }
       const res = await axios.post('/api/stripe/list-subscriptions-by-customer', options)
       return res.data
     } catch (err: any) {
@@ -113,21 +116,18 @@ export const useStripeStore = defineStore('stripe', () => {
     }
   }
 
-  // /**
-  //  * Subscription(サブスクリプション) - キャンセル
-  //  */
-  // async function cancelSubscription(subscriptionId: string) {
-  //   try {
-  //     const options = {}
-  //     const response = await axios.post(
-  //       '/api/stripe/cancel-subscription/' + subscriptionId,
-  //       options
-  //     )
-  //     console.log('response', response)
-  //   } catch (err: any) {
-  //     console.error(err.message)
-  //   }
-  // }
+  /**
+   * Subscription(サブスクリプション) - キャンセル
+   */
+  async function cancelSubscription(subscriptionId: string) {
+    try {
+      const options = {}
+      const res = await axios.post('/api/stripe/cancel-subscription/' + subscriptionId, options)
+      return res
+    } catch (err: any) {
+      throw new Webapp4Error({ type: 'system', message: err.message })
+    }
+  }
 
   /**
    * Invoices(請求書) - 一覧取得
@@ -222,7 +222,7 @@ export const useStripeStore = defineStore('stripe', () => {
     listCustomersByEmail,
     createSubscription,
     listSubscriptionByCustomer,
-    // cancelSubscription,
+    cancelSubscription,
     listInvoicesBySubscription,
     listActiveEntitlementsByCustomer,
     listPaymentMethodsByCustomer,
