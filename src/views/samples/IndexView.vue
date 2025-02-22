@@ -131,6 +131,28 @@ import { RouterLink } from 'vue-router'
       </div>
 
       <div class="mt-3 border p-3">
+        <h2 class="font-bold">Payment</h2>
+
+        <router-link :to="{ name: 'samples_payment' }" class="">
+          <div class="">
+            <div class="m-3 rounded-lg border p-3 hover:bg-sky-200">
+              <h5 class="">Payment サブスク更新 サンプル</h5>
+              <p class="">Stripe を使ったサブスクの継続支払いのサンプル。</p>
+            </div>
+          </div>
+        </router-link>
+
+        <router-link :to="{ name: 'samples_payment' }" class="">
+          <div class="">
+            <div class="m-3 rounded-lg border p-3 hover:bg-sky-200">
+              <h5 class="">Payment サブスク新樹 サンプル</h5>
+              <p class="">Stripe を使ったサブスクの新樹支払いのサンプル。</p>
+            </div>
+          </div>
+        </router-link>
+      </div>
+
+      <div class="mt-3 border p-3">
         <h2 class="font-bold">トライアル</h2>
 
         <router-link :to="{ name: 'samples_trial' }" class="">

@@ -1,6 +1,8 @@
+import { ref } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import IndexView from '../views/IndexView.vue'
 import { useAuthStore } from '@/stores/auth'
+import { useStripeStore } from '@/stores/stripe'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -212,19 +214,68 @@ const router = createRouter({
       path: '/samples/trial',
       name: 'samples_trial',
       component: () => import('../views/samples/TrialView.vue')
+    },
+    {
+      path: '/samples/payment',
+      name: 'samples_payment',
+      component: () => import('../views/samples/PaymentView.vue')
+    },
+    {
+      path: '/samples/payment/complete',
+      name: 'samples_payment_complete',
+      component: () => import('../views/samples/PaymentCompleteView.vue')
     }
   ]
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
+  console.log('===== ===== router.beforeEach() ===== =====')
   const authStore = useAuthStore()
+  const stripeStore = useStripeStore()
 
   // 行き先ページが管理者用ページである判定
   const isAdminPage = String(to.name).match(/^admin/) !== null
+  const isAuthenticated = authStore.isAuthenticated()
 
-  if (isAdminPage && !authStore.isAuthenticated()) {
+  if (isAdminPage && !isAuthenticated) {
     // 管理者用ページへ未認証状態で遷移の場合、ログイン画面へ遷移
     next({ name: 'sign-in' })
+  } else if (isAdminPage && isAuthenticated) {
+    // ---
+    const status = await stripeStore.getStatusOfSubscription()
+    console.log('status', status)
+    if (status === 'to-samples_payment') {
+      next({ name: 'samples_payment' })
+    } else {
+      next()
+    }
+
+    // // profile
+    // const profile = await authStore.getProfile()
+    // // email で customer を検索し、存在しない場合はサブスクリプション登録ページへ遷移
+    // const listCustomers = await stripeStore.listCustomersByEmail(profile.email)
+    // if (listCustomers.customers.length === 0) {
+    //   // サブスクリプション: 未登録
+    //   next({ name: 'samples_payment' })
+    // } else {
+    //   // サブスクリプション: 登録済み(active以外も含む)
+    //   targetCustomer.value = listCustomers.customers[0]
+    //   const activeEntitlement = await stripeStore.listActiveEntitlementsByCustomer(
+    //     targetCustomer.value.id
+    //   )
+    //   const found = activeEntitlement.activeEntitlements.findIndex((item: any) => {
+    //     return item.lookup_key === 'meeting_light'
+    //   })
+    //   if (found === -1) {
+    //     // サブスクリプション: not active
+    //     next({ name: 'samples_payment' })
+    //   } else {
+    //     // サブスクリプション: active
+    //     // 通常
+    //     next()
+    //   }
+    // }
+    // ---
   } else {
     // 通常
     next()

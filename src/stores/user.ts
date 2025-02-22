@@ -2,10 +2,12 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { axios } from '@/lib/Axios'
 import User from '@/lib/User'
+import { useStripeStore } from './stripe'
 
 export const useUserStore = defineStore('user', () => {
   const user = ref<User>(new User())
   const users = ref<User[]>([])
+  const stripeStore = useStripeStore()
 
   // パスワード変更用
   const oldPassword = ref('')
@@ -53,6 +55,20 @@ export const useUserStore = defineStore('user', () => {
 
   // ユーザー削除
   async function deleteUser(id: number) {
+    console.log('--- deleteUser() --- id', id)
+    // Stripe 顧客データ検索
+    await getUser(id)
+    console.log('user', user.value)
+    console.log('user.email', user.value.email)
+    const res = await stripeStore.listCustomersByEmail(user.value.email)
+    const targetCustomer = res.customers[0]
+    console.log('targetCustomer', targetCustomer)
+
+    // Stripe 顧客データ削除
+    const responseDeleteCustomer = await stripeStore.deleteCustomer(targetCustomer.id)
+    console.log('responseDeleteCustomer', responseDeleteCustomer)
+
+    // ユーザーデータ削除
     const options = {}
     await axios.delete('/api/users/' + id, options)
   }

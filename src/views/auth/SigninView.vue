@@ -30,6 +30,7 @@ const submitSignin = async () => {
     await authStore.signIn()
     router.push({ name: 'sign-in-redirect' })
   } catch (err: any) {
+    console.error('err', err)
     if (err.response.status === 401) {
       showErrorMessage.value = true
       setTimeout(() => {

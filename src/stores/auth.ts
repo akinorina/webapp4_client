@@ -57,14 +57,15 @@ export const useAuthStore = defineStore('auth', () => {
 
     // get profle
     const res2 = await getProfile()
+    console.log('res2', res2)
 
     // set Profile obj.
     profile.value.set({
       access_token: res.data.access_token,
-      username: res2.data.username,
-      email: res2.data.email,
-      iat: res2.data.iat,
-      exp: res2.data.exp
+      username: res2.username,
+      email: res2.email,
+      iat: res2.iat,
+      exp: res2.exp
     })
 
     // save to localStorage
@@ -85,14 +86,15 @@ export const useAuthStore = defineStore('auth', () => {
 
     // get profle
     const res2 = await getProfile()
+    console.log('res2', res2)
 
     // set Profile obj.
     profile.value.set({
       access_token: res.data.access_token,
-      username: res2.data.username,
-      email: res2.data.email,
-      iat: res2.data.iat,
-      exp: res2.data.exp
+      username: res2.username,
+      email: res2.email,
+      iat: res2.iat,
+      exp: res2.exp
     })
 
     // save to localStorage
@@ -115,14 +117,15 @@ export const useAuthStore = defineStore('auth', () => {
 
     // profle情報取得
     const res2 = await getProfile()
+    console.log('res2', res2)
 
     // profle情報設定
     profile.value.set({
       access_token: query.access_token,
-      username: res2.data.username,
-      email: res2.data.email,
-      iat: res2.data.iat,
-      exp: res2.data.exp
+      username: res2.username,
+      email: res2.email,
+      iat: res2.iat,
+      exp: res2.exp
     })
 
     // save to localStorage
@@ -145,7 +148,7 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   async function getProfile() {
-    return await axios.get('/api/auth/profile')
+    return (await axios.get('/api/auth/profile')).data
   }
 
   // トークン発行日時の取得
