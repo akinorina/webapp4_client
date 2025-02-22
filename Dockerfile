@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-COPY .env.develop.local .env
+COPY .env.development.local .env
 RUN npm run build
 
 # 本番環境
