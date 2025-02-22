@@ -37,7 +37,6 @@ export const useAuthStore = defineStore('auth', () => {
   const isAuthenticated = () => {
     const availableProfile = profile.value.exp !== 0
     const availableTime = dayjs().isBefore(dayjs(profile.value.exp))
-    // console.log('isAuthenticated() - ret', ret)
     return availableProfile && availableTime
   }
 
@@ -57,7 +56,6 @@ export const useAuthStore = defineStore('auth', () => {
 
     // get profle
     const res2 = await getProfile()
-    console.log('res2', res2)
 
     // set Profile obj.
     profile.value.set({
@@ -86,7 +84,6 @@ export const useAuthStore = defineStore('auth', () => {
 
     // get profle
     const res2 = await getProfile()
-    console.log('res2', res2)
 
     // set Profile obj.
     profile.value.set({
@@ -117,7 +114,6 @@ export const useAuthStore = defineStore('auth', () => {
 
     // profle情報取得
     const res2 = await getProfile()
-    console.log('res2', res2)
 
     // profle情報設定
     profile.value.set({

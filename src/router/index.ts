@@ -229,7 +229,6 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  console.log('===== ===== router.beforeEach() ===== =====')
   const authStore = useAuthStore()
   const stripeStore = useStripeStore()
 
@@ -241,41 +240,13 @@ router.beforeEach(async (to, from, next) => {
     // 管理者用ページへ未認証状態で遷移の場合、ログイン画面へ遷移
     next({ name: 'sign-in' })
   } else if (isAdminPage && isAuthenticated) {
-    // ---
+    // サブスクリプション状態 判定
     const status = await stripeStore.getStatusOfSubscription()
-    console.log('status', status)
     if (status === 'to-samples_payment') {
       next({ name: 'samples_payment' })
     } else {
       next()
     }
-
-    // // profile
-    // const profile = await authStore.getProfile()
-    // // email で customer を検索し、存在しない場合はサブスクリプション登録ページへ遷移
-    // const listCustomers = await stripeStore.listCustomersByEmail(profile.email)
-    // if (listCustomers.customers.length === 0) {
-    //   // サブスクリプション: 未登録
-    //   next({ name: 'samples_payment' })
-    // } else {
-    //   // サブスクリプション: 登録済み(active以外も含む)
-    //   targetCustomer.value = listCustomers.customers[0]
-    //   const activeEntitlement = await stripeStore.listActiveEntitlementsByCustomer(
-    //     targetCustomer.value.id
-    //   )
-    //   const found = activeEntitlement.activeEntitlements.findIndex((item: any) => {
-    //     return item.lookup_key === 'meeting_light'
-    //   })
-    //   if (found === -1) {
-    //     // サブスクリプション: not active
-    //     next({ name: 'samples_payment' })
-    //   } else {
-    //     // サブスクリプション: active
-    //     // 通常
-    //     next()
-    //   }
-    // }
-    // ---
   } else {
     // 通常
     next()

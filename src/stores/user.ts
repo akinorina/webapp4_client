@@ -55,18 +55,13 @@ export const useUserStore = defineStore('user', () => {
 
   // ユーザー削除
   async function deleteUser(id: number) {
-    console.log('--- deleteUser() --- id', id)
     // Stripe 顧客データ検索
     await getUser(id)
-    console.log('user', user.value)
-    console.log('user.email', user.value.email)
     const res = await stripeStore.listCustomersByEmail(user.value.email)
     const targetCustomer = res.customers[0]
-    console.log('targetCustomer', targetCustomer)
 
     // Stripe 顧客データ削除
-    const responseDeleteCustomer = await stripeStore.deleteCustomer(targetCustomer.id)
-    console.log('responseDeleteCustomer', responseDeleteCustomer)
+    await stripeStore.deleteCustomer(targetCustomer.id)
 
     // ユーザーデータ削除
     const options = {}
