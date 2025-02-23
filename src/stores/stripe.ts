@@ -40,9 +40,9 @@ export const useStripeStore = defineStore('stripe', () => {
   /**
    * Customer(顧客)の作成
    */
-  async function createCustomer(name: string, email: string) {
+  async function createCustomer(userId: number, name: string, email: string) {
     try {
-      const options = { name: name, email: email }
+      const options = { id: userId, name: name, email: email }
       const res = await axios.post('/api/stripe/create-customer', options)
       return res.data
     } catch (err: any) {
@@ -191,9 +191,6 @@ export const useStripeStore = defineStore('stripe', () => {
     if (!bUseStripe) {
       return ''
     }
-
-    // profile
-    await authStore.getProfile()
 
     // email で customer を検索し、存在しない場合はサブスクリプション登録ページへ遷移
     const listCustomers = await listCustomersByEmail(authStore.profile.email)
