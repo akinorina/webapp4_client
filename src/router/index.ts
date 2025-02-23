@@ -234,6 +234,7 @@ router.beforeEach(async (to, from, next) => {
 
   // 行き先ページが管理者用ページである判定
   const isAdminPage = String(to.name).match(/^admin/) !== null
+  // 認証判定
   const isAuthenticated = authStore.isAuthenticated()
 
   if (isAdminPage && !isAuthenticated) {

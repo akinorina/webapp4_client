@@ -186,9 +186,9 @@ export const useStripeStore = defineStore('stripe', () => {
    */
   async function getStatusOfSubscription() {
     // profile
-    const profile = await authStore.getProfile()
+    await authStore.getProfile()
     // email で customer を検索し、存在しない場合はサブスクリプション登録ページへ遷移
-    const listCustomers = await listCustomersByEmail(profile.email)
+    const listCustomers = await listCustomersByEmail(authStore.profile.email)
     if (listCustomers.customers.length === 0) {
       // サブスクリプション: 未登録
       // next({ name: 'samples_payment' })

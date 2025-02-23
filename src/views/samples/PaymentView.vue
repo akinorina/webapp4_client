@@ -78,9 +78,9 @@ onMounted(async () => {
   }
 
   // サインインユーザー情報取得
-  const profile = await authStore.getProfile()
-  name.value = profile.username
-  email.value = profile.email
+  await authStore.getProfile()
+  name.value = authStore.profile.username
+  email.value = authStore.profile.email
 
   // customer を email で検索し、存在しない場合は新規作成する。
   const listCustomers = await stripeStore.listCustomersByEmail(email.value)
@@ -96,27 +96,18 @@ onMounted(async () => {
 
   // Subscription 既存から取得
   subscriptions.value = (await stripeStore.listSubscriptionByCustomer(targetCustomer.value.id, 'all'))
-  console.log('subscriptions.value', subscriptions.value)
   if (subscriptions.value.subscriptions.length > 0) {
     targetSubscription.value = subscriptions.value.subscriptions[0]
-    console.log('targetSubscription.value', targetSubscription.value)
-    console.log('targetSubscription.value.status', targetSubscription.value.status)
 
     // サブスクリプションに関する請求書
     targetInvoices.value = await stripeStore.listInvoicesBySubscription(targetSubscription.value.id);
 
     // サブスクリプション表示
-    console.log('period_start', dayjs(targetSubscription.value.period_start).format('YYYY-MM-DD HH:mm:ss'))
-    console.log('period_end  ', dayjs(targetSubscription.value.period_end).format('YYYY-MM-DD HH:mm:ss'))
-    console.log('current_period_start', dayjs(targetSubscription.value.current_period_start * 1000).format('YYYY-MM-DD HH:mm:ss'))
-    console.log('current_period_end  ', dayjs(targetSubscription.value.current_period_end * 1000).format('YYYY-MM-DD HH:mm:ss'))
-
     if (targetSubscription.value.status === 'active' || targetSubscription.value.status === 'canceled') {
       //
       if (targetSubscription.value.status === 'canceled'
         && dayjs('2025-03-23 01:34:00').isAfter(dayjs(targetSubscription.value.ended_at * 1000))
       ) {
-        console.log('---- HIT: isAfter ----')
         stepName.value = 'create1'
         return false
       }
