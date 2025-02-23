@@ -103,7 +103,7 @@ export const useUserStore = defineStore('user', () => {
       oldPassword: oldPassword.value,
       newPassword: newPassword.value
     }
-    await axios.put('/api/users/change-password', options)
+    await axios.patch('/api/users/change-password', options)
   }
 
   // ユーザー登録

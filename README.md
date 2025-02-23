@@ -383,7 +383,7 @@ webapp4 はWebアプリのテンプレートですが、基本的な部分が動
 | ユーザー管理 - 取得       | GET | /api/users/:id |
 | ユーザー管理 - 更新       | PUT | /api/users/:id |
 | ユーザー管理 - 削除       | DELETE | /api/users/:id |
-| ユーザー管理 - パスワード変更 | PUT | /api/users/change-password |
+| ユーザー管理 - パスワード変更 | PATCH | /api/users/change-password |
 | ユーザー管理 - verify-email - 確認メール送信 | POST | /api/users/send-verifying-email  |
 | ユーザー管理 - verify-email - メールアドレス検証 | POST | /api/users/check-verifying-email  |
 | ユーザー管理 - ユーザー情報登録 | POST | /api/users/register-user  |
