@@ -102,7 +102,13 @@ const deleteBlog = async () => {
     </div>
   </div>
 
-  <ModalGeneral ref="modalUpdateConfirm">
+  <ModalGeneral
+    ref="modalUpdateConfirm"
+    :classBg="'bg-slate-300'"
+    :classFg="'bg-white text-black'"
+    :styleBg="''"
+    :styleFg="''"
+  >
     <div class="w-64 p-3">
       <div class="text-center">
         <div class="font-bold">画像情報</div>
@@ -115,7 +121,13 @@ const deleteBlog = async () => {
     </div>
   </ModalGeneral>
 
-  <ModalGeneral ref="modalUpdateSuccess">
+  <ModalGeneral
+    ref="modalUpdateSuccess"
+    :classBg="'bg-slate-300'"
+    :classFg="'bg-white text-black'"
+    :styleBg="''"
+    :styleFg="''"
+  >
     <div class="w-64 p-3">
       <div class="text-center">
         <div class="font-bold">画像情報</div>
@@ -124,7 +136,13 @@ const deleteBlog = async () => {
     </div>
   </ModalGeneral>
 
-  <ModalGeneral ref="modalDeleteConfirm">
+  <ModalGeneral
+    ref="modalDeleteConfirm"
+    :classBg="'bg-slate-300'"
+    :classFg="'bg-white text-black'"
+    :styleBg="''"
+    :styleFg="''"
+  >
     <div class="w-64 p-3">
       <div class="text-center">
         <div class="font-bold">画像情報</div>
@@ -137,7 +155,13 @@ const deleteBlog = async () => {
     </div>
   </ModalGeneral>
 
-  <ModalGeneral ref="modalDeleteSuccess">
+  <ModalGeneral
+    ref="modalDeleteSuccess"
+    :classBg="'bg-slate-300'"
+    :classFg="'bg-white text-black'"
+    :styleBg="''"
+    :styleFg="''"
+  >
     <div class="w-64 p-3">
       <div class="text-center">
         <div class="font-bold">画像情報</div>

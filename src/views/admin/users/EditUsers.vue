@@ -115,7 +115,7 @@ const deleteUser = async () => {
     </div>
   </div>
 
-  <ModalGeneral ref="modalUpdateConfirm" :class-bg="'bg-slate-200 opacity-80'" :class-fg="'bg-white text-black'">
+  <ModalGeneral ref="modalUpdateConfirm" :class-bg="'bg-slate-200'" :class-fg="'bg-white text-black'">
     <div class="h-54 w-80 rounded-lg border p-3">
       <div class="mb-3 text-center">
         <div class="font-bold">ユーザー情報</div>
@@ -128,7 +128,7 @@ const deleteUser = async () => {
     </div>
   </ModalGeneral>
 
-  <ModalGeneral ref="modalUpdateSuccess" :class-bg="'bg-slate-200 opacity-80'" :class-fg="'bg-white text-black'">
+  <ModalGeneral ref="modalUpdateSuccess" :class-bg="'bg-slate-200'" :class-fg="'bg-white text-black'">
     <div class="h-54 w-80 rounded-lg border p-3">
       <div class="mb-3 text-center">
         <div class="font-bold">ユーザー情報</div>
@@ -137,7 +137,7 @@ const deleteUser = async () => {
     </div>
   </ModalGeneral>
 
-  <ModalGeneral ref="modalDeleteConfirm" :class-bg="'bg-slate-200 opacity-80'" :class-fg="'bg-white text-black'">
+  <ModalGeneral ref="modalDeleteConfirm" :class-bg="'bg-slate-200'" :class-fg="'bg-white text-black'">
     <div class="h-54 w-80 rounded-lg border p-3">
       <div class="mb-3 text-center">
         <div class="font-bold">ユーザー情報</div>
@@ -150,7 +150,7 @@ const deleteUser = async () => {
     </div>
   </ModalGeneral>
 
-  <ModalGeneral ref="modalDeleteSuccess" :class-bg="'bg-slate-200 opacity-80'" :class-fg="'bg-white text-black'">
+  <ModalGeneral ref="modalDeleteSuccess" :class-bg="'bg-slate-200'" :class-fg="'bg-white text-black'">
     <div class="h-54 w-80 rounded-lg border p-3">
       <div class="mb-3 text-center">
         <div class="font-bold">ユーザー情報</div>
