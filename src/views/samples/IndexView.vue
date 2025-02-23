@@ -5,7 +5,7 @@ import { RouterLink } from 'vue-router'
 <template>
   <div class="container mx-auto">
     <div class="border p-3">
-      <h2 class="font-bold">Webapp4 - Samples</h2>
+      <h2 class="font-bold">Samples</h2>
       <p class="text-xs">
         Web アプリケーション テンプレート ver.4 のサンプルページです。<br />
         種々の機能をサンプルとして実現しています。
@@ -125,28 +125,6 @@ import { RouterLink } from 'vue-router'
             <div class="m-3 rounded-lg border p-3 hover:bg-sky-200">
               <h5 class="">Volume Meter</h5>
               <p class="">Mic 入力の Volume Meter サンプルです。</p>
-            </div>
-          </div>
-        </router-link>
-      </div>
-
-      <div class="mt-3 border p-3">
-        <h2 class="font-bold">Payment</h2>
-
-        <router-link :to="{ name: 'samples_payment' }" class="">
-          <div class="">
-            <div class="m-3 rounded-lg border p-3 hover:bg-sky-200">
-              <h5 class="">Payment サブスク更新 サンプル</h5>
-              <p class="">Stripe を使ったサブスクの継続支払いのサンプル。</p>
-            </div>
-          </div>
-        </router-link>
-
-        <router-link :to="{ name: 'samples_payment' }" class="">
-          <div class="">
-            <div class="m-3 rounded-lg border p-3 hover:bg-sky-200">
-              <h5 class="">Payment サブスク新樹 サンプル</h5>
-              <p class="">Stripe を使ったサブスクの新樹支払いのサンプル。</p>
             </div>
           </div>
         </router-link>

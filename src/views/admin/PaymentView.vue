@@ -301,7 +301,7 @@ const _setMessage = (message: string) => {
 
 <template>
   <div class="container mx-auto w-screen bg-inherit">
-    <h1 class="mt-3 ps-3 py-3 text-3xl bg-slate-50 font-bold">bc-meeting 決済</h1>
+    <h1 class="mt-3 ps-3 py-3 text-3xl bg-slate-50 font-bold">Webapp4 決済</h1>
 
     <div class="border p-3 mb-3" v-if="stepName === 'create1'">
       <h2 class="mb-3 text-xl font-bold">サブスクリプション</h2>

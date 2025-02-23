@@ -8,6 +8,9 @@ export const useStripeStore = defineStore('stripe', () => {
   const authStore = useAuthStore()
   const targetCustomer = ref()
 
+  // env
+  const bUseStripe = (import.meta.env.VITE_USE_STRIPE as string) === 'true'
+
   /**
    * config情報取得
    */
@@ -184,15 +187,19 @@ export const useStripeStore = defineStore('stripe', () => {
   /**
    * サブスクリプション登録状態・active状態から遷移先を返す
    */
-  async function getStatusOfSubscription() {
+  async function getNextPageName() {
+    if (!bUseStripe) {
+      return ''
+    }
+
     // profile
     await authStore.getProfile()
+
     // email で customer を検索し、存在しない場合はサブスクリプション登録ページへ遷移
     const listCustomers = await listCustomersByEmail(authStore.profile.email)
     if (listCustomers.customers.length === 0) {
       // サブスクリプション: 未登録
-      // next({ name: 'samples_payment' })
-      return 'to-samples_payment'
+      return 'admin_payment'
     } else {
       // サブスクリプション: 登録済み(active以外も含む)
       targetCustomer.value = listCustomers.customers[0]
@@ -202,13 +209,10 @@ export const useStripeStore = defineStore('stripe', () => {
       })
       if (found === -1) {
         // サブスクリプション: not active
-        // next({ name: 'samples_payment' })
-        return 'to-samples_payment'
+        return 'admin_payment'
       } else {
         // サブスクリプション: active
-        // 通常
-        // next
-        return 'to-next'
+        return ''
       }
     }
   }
@@ -227,6 +231,6 @@ export const useStripeStore = defineStore('stripe', () => {
     listActiveEntitlementsByCustomer,
     listPaymentMethodsByCustomer,
     createSetupIntent,
-    getStatusOfSubscription
+    getNextPageName
   }
 })

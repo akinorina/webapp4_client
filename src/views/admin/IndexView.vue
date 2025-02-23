@@ -43,6 +43,16 @@ const authStore = useAuthStore()
 
         <ButtonGeneral
           class="h-24 px-1 py-3"
+          @click="router.push({ name: 'admin_payment' })"
+        >
+          <div class="flex flex-col items-center">
+            <h5 class="mb-2 font-bold leading-5">Subscription</h5>
+            <p class="text-xs">サブスクリプション設定</p>
+          </div>
+        </ButtonGeneral>
+
+        <ButtonGeneral
+          class="h-24 px-1 py-3"
           @click="router.push({ name: 'admin_change-password' })"
         >
           <div class="flex flex-col items-center">

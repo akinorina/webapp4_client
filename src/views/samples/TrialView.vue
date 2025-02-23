@@ -13,7 +13,7 @@ onMounted(() => {
 <template>
   <div class="container mx-auto">
     <div class="border p-3">
-      <h2 class="font-bold">Webapp4 - Samples</h2>
+      <h2 class="font-bold">Samples</h2>
       <p class="text-xs">Trial View - お試し画面</p>
     </div>
 

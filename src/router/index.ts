@@ -92,6 +92,11 @@ const router = createRouter({
       component: () => import('../views/admin/IndexView.vue')
     },
     {
+      path: '/admin/payment',
+      name: 'admin_payment',
+      component: () => import('../views/admin/PaymentView.vue')
+    },
+    {
       path: '/admin/change-password',
       name: 'admin_change-password',
       component: () => import('../views/admin/ChangePasswordView.vue')
@@ -214,16 +219,6 @@ const router = createRouter({
       path: '/samples/trial',
       name: 'samples_trial',
       component: () => import('../views/samples/TrialView.vue')
-    },
-    {
-      path: '/samples/payment',
-      name: 'samples_payment',
-      component: () => import('../views/samples/PaymentView.vue')
-    },
-    {
-      path: '/samples/payment/complete',
-      name: 'samples_payment_complete',
-      component: () => import('../views/samples/PaymentCompleteView.vue')
     }
   ]
 })
@@ -242,12 +237,11 @@ router.beforeEach(async (to, from, next) => {
     next({ name: 'sign-in' })
   } else if (isAdminPage && isAuthenticated) {
     // サブスクリプション状態 判定
-    const status = await stripeStore.getStatusOfSubscription()
-    if (status === 'to-samples_payment') {
-      next({ name: 'samples_payment' })
-    } else {
-      next()
+    const nextPageName = await stripeStore.getNextPageName()
+    if (nextPageName !== '') {
+      next({ name: nextPageName })
     }
+    next()
   } else {
     // 通常
     next()
