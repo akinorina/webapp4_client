@@ -2,10 +2,12 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { axios } from '@/lib/Axios'
 import User from '@/lib/User'
+import { useStripeStore } from './stripe'
 
 export const useUserStore = defineStore('user', () => {
   const user = ref<User>(new User())
   const users = ref<User[]>([])
+  const stripeStore = useStripeStore()
 
   // パスワード変更用
   const oldPassword = ref('')
@@ -53,6 +55,15 @@ export const useUserStore = defineStore('user', () => {
 
   // ユーザー削除
   async function deleteUser(id: number) {
+    // Stripe 顧客データ検索
+    await getUser(id)
+    const res = await stripeStore.listCustomersByEmail(user.value.email)
+    const targetCustomer = res.customers[0]
+
+    // Stripe 顧客データ削除
+    await stripeStore.deleteCustomer(targetCustomer.id)
+
+    // ユーザーデータ削除
     const options = {}
     await axios.delete('/api/users/' + id, options)
   }
@@ -92,7 +103,7 @@ export const useUserStore = defineStore('user', () => {
       oldPassword: oldPassword.value,
       newPassword: newPassword.value
     }
-    await axios.put('/api/users/change-password', options)
+    await axios.patch('/api/users/change-password', options)
   }
 
   // ユーザー登録

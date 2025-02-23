@@ -1,6 +1,8 @@
+import { ref } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import IndexView from '../views/IndexView.vue'
 import { useAuthStore } from '@/stores/auth'
+import { useStripeStore } from '@/stores/stripe'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -88,6 +90,11 @@ const router = createRouter({
       path: '/admin',
       name: 'admin',
       component: () => import('../views/admin/IndexView.vue')
+    },
+    {
+      path: '/admin/payment',
+      name: 'admin_payment',
+      component: () => import('../views/admin/PaymentView.vue')
     },
     {
       path: '/admin/change-password',
@@ -216,15 +223,25 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore()
+  const stripeStore = useStripeStore()
 
   // 行き先ページが管理者用ページである判定
   const isAdminPage = String(to.name).match(/^admin/) !== null
+  // 認証判定
+  const isAuthenticated = authStore.isAuthenticated()
 
-  if (isAdminPage && !authStore.isAuthenticated()) {
+  if (isAdminPage && !isAuthenticated) {
     // 管理者用ページへ未認証状態で遷移の場合、ログイン画面へ遷移
     next({ name: 'sign-in' })
+  } else if (isAdminPage && isAuthenticated) {
+    // サブスクリプション状態 判定
+    const nextPageName = await stripeStore.getNextPageName()
+    if (nextPageName !== '') {
+      next({ name: nextPageName })
+    }
+    next()
   } else {
     // 通常
     next()

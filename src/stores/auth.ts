@@ -12,38 +12,39 @@ export const useAuthStore = defineStore('auth', () => {
   const email = ref('')
   const password = ref('')
 
-  // setInterval ID. : Sign-in 有効期限が過ぎたら Sign-out 処理実行
-  let iID: number = 0
-
   // Profile
   const profile = ref<Profile>(new Profile())
 
+  // setInterval ID. : Sign-in 有効期限が過ぎたら Sign-out 処理実行
+  let iID: number = 0
+
   // restore from localStorage
-  if (localStorage.getItem('auth')) {
-    const jsonLsData = localStorage.getItem('auth')
-    if (typeof jsonLsData === 'string') {
-      const lsData = JSON.parse(jsonLsData)
-      axios.defaults.headers['Authorization'] = 'Bearer ' + lsData.access_token
-      profile.value = new Profile(lsData)
-    }
+  if (localStorage.getItem('access_token')) {
+    const jsonLsData = localStorage.getItem('access_token')
+    axios.defaults.headers['Authorization'] = 'Bearer ' + jsonLsData
   }
-
-  // ユーザー表示名 取得
-  const getUsername = () => {
-    return profile.value.username
-  }
-
-  // サインイン有効期限内 判定
-  const isAuthenticated = () => {
-    const availableProfile = profile.value.exp !== 0
-    const availableTime = dayjs().isBefore(dayjs(profile.value.exp))
-    // console.log('isAuthenticated() - ret', ret)
-    return availableProfile && availableTime
+  if (localStorage.getItem('auth') === null) {
+    profile.value.clear()
+  } else {
+    const jsonLsData = localStorage.getItem('auth') as string
+    profile.value = new Profile(JSON.parse(jsonLsData))
   }
 
   // 時間切れ処理 on reload.
   if (isAuthenticated()) {
     setTimeoutProc()
+  }
+
+  // ユーザー表示名 取得
+  function getUsername() {
+    return profile.value.username
+  }
+
+  // サインイン有効期限内 判定
+  function isAuthenticated() {
+    const availableProfile = profile.value.exp !== 0
+    const availableTime = dayjs().isBefore(dayjs(profile.value.exp))
+    return availableProfile && availableTime
   }
 
   async function signIn() {
@@ -54,20 +55,10 @@ export const useAuthStore = defineStore('auth', () => {
     }
     const res = await axios.post('/api/auth/signin', signinData)
     axios.defaults.headers['Authorization'] = 'Bearer ' + res.data.access_token
+    localStorage.setItem('access_token', res.data.access_token)
 
-    // get profle
-    const res2 = await getProfile()
-
-    // set Profile obj.
-    profile.value.set({
-      access_token: res.data.access_token,
-      username: res2.data.username,
-      email: res2.data.email,
-      iat: res2.data.iat,
-      exp: res2.data.exp
-    })
-
-    // save to localStorage
+    // profle情報取得
+    await getProfile()
     localStorage.setItem('auth', JSON.stringify(profile.value))
 
     // 時間切れ処理
@@ -82,18 +73,10 @@ export const useAuthStore = defineStore('auth', () => {
     }
     const res = await axios.post('/api/auth/resignin', signinData)
     axios.defaults.headers['Authorization'] = 'Bearer ' + res.data.access_token
+    localStorage.setItem('access_token', res.data.access_token)
 
-    // get profle
-    const res2 = await getProfile()
-
-    // set Profile obj.
-    profile.value.set({
-      access_token: res.data.access_token,
-      username: res2.data.username,
-      email: res2.data.email,
-      iat: res2.data.iat,
-      exp: res2.data.exp
-    })
+    // profle情報取得
+    await getProfile()
 
     // save to localStorage
     localStorage.setItem('auth', JSON.stringify(profile.value))
@@ -112,18 +95,10 @@ export const useAuthStore = defineStore('auth', () => {
       return false // Sign-in failure
     }
     axios.defaults.headers['Authorization'] = 'Bearer ' + query.access_token
+    localStorage.setItem('access_token', query.access_token)
 
     // profle情報取得
-    const res2 = await getProfile()
-
-    // profle情報設定
-    profile.value.set({
-      access_token: query.access_token,
-      username: res2.data.username,
-      email: res2.data.email,
-      iat: res2.data.iat,
-      exp: res2.data.exp
-    })
+    await getProfile()
 
     // save to localStorage
     localStorage.setItem('auth', JSON.stringify(profile.value))
@@ -144,8 +119,13 @@ export const useAuthStore = defineStore('auth', () => {
     localStorage.removeItem('auth')
   }
 
-  async function getProfile() {
-    return await axios.get('/api/auth/profile')
+  async function getProfile(): Promise<void> {
+    const res = await axios.get('/api/auth/profile')
+    profile.value = new Profile(res.data)
+  }
+
+  function hasRole(roleName: string): boolean {
+    return profile.value.roles.includes(roleName)
   }
 
   // トークン発行日時の取得
@@ -177,8 +157,10 @@ export const useAuthStore = defineStore('auth', () => {
   return {
     email,
     password,
+    profile,
     getUsername,
     isAuthenticated,
+    hasRole,
     signIn,
     signInByGoogle,
     signInByGoogleRedirect,

@@ -225,7 +225,6 @@ const recordStream = async () => {
   // Optional frames per second argument.
   const recordedChunks: any[] = []
 
-  console.log(mediaStream.value)
   const options = { mimeType: 'video/webm; codecs=vp9' }
   const mediaRecorder = new MediaRecorder(mediaStream.value, options)
 
@@ -233,10 +232,8 @@ const recordStream = async () => {
   mediaRecorder.start()
 
   function handleDataAvailable(event: any) {
-    console.log('data-available')
     if (event.data.size > 0) {
       recordedChunks.push(event.data)
-      console.log(recordedChunks)
       download()
     } else {
       // …
@@ -258,9 +255,6 @@ const recordStream = async () => {
 
   // demo: to download after 5sec
   setTimeout(() => {
-    console.log('----- recordStream() -----')
-
-    console.log('stopping')
     mediaRecorder.stop()
 
     // button disabled OFF
