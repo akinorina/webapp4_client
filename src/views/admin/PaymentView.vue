@@ -210,7 +210,7 @@ const submitSubscribe2 = async () => {
   const {error: stripeError} = await stripe.value.confirmPayment({
     elements: elements.value,
     confirmParams: {
-      return_url: `${window.location.origin}/samples/payment`,
+      return_url: `${window.location.origin}/admin/payment`,
     }
   });
   if (stripeError) {
@@ -265,7 +265,7 @@ const submitSubscribe3 = async () => {
     elements: elements.value,
     clientSecret: clientSecret.value,
     confirmParams: {
-      return_url: `${window.location.origin}/samples/payment`,
+      return_url: `${window.location.origin}/admin/payment`,
     }
   });
 
