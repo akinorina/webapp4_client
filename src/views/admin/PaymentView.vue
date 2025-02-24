@@ -33,7 +33,8 @@ const targetPrice = ref()
 
 // 顧客
 const targetCustomer = ref()
-const name = ref('Akinori Nakata')
+const userId = ref(0)
+const name = ref('')
 const email = ref('')
 
 // 顧客の支払い方法
@@ -79,6 +80,7 @@ onMounted(async () => {
 
   // サインインユーザー情報取得
   await authStore.getProfile()
+  userId.value = authStore.profile.id
   name.value = authStore.profile.username
   email.value = authStore.profile.email
 
@@ -90,7 +92,7 @@ onMounted(async () => {
     defaultPaymentMethodId.value = targetCustomer.value.invoice_settings.default_payment_method
   } else {
     // customer データ作成
-    targetCustomer.value = (await stripeStore.createCustomer(name.value, email.value)).customer
+    targetCustomer.value = (await stripeStore.createCustomer(userId.value, name.value, email.value)).customer
     defaultPaymentMethodId.value = targetCustomer.value.invoice_settings.default_payment_method
   }
 
@@ -210,7 +212,7 @@ const submitSubscribe2 = async () => {
   const {error: stripeError} = await stripe.value.confirmPayment({
     elements: elements.value,
     confirmParams: {
-      return_url: `${window.location.origin}/samples/payment`,
+      return_url: `${window.location.origin}/admin/payment`,
     }
   });
   if (stripeError) {
@@ -265,7 +267,7 @@ const submitSubscribe3 = async () => {
     elements: elements.value,
     clientSecret: clientSecret.value,
     confirmParams: {
-      return_url: `${window.location.origin}/samples/payment`,
+      return_url: `${window.location.origin}/admin/payment`,
     }
   });
 

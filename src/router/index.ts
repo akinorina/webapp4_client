@@ -4,6 +4,8 @@ import IndexView from '../views/IndexView.vue'
 import { useAuthStore } from '@/stores/auth'
 import { useStripeStore } from '@/stores/stripe'
 
+const beforeToPageName = ref('')
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -227,6 +229,12 @@ router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore()
   const stripeStore = useStripeStore()
 
+  // 前にRedirectしようとしていたページなら、すぐ遷移
+  // == stripeStore.getNextPageName()のレスポンスが同じページであるため
+  if (beforeToPageName.value !== '' && beforeToPageName.value === to.name) {
+    next()
+  }
+
   // 行き先ページが管理者用ページである判定
   const isAdminPage = String(to.name).match(/^admin/) !== null
   // 認証判定
@@ -238,6 +246,7 @@ router.beforeEach(async (to, from, next) => {
   } else if (isAdminPage && isAuthenticated) {
     // サブスクリプション状態 判定
     const nextPageName = await stripeStore.getNextPageName()
+    beforeToPageName.value = nextPageName
     if (nextPageName !== '') {
       next({ name: nextPageName })
     }
